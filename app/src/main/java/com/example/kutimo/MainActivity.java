@@ -3,8 +3,10 @@ package com.example.kutimo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AppComponentFactory;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -32,27 +34,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /** Change the UI according to faith points Method **/
-    public void changeImage(){
 
-        image_level1 = (ImageView) findViewById(R.id.image_level1);
-        image_level2 = (ImageView) findViewById(R.id.image_level2);
-        image_level3 = (ImageView) findViewById(R.id.image_level3);
-
-        if (faithPoints >= level1){
-            image_level1.setImageResource(R.drawable.unlocked_level1);
-        }
-        if (faithPoints >= level2){
-            image_level1.setImageResource(R.drawable.unlocked_level3);
-        }
-        if (faithPoints >= level3){
-            image_level1.setImageResource(R.drawable.unlocked_level3);
-        }
-
-
-        //Log.i(TAG, "changeImage: The button has been tapped");
-
-    }
 
     public void updateFaithPoints(){
         faithPoints = save.retrieveFaithPoints();
@@ -78,9 +60,21 @@ public class MainActivity extends AppCompatActivity {
 
         updateFaithPoints();
 
-        changeImage();
+
 
 
 
     }
+
+    public void openCards(View view) {
+        // Do something in response to button
+        //Change my EditText objects to a string
+
+        Intent intent = new Intent(this, CardActivity.class);
+        startActivity(intent);
+
+        //debug message
+        Log.i(TAG,"open cards button tapped");
+    }
+
 }
