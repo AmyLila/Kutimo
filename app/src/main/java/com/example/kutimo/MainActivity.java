@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         data = new Data();
         faithPoints = data.faithPoints;
         scriptures = data.scriptures;
@@ -78,5 +79,8 @@ public class MainActivity extends AppCompatActivity {
         updateFaithPoints();
 
         changeImage();
+
+        // Hello from Amy (SUPPORTED)
+
     }
 }
