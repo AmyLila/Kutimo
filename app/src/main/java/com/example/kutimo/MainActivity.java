@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         changeImage();
 
-        // Hello from Amy (SUPPORTED)
+
 
     }
 }
