@@ -1,4 +1,4 @@
-package com.example.sharedpreferencesprototype;
+package com.example.kutimo;
 
 import android.content.Context;
 import android.content.SharedPreferences;
