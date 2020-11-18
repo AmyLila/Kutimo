@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/kutimo.iml" filepath="$PROJECT_DIR$/.idea/kutimo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Kutimo.iml" filepath="$PROJECT_DIR$/.idea/modules/Kutimo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Kutimo.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Kutimo.app.iml" />
     </modules>
   </component>
 </project>
