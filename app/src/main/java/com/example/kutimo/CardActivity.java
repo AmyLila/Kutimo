@@ -44,6 +44,7 @@ public class CardActivity extends AppCompatActivity {
         image_level2 = (ImageView) findViewById(R.id.image_level2);
         image_level3 = (ImageView) findViewById(R.id.image_level3);
 
+        /* Trial images aren't working in drawable
         if (faithPoints >= level1){
             image_level1.setImageResource(R.drawable.unlocked_level1);
         }
@@ -52,7 +53,7 @@ public class CardActivity extends AppCompatActivity {
         }
         if (faithPoints >= level3){
             image_level1.setImageResource(R.drawable.unlocked_level3);
-        }
+        }*/
 
 
         //Log.i(TAG, "changeImage: The button has been tapped");
