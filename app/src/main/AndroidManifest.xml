@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,8 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kutimo">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <activity android:name=".CardActivity"></activity>
 =======
+=======
+        <activity android:name=".Calendar_checkmarks"></activity>
+
+>>>>>>> 87bb8edcfe59fd3f762a9123ab0ffdd2fd10cab6
         <receiver
             android:name=".BootBroadcastReceiver"
             android:enabled="true"
@@ -23,7 +27,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-
         </receiver>
 
 >>>>>>> 2d1a3d3982e529f425b5768a7844a9b363f65029

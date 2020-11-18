@@ -1,15 +1,15 @@
 package com.example.kutimo;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AppComponentFactory;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-
 import java.util.ArrayList;
+
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Main Activity";
@@ -75,6 +75,16 @@ public class MainActivity extends AppCompatActivity {
 
         //debug message
         Log.i(TAG,"open cards button tapped");
+    }
+
+
+    public void openCalendar(View view) {
+        Intent intent = new Intent (this, Calendar_checkmarks.class);
+        TextView textView = findViewById(R.id.textView);
+        String message = textView.getText().toString();
+        intent.putExtra("Extra Message", message);
+        startActivity(intent);
+
     }
 
 }
