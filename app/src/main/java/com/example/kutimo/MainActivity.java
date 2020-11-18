@@ -12,7 +12,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Main Activity";
     private int faithPoints, level1, level2, level3;
@@ -21,12 +20,10 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> scriptures;
     Save save;
 
-
-
     /**
      * Default constructor for AppCompatActivity. All Activities must have a default constructor
      * for API 27 and lower devices or when using the default
-     * {@link AppComponentFactory}.
+>>>>>>> 77aaa5270584b91811e658ed56362199fc525cc6
      */
     public MainActivity() {
         faithPoints = 5;
@@ -37,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    public void updateFaithPoints() {
 
-    public void updateFaithPoints(){
         faithPoints = save.retrieveFaithPoints();
         faithPoints += 5;
         save.saveFaithPoints(faithPoints);
@@ -52,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
 
@@ -64,9 +62,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
     }
+
 
     public void openCards(View view) {
         // Do something in response to button
@@ -76,12 +73,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
         //debug message
-        Log.i(TAG,"open cards button tapped");
+        Log.i(TAG, "open cards button tapped");
     }
 
 
+
     public void openCalendar(View view) {
-        Intent intent = new Intent (this, Calendar_checkmarks.class);
+        Intent intent = new Intent(this, Calendar_checkmarks.class);
         TextView textView = findViewById(R.id.textView);
         String message = textView.getText().toString();
         intent.putExtra("Extra Message", message);

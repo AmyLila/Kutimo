@@ -1,8 +1,6 @@
 package com.example.kutimo;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.AppComponentFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -23,16 +21,17 @@ public class CardActivity extends AppCompatActivity {
     /**
      * Default constructor for AppCompatActivity. All Activities must have a default constructor
      * for API 27 and lower devices or when using the default
-     * {@link AppComponentFactory}.
      */
     public CardActivity() {
 
         //Need to pass faith points in.
         //this.faithPoints = faithPoints;
+
        data = new Data();
        //save = new Save(mainActivity);
        faithPoints = data.faithPoints;
 //        faithPoints = mainActivity.save.retrieveFaithPoints();
+
 
         Log.i(TAG, "faith points: " + faithPoints);
 
@@ -40,7 +39,6 @@ public class CardActivity extends AppCompatActivity {
         level2 = 20;
         level3 = 30;
     }
-
 
 
     /** Change the UI according to faith points Method **/
@@ -65,10 +63,13 @@ public class CardActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
+
+    //Amy's Card Activity
 
         changeImage();
     }
