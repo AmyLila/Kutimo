@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openCards(View view) {
         // Do something in response to button
-        //Change my EditText objects to a string
+        //need to pass faith points in when the button is pushed.
 
         Intent intent = new Intent(this, CardActivity.class);
         startActivity(intent);

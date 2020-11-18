@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AppComponentFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -14,8 +15,8 @@ public class CardActivity extends AppCompatActivity {
     private int faithPoints, level1, level2, level3;
     ImageView image_level1, image_level2, image_level3;
     Data data;
-    ArrayList<String> scriptures;
     Save save;
+    MainActivity mainActivity;
 
 
 
@@ -25,7 +26,16 @@ public class CardActivity extends AppCompatActivity {
      * {@link AppComponentFactory}.
      */
     public CardActivity() {
-        faithPoints = 5;
+
+        //Need to pass faith points in.
+        //this.faithPoints = faithPoints;
+       data = new Data();
+       //save = new Save(mainActivity);
+       faithPoints = data.faithPoints;
+//        faithPoints = mainActivity.save.retrieveFaithPoints();
+
+        Log.i(TAG, "faith points: " + faithPoints);
+
         level1 = 10;
         level2 = 20;
         level3 = 30;

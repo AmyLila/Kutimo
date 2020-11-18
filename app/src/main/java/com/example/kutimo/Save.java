@@ -7,15 +7,17 @@ import android.util.Log;
 public class Save {
     private MainActivity mainActivity;
     private int faithPoints;
-    private static final String TAG = "Shared Preferences";
+    private static final String TAG = "Save Class";
     SharedPreferences sharedPreferences;
+    Data data;
 
     /** Constructor **/
     public Save(MainActivity mainActivity) {
 
         this.mainActivity = mainActivity;
         sharedPreferences = this.mainActivity.getSharedPreferences("com.example.sharedpreferencesprototype", Context.MODE_PRIVATE);
-        faithPoints = 0;
+        data = new Data();
+        faithPoints = data.faithPoints;
     }
 
 
