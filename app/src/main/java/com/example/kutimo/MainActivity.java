@@ -99,6 +99,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void openScripturePicker(View view){
+        //debug message
+        Log.i(TAG, "Opening Scripture Picker");
+
+        Intent intent = new Intent(this, Scripture_picker.class);
+        startActivity(intent);
+    }
 
     public void openCards(View view) {
         // Do something in response to button
