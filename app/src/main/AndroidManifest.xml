@@ -12,8 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Kutimo">
-
-
+        <activity
+            android:name=".Scripture_picker"
+            android:label="@string/title_activity_scripture_picker"
+            android:theme="@style/Theme.Kutimo.NoActionBar"></activity>
         <activity android:name=".CardActivity">
             android:parentActivityName=".MainActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -21,10 +23,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
-
-        <activity android:name=".Calendar_checkmarks"></activity>
-
+        <activity android:name=".Calendar_checkmarks" />
 
         <receiver
             android:name=".BootBroadcastReceiver"
@@ -34,7 +33,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
 
         <activity android:name=".MainActivity">
             <intent-filter>
