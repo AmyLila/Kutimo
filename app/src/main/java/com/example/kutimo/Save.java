@@ -13,9 +13,9 @@ public class Save {
     SharedPreferences sharedPreferences;
     Data data;
 
-    /**
-     * Constructor
-     **/
+
+    /** Constructor **/
+
     public Save(MainActivity mainActivity) {
 
         this.mainActivity = mainActivity;
@@ -24,18 +24,27 @@ public class Save {
         faithPoints = data.faithPoints;
     }
 
-    void saveFaithPoints(int faithPoints) {
+
+    public void saveFaithPoints(int faithPoints) {
+
         sharedPreferences.edit().putInt("faithPoints", faithPoints).apply();
         Log.i(TAG, "faith points: " + faithPoints);
 
     }
 
-    int retrieveFaithPoints() {
+
+    public int retrieveFaithPoints(){
+
         faithPoints = sharedPreferences.getInt("faithPoints", faithPoints);
         Log.i(TAG, "faith points: " + faithPoints);
         return faithPoints;
 
 
     }
+
+
+    // To save the scriptures I need to parse the arraylist to a json file and then read it to the saver as a string
+    // To return the scriptures we need to get the string from saved preferences and parse it to the array list in the data class.
+
 
 }
