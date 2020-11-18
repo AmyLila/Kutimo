@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AppComponentFactory;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,6 +21,12 @@ public class MainActivity extends AppCompatActivity {
     Data data;
     ArrayList<String> scriptures;
     Save save;
+
+    //those variables are for the progress bar graphics
+    private TextView txtProgress;
+    private ProgressBar progressBar;
+    private int pStatus = 0;
+    private Handler handler = new Handler();
 
     /**
      * Default constructor for AppCompatActivity. All Activities must have a default constructor
@@ -60,6 +68,33 @@ public class MainActivity extends AppCompatActivity {
 
         updateFaithPoints();
 
+        //those will find the view for the progress bar
+        txtProgress = (TextView) findViewById(R.id.txtProgress);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        //this block will run the progress bar
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //while (pStatus < 101) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setProgress(pStatus);
+                        txtProgress.setText(pStatus + " %");
+                    }
+                });
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                pStatus++;
+                if(pStatus == 100)
+                    pStatus = 0;
+                //}
+            }
+        }).start();
 
 
     }
