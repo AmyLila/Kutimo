@@ -118,13 +118,8 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "open cards button tapped");
     }
 
-
-
     public void openCalendar(View view) {
         Intent intent = new Intent(this, Calendar_checkmarks.class);
-        TextView textView = findViewById(R.id.textView);
-        String message = textView.getText().toString();
-        intent.putExtra("Extra Message", message);
         startActivity(intent);
 
     }
