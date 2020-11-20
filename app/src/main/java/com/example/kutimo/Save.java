@@ -11,7 +11,6 @@ public class Save {
     private int faithPoints;
     private static final String TAG = "Save Class";
     SharedPreferences sharedPreferences;
-    Data data;
 
 
     /** Constructor **/
@@ -20,8 +19,7 @@ public class Save {
 
         this.mainActivity = mainActivity;
         sharedPreferences = this.mainActivity.getSharedPreferences("com.example.sharedpreferencesprototype", Context.MODE_PRIVATE);
-        data = new Data();
-        faithPoints = data.faithPoints;
+
     }
 
 
