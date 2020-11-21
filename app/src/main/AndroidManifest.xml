@@ -24,7 +24,6 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".Calendar_checkmarks" />
-
         <receiver
             android:name=".BootBroadcastReceiver"
             android:enabled="true"

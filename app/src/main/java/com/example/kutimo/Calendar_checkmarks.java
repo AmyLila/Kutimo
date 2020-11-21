@@ -12,21 +12,22 @@ import android.view.View;
 import android.widget.Button;
 
 public class Calendar_checkmarks extends AppCompatActivity {
-Button button;
+    Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar_checkmarks);
         final String CHANNEL_ID = "";
 
-button = findViewById(R.id.button_Iread);
-button.setOnClickListener(new View.OnClickListener() {
+        button = findViewById(R.id.button_Iread);
+        button.setOnClickListener(new View.OnClickListener() {
 
-    @Override
-    public void onClick(View view) {
-        HeadsUpNotification();
-    }
-});
+            @Override
+            public void onClick(View view) {
+                HeadsUpNotification();
+            }
+        });
 
     }
 
@@ -39,15 +40,15 @@ button.setOnClickListener(new View.OnClickListener() {
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "n")
-        .setContentText("Kutimo Scriptures")
+                .setContentTitle("We miss you")
                 .setSmallIcon(R.drawable.kutimo)
                 .setAutoCancel(true)
-                .setContentText("You haven't been reading");
+                .setContentText("Don't forget to read");
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
         managerCompat.notify(9, builder.build());
 
 
-
     }
 }
+
