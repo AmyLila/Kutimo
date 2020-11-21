@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/guideline10"
-        app:srcCompat="@drawable/locked_level1" />
+        app:srcCompat="@drawable/locked_abel" />
 
     <ImageView
         android:id="@+id/image_level2"
@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline10"
-        app:srcCompat="@drawable/locked_level2" />
+        app:srcCompat="@drawable/locked_abinadi" />
 
     <ImageView
         android:id="@+id/image_level3"
@@ -41,7 +41,85 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="@+id/guideline10"
-        app:srcCompat="@drawable/locked_level3" />
+        app:srcCompat="@drawable/locked_ammon" />
+
+    <ImageView
+        android:id="@+id/image_level4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="10px"
+        app:layout_constraintBottom_toTopOf="@+id/guideline13"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toBottomOf="@+id/image_level2"
+        app:srcCompat="@drawable/locked_anne" />
+
+    <ImageView
+        android:id="@+id/image_level5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="10px"
+        app:layout_constraintBottom_toTopOf="@+id/guideline13"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/image_level2"
+        app:srcCompat="@drawable/locked_daniel" />
+
+    <ImageView
+        android:id="@+id/image_level6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="10px"
+        app:layout_constraintBottom_toTopOf="@+id/guideline13"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toBottomOf="@+id/image_level3"
+        app:srcCompat="@drawable/locked_esther" />
+
+    <ImageView
+        android:id="@+id/image_level7"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="10px"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toBottomOf="@+id/image_level4"
+        app:srcCompat="@drawable/locked_mormon" />
+
+    <ImageView
+        android:id="@+id/image_level8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="10px"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/image_level5"
+        app:srcCompat="@drawable/locked_moroni" />
+
+    <ImageView
+        android:id="@+id/image_level9"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="10px"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toBottomOf="@+id/image_level6"
+        app:srcCompat="@drawable/moroni" />
+
+    <ImageView
+        android:id="@+id/image_level10"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="10px"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/image_level8"
+        app:srcCompat="@drawable/locked_mosiah" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
@@ -98,5 +176,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="299dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="446dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="600dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
