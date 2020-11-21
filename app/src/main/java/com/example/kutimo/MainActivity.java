@@ -16,8 +16,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Main Activity";
-    private int faithPoints, level1, level2, level3;
-    ImageView image_level1, image_level2, image_level3;
+    private int faithPoints;
     Data data;
     ArrayList<String> scriptures;
     Save save;
@@ -34,10 +33,7 @@ public class MainActivity extends AppCompatActivity {
 >>>>>>> 77aaa5270584b91811e658ed56362199fc525cc6
      */
     public MainActivity() {
-        faithPoints = 5;
-        level1 = 10;
-        level2 = 20;
-        level3 = 30;
+        faithPoints = 0;
     }
 
 
@@ -61,12 +57,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        data = new Data();
-        faithPoints = data.faithPoints;
-        scriptures = data.scriptures;
+        //Create a new save object and update faith points
         save = new Save(this);
-
         updateFaithPoints();
+
 
         //those will find the view for the progress bar
         txtProgress = (TextView) findViewById(R.id.txtProgress);
@@ -97,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         }).start();
 
 
-    }
+    } // end onCreate
 
     public void openScripturePicker(View view){
         //debug message
@@ -108,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openCards(View view) {
-        // Do something in response to button
         //need to pass faith points in when the button is pushed.
 
         Intent intent = new Intent(this, CardActivity.class);

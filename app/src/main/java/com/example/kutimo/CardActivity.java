@@ -12,33 +12,10 @@ public class CardActivity extends AppCompatActivity {
     private static final String TAG = "Card Activity";
     private int faithPoints, level1, level2, level3;
     ImageView image_level1, image_level2, image_level3;
-    Data data;
     Save save;
-    MainActivity mainActivity;
 
 
 
-    /**
-     * Default constructor for AppCompatActivity. All Activities must have a default constructor
-     * for API 27 and lower devices or when using the default
-     */
-    public CardActivity() {
-
-        //Need to pass faith points in.
-        //this.faithPoints = faithPoints;
-
-       data = new Data();
-       //save = new Save(mainActivity);
-       faithPoints = data.faithPoints;
-//        faithPoints = mainActivity.save.retrieveFaithPoints();
-
-
-        Log.i(TAG, "faith points: " + faithPoints);
-
-        level1 = 10;
-        level2 = 20;
-        level3 = 30;
-    }
 
 
     /** Change the UI according to faith points Method **/
@@ -48,7 +25,7 @@ public class CardActivity extends AppCompatActivity {
         image_level2 = (ImageView) findViewById(R.id.image_level2);
         image_level3 = (ImageView) findViewById(R.id.image_level3);
 
-        /* Trial images aren't working in drawable
+        //Trial images aren't working in drawable
         if (faithPoints >= level1){
             image_level1.setImageResource(R.drawable.unlocked_level1);
         }
@@ -57,7 +34,7 @@ public class CardActivity extends AppCompatActivity {
         }
         if (faithPoints >= level3){
             image_level1.setImageResource(R.drawable.unlocked_level3);
-        }*/
+        }
 
 
         //Log.i(TAG, "changeImage: The button has been tapped");
@@ -71,6 +48,17 @@ public class CardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_card);
 
     //Amy's Card Activity
+
+        faithPoints = 0;
+        save = new Save(this);
+        faithPoints = save.retrieveFaithPoints();
+        Log.i(TAG, "faith points: " + faithPoints);
+
+
+        // Levels
+        level1 = 100;
+        level2 = 200;
+        level3 = 300;
 
         changeImage();
     }
