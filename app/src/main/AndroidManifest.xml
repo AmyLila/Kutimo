@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kutimo">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!--
+    // TODO: What's the watch for? Can't launch without commenting this.
+    <uses-feature android:name="android.hardware.type.watch" />
+    -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
@@ -12,10 +18,40 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Kutimo">
+        <!--
+        // TODO: What's the watch for? Can't launch without commenting this.
+        <uses-library
+            android:name="com.google.android.wearable"
+            android:required="true" />
+        -->
+
+        <!--
+               Set to true if your app is Standalone, that is, it does not require the handheld
+               app to run.
+        -->
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".intent"
+            android:label="@string/title_activity_intent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Scripture_picker"
             android:label="@string/title_activity_scripture_picker"
-            android:theme="@style/Theme.Kutimo.NoActionBar"></activity>
+            android:theme="@style/Theme.Kutimo.NoActionBar" />
         <activity android:name=".CardActivity">
             android:parentActivityName=".MainActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -33,13 +69,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

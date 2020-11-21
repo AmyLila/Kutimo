@@ -1,5 +1,6 @@
 package com.example.kutimo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -7,7 +8,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class Save {
-    private MainActivity mainActivity;
+    private Activity activity;
     private int faithPoints;
     private static final String TAG = "Save Class";
     SharedPreferences sharedPreferences;
@@ -15,10 +16,10 @@ public class Save {
 
     /** Constructor **/
 
-    public Save(MainActivity mainActivity) {
+    public Save(Activity activity) {
 
-        this.mainActivity = mainActivity;
-        sharedPreferences = this.mainActivity.getSharedPreferences("com.example.sharedpreferencesprototype", Context.MODE_PRIVATE);
+        this.activity = activity;
+        sharedPreferences = this.activity.getSharedPreferences("com.example.sharedpreferencesprototype", Context.MODE_PRIVATE);
 
     }
 

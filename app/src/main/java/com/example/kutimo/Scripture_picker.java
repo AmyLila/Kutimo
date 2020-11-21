@@ -20,7 +20,7 @@ public class Scripture_picker extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_scripture_picker);
     }
 
     public void intent_example(View v) {
@@ -72,11 +72,12 @@ public class Scripture_picker extends AppCompatActivity {
         int week_of_year = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 
         if (year == 2020){
+            week_of_year -= week_of_year  > 14 ? 1 : 0;
+            week_of_year -= week_of_year  > 39 ? 1 : 0;
             launch_study("book-of-mormon-2020" + "/" + week_of_year);
         } else if (year == 2021){
             launch_study("doctrine-and-covenants-2021" + "/" + week_of_year);
         }
-
     }
 
     void launch_scriptures(String url) {
@@ -93,6 +94,7 @@ public class Scripture_picker extends AppCompatActivity {
     void launch_study(String url) {
         Toast.makeText(this, "Receiving.", Toast.LENGTH_SHORT).show();
         Uri uri = Uri.parse(String.format("https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-individuals-and-families-%s", url));
+        Log.i("Scripture picker", String.format("https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-individuals-and-families-%s", url));
 
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         if (intent.resolveActivity(getPackageManager()) != null) {
