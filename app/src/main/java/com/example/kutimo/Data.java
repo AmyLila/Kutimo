@@ -4,10 +4,14 @@ import java.util.ArrayList;
 
 public class Data {
     public int faithPoints;
+    Save save;
     public ArrayList<String> scriptures = new ArrayList<>();
 
+
     public Data() {
-        faithPoints = 5;
+
+        faithPoints = 0;
+        faithPoints = save.retrieveFaithPoints();
 
 
         scriptures.add("Hello");
