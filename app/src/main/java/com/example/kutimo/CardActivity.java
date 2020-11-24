@@ -37,31 +37,31 @@ public class CardActivity extends AppCompatActivity {
             image_level1.setImageResource(R.drawable.abel);
         }
         if (faithPoints >= level2){
-            image_level1.setImageResource(R.drawable.abinadi);
+            image_level2.setImageResource(R.drawable.abinadi);
         }
         if (faithPoints >= level3){
-            image_level1.setImageResource(R.drawable.abraham);
+            image_level3.setImageResource(R.drawable.abraham);
         }
         if (faithPoints >= level4){
-            image_level1.setImageResource(R.drawable.ammon);
+            image_level4.setImageResource(R.drawable.ammon);
         }
         if (faithPoints >= level5){
-            image_level1.setImageResource(R.drawable.anne);
+            image_level5.setImageResource(R.drawable.anne);
         }
         if (faithPoints >= level6){
-            image_level1.setImageResource(R.drawable.daniel);
+            image_level6.setImageResource(R.drawable.daniel);
         }
         if (faithPoints >= level7){
-            image_level1.setImageResource(R.drawable.esther);
+            image_level7.setImageResource(R.drawable.esther);
         }
         if (faithPoints >= level8){
-            image_level1.setImageResource(R.drawable.mormon);
+            image_level8.setImageResource(R.drawable.mormon);
         }
         if (faithPoints >= level9){
-            image_level1.setImageResource(R.drawable.moroni);
+            image_level9.setImageResource(R.drawable.moroni);
         }
         if (faithPoints >= level10){
-            image_level1.setImageResource(R.drawable.mosiah);
+            image_level10.setImageResource(R.drawable.mosiah);
         }
 
 
