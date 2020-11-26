@@ -38,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void updateFaithPoints() {
+    public void updateFaithPoints(int multiplier) {
 
         faithPoints = save.retrieveFaithPoints();
-        faithPoints += 5;
+        faithPoints += multiplier;
         save.saveFaithPoints(faithPoints);
         Log.i(TAG, "faith points: " + faithPoints);
         Log.i(TAG, "scriptures: " + scriptures);
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Create a new save object and update faith points
         save = new Save(this);
-        updateFaithPoints();
+        updateFaithPoints(5);
 
 
         //those will find the view for the progress bar
