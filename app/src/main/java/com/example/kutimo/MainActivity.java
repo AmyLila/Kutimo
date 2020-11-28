@@ -5,11 +5,14 @@ import android.app.AppComponentFactory;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,13 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private int pStatus = 0;
     private Handler handler = new Handler();
+
+    //variables for the chronometer
+    private Chronometer chronometer;
+    private boolean isRunning;
+    private long pauseOffset;
+    private long hours;
+    private long minutes;
 
     /**
      * Default constructor for AppCompatActivity. All Activities must have a default constructor
@@ -90,8 +100,46 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
 
+        //Chronometer toasts
+        chronometer = findViewById(R.id.chronometer);
+        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 10000 && (SystemClock.elapsedRealtime() - chronometer.getBase()) <= 12000) {
+                    Toast.makeText(MainActivity.this, "It's been 10sec! Felt the Spirit yet?", Toast.LENGTH_SHORT).show();
+                }
+                if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 30000 && (SystemClock.elapsedRealtime() - chronometer.getBase()) <= 32000) {
+                    Toast.makeText(MainActivity.this, "Halfway through your first FP!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
     } // end onCreate
+
+    //Start the chronometer
+    public void startChronometer(View view) {
+        if (!isRunning) {
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            chronometer.start();
+            isRunning = true;
+        } else if (isRunning) {
+            chronometer.stop();
+            pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+            isRunning = false;
+        }
+    }
+
+    //Saves time and resets the chronometer
+    public void resetChronometer(View view) {
+        hours = (pauseOffset / 3600000);
+        minutes = (pauseOffset - hours * 3600000) / 60000;
+
+        chronometer.stop();
+        isRunning = false;
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        pauseOffset = 0;
+    }
 
     public void openScripturePicker(View view){
         //debug message
