@@ -19,8 +19,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Main Activity";
-    private int faithPoints;
-    private int multiplier;
+    private int faithPoints = 0;
+    private int multiplier = 1;
     Data data;
     ArrayList<String> scriptures;
     Save save;
@@ -37,31 +37,19 @@ public class MainActivity extends AppCompatActivity {
     private long pauseOffset;
     private long hours;
     private long minutes;
+    private  int intMinutes = (int) (minutes);
 
-    /**
-     * Default constructor for AppCompatActivity. All Activities must have a default constructor
-     * for API 27 and lower devices or when using the default
->>>>>>> 77aaa5270584b91811e658ed56362199fc525cc6
-     */
-    public MainActivity() {
-        faithPoints = 0;
-        multiplier = 1;
-    }
 
 
     // Faith points updater
     public void updateFaithPoints() {
-
         faithPoints = save.retrieveFaithPoints();
-        faithPoints += minutes * multiplier;
+        faithPoints += intMinutes * multiplier;
         save.saveFaithPoints(faithPoints);
         Log.i(TAG, "faith points: " + faithPoints);
-        Log.i(TAG, "scriptures: " + scriptures);
+
 
     }
-
-
-
 
 
     @Override
@@ -72,8 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Create a new save object and update faith points
-        save = new Save(this);
-        updateFaithPoints();
+//        save = new Save(this);
+
+
 
 
         //those will find the view for the progress bar
@@ -136,8 +125,16 @@ public class MainActivity extends AppCompatActivity {
 
     //Saves time and resets the chronometer
     public void resetChronometer(View view) {
+        save = new Save(this);
         hours = (pauseOffset / 3600000);
         minutes = (pauseOffset - hours * 3600000) / 60000;
+        // update faith points
+        updateFaithPoints();
+        Log.d(TAG, "resetChronometer: " + faithPoints);
+        Log.d(TAG, "resetChronometer: " + intMinutes);
+        Log.d(TAG, "resetChronometer: " + minutes);
+
+
 
         chronometer.stop();
         isRunning = false;
