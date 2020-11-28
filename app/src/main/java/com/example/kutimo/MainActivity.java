@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Main Activity";
     private int faithPoints;
+    private int multiplier;
     Data data;
     ArrayList<String> scriptures;
     Save save;
@@ -44,19 +45,22 @@ public class MainActivity extends AppCompatActivity {
      */
     public MainActivity() {
         faithPoints = 0;
+        multiplier = 1;
     }
 
 
-
-    public void updateFaithPoints(int multiplier) {
+    // Faith points updater
+    public void updateFaithPoints() {
 
         faithPoints = save.retrieveFaithPoints();
-        faithPoints += multiplier;
+        faithPoints += minutes * multiplier;
         save.saveFaithPoints(faithPoints);
         Log.i(TAG, "faith points: " + faithPoints);
         Log.i(TAG, "scriptures: " + scriptures);
 
     }
+
+
 
 
 
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Create a new save object and update faith points
         save = new Save(this);
-        updateFaithPoints(5);
+        updateFaithPoints();
 
 
         //those will find the view for the progress bar
