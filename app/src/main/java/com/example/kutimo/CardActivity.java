@@ -14,10 +14,6 @@ public class CardActivity extends AppCompatActivity {
     ImageView image_level1, image_level2, image_level3, image_level4, image_level5, image_level6, image_level7, image_level8, image_level9, image_level10;
     Save save;
 
-
-
-
-
     /** Change the UI according to faith points Method **/
     public void changeImage(){
 

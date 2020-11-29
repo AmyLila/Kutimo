@@ -1,7 +1,6 @@
 package com.example.kutimo;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.app.AppComponentFactory;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,67 +8,68 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 
+/**
+ * Entry point for Kutimo project.
+ *
+ * @author Amy, Megan, Ruben, Timothy, and Wanderson
+ */
 
 public class MainActivity extends AppCompatActivity {
+    // ******
+    // Fields
+    // ******
     private static final String TAG = "Main Activity";
-    private int faithPoints = 0;
-    private int multiplier = 1;
-    Data data;
-    ArrayList<String> scriptures;
-    Save save;
-
-    //those variables are for the progress bar graphics
-    private TextView txtProgress;
-    private ProgressBar progressBar;
-    private int pStatus = 0;
-    private Handler handler = new Handler();
-
-    //variables for the chronometer
+    //Chronometer
     private Chronometer chronometer;
     private boolean isRunning;
     private long pauseOffset;
     private long hours;
     private long minutes;
-    private  int intMinutes = (int) (minutes);
+    private int intMinutes = (int) (minutes);
 
+    //Faith Points
+    private int faithPoints = 0;
+    private int multiplier = 1;
 
+    //Progress Bar
+    private TextView txtProgress;
+    private ProgressBar progressBar;
+    private int pStatus = 0;
+    private Handler handler = new Handler();
 
-    // Faith points updater
+    //Scripture Picker
+    Data data;
+    ArrayList<String> scriptures;
+    Save save;
+
+    /**
+     * Each sessions' faith points and multiplier
+     */
     public void updateFaithPoints() {
+        //will not update continuously - the current value will be 1
         faithPoints = save.retrieveFaithPoints();
         faithPoints += intMinutes * multiplier;
         save.saveFaithPoints(faithPoints);
         Log.i(TAG, "faith points: " + faithPoints);
-
-
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
-
         //Create a new save object and update faith points
-//        save = new Save(this);
+        //save = new Save(this);
 
-
-
-
-        //those will find the view for the progress bar
+        //Progress Bar
         txtProgress = (TextView) findViewById(R.id.txtProgress);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        //this block will run the progress bar
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -87,13 +87,13 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 pStatus++;
-                if(pStatus == 100)
+                if (pStatus == 100)
                     pStatus = 0;
                 //}
             }
         }).start();
 
-        //Chronometer toasts
+        //Chronometer, toasts
         chronometer = findViewById(R.id.chronometer);
         chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
@@ -106,11 +106,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     } // end onCreate
 
-    //Start the chronometer
+    /**
+     * *****
+     * Public Methods
+     * *****
+     * Calendar, Cards, Chronometer, and Scripture Picker
+     *
+     * @param view
+     */
+    //Chronometer, start
     public void startChronometer(View view) {
         if (!isRunning) {
             chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
@@ -123,18 +129,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //Saves time and resets the chronometer
+    //Chronometer, saves time and resets
     public void resetChronometer(View view) {
         save = new Save(this);
         hours = (pauseOffset / 3600000);
         minutes = (pauseOffset - hours * 3600000) / 60000;
-        // update faith points
+
         updateFaithPoints();
         Log.d(TAG, "resetChronometer: " + faithPoints);
         Log.d(TAG, "resetChronometer: " + intMinutes);
         Log.d(TAG, "resetChronometer: " + minutes);
-
-
 
         chronometer.stop();
         isRunning = false;
@@ -142,28 +146,27 @@ public class MainActivity extends AppCompatActivity {
         pauseOffset = 0;
     }
 
-    public void openScripturePicker(View view){
-        //debug message
+    //Scripture Picker
+    public void openScripturePicker(View view) {
+
         Log.i(TAG, "Opening Scripture Picker");
 
         Intent intent = new Intent(this, Scripture_picker.class);
         startActivity(intent);
     }
 
+    //Cards
     public void openCards(View view) {
-        //need to pass faith points in when the button is pushed.
-
+        //TODO need to pass faith points in when the button is pushed.
         Intent intent = new Intent(this, CardActivity.class);
         startActivity(intent);
 
-        //debug message
         Log.i(TAG, "open cards button tapped");
     }
 
+    //Calendar
     public void openCalendar(View view) {
         Intent intent = new Intent(this, Calendar_checkmarks.class);
         startActivity(intent);
-
     }
-
 }
