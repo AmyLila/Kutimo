@@ -180,6 +180,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openFavorites(View view){
+        Intent intent = new Intent(this, FavoriteActivity.class);
+        startActivity(intent);
+    }
+
     //Cards
     public void openCards(View view) {
         //TODO need to pass faith points in when the button is pushed.
