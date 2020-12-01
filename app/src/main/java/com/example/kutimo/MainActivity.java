@@ -70,27 +70,24 @@ public class MainActivity extends AppCompatActivity {
         txtProgress = (TextView) findViewById(R.id.txtProgress);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //while (pStatus < 101) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar.setProgress(pStatus);
-                        txtProgress.setText(pStatus + " %");
-                    }
-                });
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+        new Thread(() -> {
+            //while (pStatus < 101) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setProgress(pStatus);
+                    txtProgress.setText(pStatus + " %");
                 }
-                pStatus++;
-                if (pStatus == 100)
-                    pStatus = 0;
-                //}
+            });
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            pStatus++;
+            if (pStatus == 100)
+                pStatus = 0;
+            //}
         }).start();
 
         //Chronometer, toasts
