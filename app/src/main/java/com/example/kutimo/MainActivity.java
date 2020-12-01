@@ -123,10 +123,10 @@ public class MainActivity extends AppCompatActivity {
         //Chronometer, toasts
         chronometer = findViewById(R.id.chronometer);
         chronometer.setOnChronometerTickListener(chronometer -> {
-            if (is_time_range(chronometer, 10, 12)) {
+            if (is_time_range(chronometer, 10, 11)) { // reduce by 1 second to prevent double toast
                 short_toast("It's been 10sec! Felt the Spirit yet?");
             }
-            if (is_time_range(chronometer, 30, 32)) {
+            if (is_time_range(chronometer, 30, 31)) { // reduce by 1 second to prevent double toast
                 short_toast("Halfway through your first FP!");
             }
         });
@@ -155,14 +155,15 @@ public class MainActivity extends AppCompatActivity {
 
     //Chronometer, saves time and resets
     public void resetChronometer(View view) {
+        // TODO: update pauseOffset when user press resetChronometer while isRunning is set to true
         save = new Save(this);
         hours = (pauseOffset / 3_600_000);
         minutes = (pauseOffset - hours * 3_600_000) / 60_000;
 
         updateFaithPoints();
-        Log.d(TAG, "resetChronometer: " + faithPoints);
-        Log.d(TAG, "resetChronometer: " + intMinutes);
-        Log.d(TAG, "resetChronometer: " + minutes);
+        Log.d(TAG, "resetChronometer (faithPoints): " + faithPoints);
+        Log.d(TAG, "resetChronometer (intMinutes): " + intMinutes);
+        Log.d(TAG, "resetChronometer (minutes): " + minutes);
 
         chronometer.stop();
         isRunning = false;
