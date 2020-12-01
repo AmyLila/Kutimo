@@ -7,11 +7,7 @@
     tools:context=".MainActivity"
     android:background="#000000" >
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_height="wrap_content" >
-    </RelativeLayout>
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -56,10 +52,9 @@
         android:layout_width="106dp"
         android:layout_height="119dp"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:onClick="openFavorites"
         app:layout_constraintEnd_toStartOf="@+id/cards"
         app:layout_constraintStart_toEndOf="@+id/calendar"
         app:layout_constraintTop_toBottomOf="@+id/progressBar"
@@ -80,11 +75,11 @@
 
     <ImageView
         android:id="@+id/watch"
-        android:layout_width="134dp"
-        android:layout_height="148dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="105dp"
+        android:layout_height="116dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="28dp"
+        android:onClick="toggleChronometer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendar"
         app:srcCompat="@drawable/watch" />
@@ -108,48 +103,109 @@
         android:text="Scripture picker"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintHorizontal_bias="0.703"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.079" />
 
+
     <Chronometer
         android:id="@+id/chronometer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="480dp"
-        android:textSize="30sp"
+        android:layout_width="136dp"
+        android:layout_height="114dp"
+        android:layout_marginTop="472dp"
+        android:onClick="toggleChronometer"
+        android:textAlignment="center"
+        android:gravity="center"
         android:textColor="@android:color/white"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.814"
+        app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/finishReading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="#001538"
-        android:onClick="startChronometer"
-        android:text="Start/Pause"
-        android:textColor="#E9DF5E"
+        android:layout_marginTop="48dp"
+        android:backgroundTint="#34b1eb"
+        android:onClick="resetChronometer"
+        android:text="Finish Reading"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.88"
+        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chronometer" />
 
-    <Button
-        android:id="@+id/button2"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="102dp"
+        android:layout_height="26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        app:srcCompat="@drawable/tonextlevel" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="69dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="103dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scripture_picker_button"
+        app:srcCompat="@drawable/level" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="85dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="143dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/progressBar"
+        app:layout_constraintTop_toBottomOf="@+id/scripture_picker_button"
+        app:srcCompat="@drawable/multiplier" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="24dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="105dp"
+        android:layout_marginEnd="77dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/scripture_picker_button"
+        app:srcCompat="@drawable/x" />
+
+    <TextView
+        android:id="@+id/levelNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:backgroundTint="#001538"
-        android:onClick="resetChronometer"
-        android:text="Finish Reading"
-        android:textColor="#E9DF5E"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="48dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#fafcfc"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/scripture_picker_button" />
+
+    <TextView
+        android:id="@+id/multiplierLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="56dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#fafcfc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.875"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chronometer" />
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/scripture_picker_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

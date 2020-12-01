@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 
 public class Calendar_checkmarks extends AppCompatActivity {
     Button button;
@@ -18,19 +19,18 @@ public class Calendar_checkmarks extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar_checkmarks);
-        final String CHANNEL_ID = "";
 
+
+/**
+        final String CHANNEL_ID = "";
         button = findViewById(R.id.button_Iread);
         button.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 HeadsUpNotification();
             }
         });
-
     }
-
     private void HeadsUpNotification() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel =
@@ -40,14 +40,14 @@ public class Calendar_checkmarks extends AppCompatActivity {
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "n")
-                .setContentTitle("We miss you")
+                .setContentTitle("You ")
                 .setSmallIcon(R.drawable.kutimo)
                 .setAutoCancel(true)
                 .setContentText("Don't forget to read");
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
         managerCompat.notify(9, builder.build());
-
+**/
 
     }
 }

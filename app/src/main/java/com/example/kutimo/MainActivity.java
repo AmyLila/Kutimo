@@ -128,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
         save = new Save(this);
         hours = (pauseOffset / 3600000);
         minutes = (pauseOffset - hours * 3600000) / 60000;
-        System.out.println(minutes);
         // update faith points
         updateFaithPoints();
         Log.d(TAG, "resetChronometer: " + faithPoints);
