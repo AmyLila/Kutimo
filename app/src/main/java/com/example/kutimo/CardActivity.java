@@ -11,7 +11,7 @@ public class CardActivity extends AppCompatActivity {
 
     private static final String TAG = "Card Activity";
     private int faithPoints, level1, level2, level3, level4, level5, level6, level7, level8, level9, level10, level11, level12;
-    ImageView image_level1, image_level2, image_level3, image_level4, image_level5, image_level6, image_level7, image_level8, image_level9, image_level10;
+    ImageView image_level1, image_level2, image_level3, image_level4, image_level5, image_level6, image_level7, image_level8, image_level9, image_level10, image_level11, image_level12;
     Save save;
 
     /** Change the UI according to faith points Method **/
@@ -27,6 +27,8 @@ public class CardActivity extends AppCompatActivity {
         image_level8 = (ImageView) findViewById(R.id.image_level8);
         image_level9 = (ImageView) findViewById(R.id.image_level9);
         image_level10 = (ImageView) findViewById(R.id.image_level10);
+        image_level11 = (ImageView) findViewById(R.id.image_level11);
+        image_level12 = (ImageView) findViewById(R.id.image_level12);
 
         //Trial images aren't working in drawable
         if (faithPoints >= level1){
@@ -59,7 +61,12 @@ public class CardActivity extends AppCompatActivity {
         if (faithPoints >= level10){
             image_level10.setImageResource(R.drawable.mosiah);
         }
-
+        if (faithPoints >= level11){
+            image_level11.setImageResource(R.drawable.jonas);
+        }
+        if (faithPoints >= level12){
+            image_level12.setImageResource(R.drawable.king_benjamin);
+        }
 
         //Log.i(TAG, "changeImage: The button has been tapped");
 
