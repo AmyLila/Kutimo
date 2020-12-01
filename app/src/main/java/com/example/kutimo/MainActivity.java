@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.lang.Math;
 
 /**
  * Entry point for Kutimo project.
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private int intMinutes = (int) (minutes);
 
     //Faith Points
-    private int faithPoints = 0;
+    private int faithPoints = 300;
     private int multiplier = 1;
 
     //Progress Bar and progress levels
@@ -43,10 +44,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView levelNumber;
     private TextView multiplierLevel;
     private ProgressBar progressBar;
-    private int pStatus = 0;
+    public float pStatus = 0;
     private int levelUpPoints = 500;
-    private int currentLevel = 0;
-    private int multiplierView = multiplier;
+    public int currentLevel = 0;
     private Handler handler = new Handler();
 
     //Scripture Picker
@@ -85,14 +85,17 @@ public class MainActivity extends AppCompatActivity {
         multiplierLevel = (TextView) findViewById(R.id.multiplierLevel);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
+        //progress bar update in percentage
+        pStatus = (float)faithPoints/levelUpPoints * 100;
+
         new Thread(() -> {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    progressBar.setProgress(pStatus);
+                    progressBar.setProgress((int)pStatus);
                     txtProgress.setText(pStatus + " %");
                     levelNumber.setText(currentLevel + " ");
-                    multiplierLevel.setText(multiplierView + " ");
+                    multiplierLevel.setText(multiplier + " ");
                 }
             });
             try {
@@ -100,13 +103,16 @@ public class MainActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            pStatus = (faithPoints / levelUpPoints) * 100;
+
             if (pStatus == 100) {
                 pStatus = 0;
                 levelUpPoints *= 2;
                 currentLevel++;
             }
         }).start();
+        System.out.println(faithPoints);
+        System.out.println(pStatus);
+        System.out.println(levelUpPoints);
     }
 
     private boolean is_time_range(Chronometer chronometer, int start_second, int end_second){
