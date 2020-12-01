@@ -7,11 +7,7 @@
     tools:context=".MainActivity"
     android:background="#000000" >
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_height="wrap_content" >
-    </RelativeLayout>
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -191,7 +187,6 @@
         android:layout_marginStart="14dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="48dp"
-        android:text="#"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#fafcfc"
         app:layout_constraintEnd_toStartOf="@+id/imageView4"
@@ -200,13 +195,12 @@
         app:layout_constraintTop_toBottomOf="@+id/scripture_picker_button" />
 
     <TextView
-        android:id="@+id/levelNumber2"
+        android:id="@+id/multiplierLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="56dp"
-        android:text="#"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#fafcfc"
         app:layout_constraintEnd_toEndOf="parent"

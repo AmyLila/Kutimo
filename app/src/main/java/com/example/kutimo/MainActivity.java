@@ -38,10 +38,15 @@ public class MainActivity extends AppCompatActivity {
     private int faithPoints = 0;
     private int multiplier = 1;
 
-    //Progress Bar
+    //Progress Bar and progress levels
     private TextView txtProgress;
+    private TextView levelNumber;
+    private TextView multiplierLevel;
     private ProgressBar progressBar;
     private int pStatus = 0;
+    private int levelUpPoints = 500;
+    private int currentLevel = 0;
+    private int multiplierView = multiplier;
     private Handler handler = new Handler();
 
     //Scripture Picker
@@ -74,17 +79,20 @@ public class MainActivity extends AppCompatActivity {
     } // end onCreate
 
     void progress_bar() {
-        //Progress Bar
+        //Progress Bar and levels
         txtProgress = (TextView) findViewById(R.id.txtProgress);
+        levelNumber = (TextView) findViewById(R.id.levelNumber);
+        multiplierLevel = (TextView) findViewById(R.id.multiplierLevel);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         new Thread(() -> {
-            //while (pStatus < 101) {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
                     progressBar.setProgress(pStatus);
                     txtProgress.setText(pStatus + " %");
+                    levelNumber.setText(currentLevel + " ");
+                    multiplierLevel.setText(multiplierView + " ");
                 }
             });
             try {
@@ -92,10 +100,12 @@ public class MainActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            pStatus++;
-            if (pStatus == 100)
+            pStatus = (faithPoints / levelUpPoints) * 100;
+            if (pStatus == 100) {
                 pStatus = 0;
-            //}
+                levelUpPoints *= 2;
+                currentLevel++;
+            }
         }).start();
     }
 
