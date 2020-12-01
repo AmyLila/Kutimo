@@ -42,7 +42,7 @@ public class Save {
     }
 
 
-    // To save the scriptures I need to parse the arraylist to a json file and then read it to the saver as a string
+    // To save the scriptures I need to parse the ArrayList to a json file and then read it to the saver as a string
     // To return the scriptures we need to get the string from saved preferences and parse it to the array list in the data class.
 
 
