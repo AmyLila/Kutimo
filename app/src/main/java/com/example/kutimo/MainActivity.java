@@ -116,13 +116,13 @@ public class MainActivity extends AppCompatActivity {
     //Chronometer, start
     public void toggleChronometer(View view) {
         if (isRunning) {
+            isRunning = false;
             chronometer.stop();
             pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
-            isRunning = false;
         } else {
-            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
-            chronometer.start();
             isRunning = true;
+            chronometer.start();
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
         }
     }
 
