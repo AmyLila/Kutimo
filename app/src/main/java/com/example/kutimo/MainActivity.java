@@ -99,14 +99,20 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
+    private boolean is_time_range(Chronometer chronometer, int start_second, int end_second){
+        boolean start = SystemClock.elapsedRealtime() - chronometer.getBase() >= start_second * 1000;
+        boolean end = SystemClock.elapsedRealtime() - chronometer.getBase() <= end_second * 1000;
+        return start && end;
+    }
+
     void chronometer_function() {
         //Chronometer, toasts
         chronometer = findViewById(R.id.chronometer);
         chronometer.setOnChronometerTickListener(chronometer -> {
-            if (SystemClock.elapsedRealtime() - chronometer.getBase() >= 10_000 && SystemClock.elapsedRealtime() - chronometer.getBase() <= 12_000) {
+            if (is_time_range(chronometer, 10, 12)) {
                 Toast.makeText(MainActivity.this, "It's been 10sec! Felt the Spirit yet?", Toast.LENGTH_SHORT).show();
             }
-            if (SystemClock.elapsedRealtime() - chronometer.getBase() >= 30_000 && SystemClock.elapsedRealtime() - chronometer.getBase() <= 32_000) {
+            if (is_time_range(chronometer, 30, 32)) {
                 Toast.makeText(MainActivity.this, "Halfway through your first FP!", Toast.LENGTH_SHORT).show();
             }
         });
