@@ -70,8 +70,12 @@ public class Scripture_picker extends AppCompatActivity {
     public void current_week(View v){
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int week_of_year = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
+        int day_of_week = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+
+        week_of_year -= day_of_week == Calendar.SUNDAY ? 1 : 0; // if it's Sunday go back 1 week
 
         if (year == 2020){
+            // minor adjustment for 2020
             week_of_year -= week_of_year  > 14 ? 1 : 0;
             week_of_year -= week_of_year  > 39 ? 1 : 0;
             launch_study("book-of-mormon-2020" + "/" + week_of_year);
