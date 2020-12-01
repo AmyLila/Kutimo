@@ -131,7 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:backgroundTint="#001538"
-        android:onClick="startChronometer"
+        android:onClick="toggleChronometer"
         android:text="Start/Pause"
         android:textColor="#E9DF5E"
         app:layout_constraintEnd_toEndOf="parent"

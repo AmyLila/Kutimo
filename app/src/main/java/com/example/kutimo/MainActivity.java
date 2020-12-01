@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     //Chronometer, start
-    public void startChronometer(View view) {
+    public void toggleChronometer(View view) {
         if (!isRunning) {
             chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
             chronometer.start();
