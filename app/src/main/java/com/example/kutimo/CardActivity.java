@@ -77,21 +77,22 @@ public class CardActivity extends AppCompatActivity {
         save = new Save(this);
         faithPoints = save.retrieveFaithPoints();
         Log.i(TAG, "faith points: " + faithPoints);
+        int level = 500;
 
 
         // Levels
-        level1 = 100;
-        level2 = 200;
-        level3 = 300;
-        level4 = 400;
-        level5 = 500;
-        level6 = 600;
-        level7 = 700;
-        level8 = 800;
-        level9 = 900;
-        level10 = 1000;
-        level11 = 1100;
-        level12 = 1200;
+        level1 = level;
+        level2 = level * 2;
+        level3 = level * 3;
+        level4 = level * 4;
+        level5 = level * 5;
+        level6 = level * 6;
+        level7 = level * 7;
+        level8 = level * 8;
+        level9 = level * 9;
+        level10 = level * 10;
+        level11 = level * 11;
+        level12 = level * 12;
 
         changeImage();
     }
