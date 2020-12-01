@@ -95,15 +95,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Chronometer, toasts
         chronometer = findViewById(R.id.chronometer);
-        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-            @Override
-            public void onChronometerTick(Chronometer chronometer) {
-                if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 10000 && (SystemClock.elapsedRealtime() - chronometer.getBase()) <= 12000) {
-                    Toast.makeText(MainActivity.this, "It's been 10sec! Felt the Spirit yet?", Toast.LENGTH_SHORT).show();
-                }
-                if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 30000 && (SystemClock.elapsedRealtime() - chronometer.getBase()) <= 32000) {
-                    Toast.makeText(MainActivity.this, "Halfway through your first FP!", Toast.LENGTH_SHORT).show();
-                }
+        chronometer.setOnChronometerTickListener(chronometer -> {
+            if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 10000 && (SystemClock.elapsedRealtime() - chronometer.getBase()) <= 12000) {
+                Toast.makeText(MainActivity.this, "It's been 10sec! Felt the Spirit yet?", Toast.LENGTH_SHORT).show();
+            }
+            if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 30000 && (SystemClock.elapsedRealtime() - chronometer.getBase()) <= 32000) {
+                Toast.makeText(MainActivity.this, "Halfway through your first FP!", Toast.LENGTH_SHORT).show();
             }
         });
     } // end onCreate
