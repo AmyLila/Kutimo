@@ -103,10 +103,10 @@ public class MainActivity extends AppCompatActivity {
         //Chronometer, toasts
         chronometer = findViewById(R.id.chronometer);
         chronometer.setOnChronometerTickListener(chronometer -> {
-            if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 10000 && (SystemClock.elapsedRealtime() - chronometer.getBase()) <= 12000) {
+            if (SystemClock.elapsedRealtime() - chronometer.getBase() >= 10_000 && SystemClock.elapsedRealtime() - chronometer.getBase() <= 12_000) {
                 Toast.makeText(MainActivity.this, "It's been 10sec! Felt the Spirit yet?", Toast.LENGTH_SHORT).show();
             }
-            if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 30000 && (SystemClock.elapsedRealtime() - chronometer.getBase()) <= 32000) {
+            if (SystemClock.elapsedRealtime() - chronometer.getBase() >= 30_000 && SystemClock.elapsedRealtime() - chronometer.getBase() <= 32_000) {
                 Toast.makeText(MainActivity.this, "Halfway through your first FP!", Toast.LENGTH_SHORT).show();
             }
         });
