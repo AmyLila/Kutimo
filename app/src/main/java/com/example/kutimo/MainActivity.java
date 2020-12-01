@@ -105,15 +105,19 @@ public class MainActivity extends AppCompatActivity {
         return start && end;
     }
 
+    private void short_toast(String message){
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
     void chronometer_function() {
         //Chronometer, toasts
         chronometer = findViewById(R.id.chronometer);
         chronometer.setOnChronometerTickListener(chronometer -> {
             if (is_time_range(chronometer, 10, 12)) {
-                Toast.makeText(MainActivity.this, "It's been 10sec! Felt the Spirit yet?", Toast.LENGTH_SHORT).show();
+                short_toast("It's been 10sec! Felt the Spirit yet?");
             }
             if (is_time_range(chronometer, 30, 32)) {
-                Toast.makeText(MainActivity.this, "Halfway through your first FP!", Toast.LENGTH_SHORT).show();
+                short_toast("Halfway through your first FP!");
             }
         });
     }
