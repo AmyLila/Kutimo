@@ -115,14 +115,14 @@ public class MainActivity extends AppCompatActivity {
      */
     //Chronometer, start
     public void toggleChronometer(View view) {
-        if (!isRunning) {
-            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
-            chronometer.start();
-            isRunning = true;
-        } else if (isRunning) {
+        if (isRunning) {
             chronometer.stop();
             pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
             isRunning = false;
+        } else {
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            chronometer.start();
+            isRunning = true;
         }
     }
 
