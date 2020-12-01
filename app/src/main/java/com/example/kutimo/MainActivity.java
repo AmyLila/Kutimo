@@ -70,9 +70,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Create a new save object and update faith points
-        //save = new Save(this);
-
         progress_bar();
 
         chronometer_function();
