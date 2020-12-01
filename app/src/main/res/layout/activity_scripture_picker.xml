@@ -34,10 +34,9 @@
         app:layout_constraintVertical_bias="0.762" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/ot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="ot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.538"
@@ -47,10 +46,9 @@
         app:srcCompat="@drawable/old_testament" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/bofm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="bofm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.177"
@@ -60,10 +58,9 @@
         app:srcCompat="@drawable/book_of_mormon" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/dc_testament"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="dc_testament"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.36"
@@ -73,10 +70,9 @@
         app:srcCompat="@drawable/doctrine_and_covenants" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/nt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="nt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.92"
@@ -86,10 +82,9 @@
         app:srcCompat="@drawable/new_testament" />
 
     <ImageButton
-        android:id="@+id/imageButton5"
+        android:id="@+id/pgp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="pgp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.7"
@@ -99,10 +94,9 @@
         app:srcCompat="@drawable/pearl_of_great_price" />
 
     <ImageButton
-        android:id="@+id/imageButton6"
+        android:id="@+id/new_testament_2019"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="new_testament_2019"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.177"
@@ -112,10 +106,9 @@
         app:srcCompat="@drawable/thailand_women_elderly_family_history" />
 
     <ImageButton
-        android:id="@+id/imageButton7"
+        android:id="@+id/book_of_mormon_2020"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="book_of_mormon_2020"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -125,10 +118,9 @@
         app:srcCompat="@drawable/come_follow_me_book_of_mormon_individual_family" />
 
     <ImageButton
-        android:id="@+id/imageButton8"
+        android:id="@+id/doctrine_and_covenants_2021"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="doctrine_and_covenant_2021"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.837"
