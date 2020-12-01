@@ -1,6 +1,7 @@
 package com.example.kutimo;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.widget.Chronometer;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 
 /**
@@ -66,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
         //Create a new save object and update faith points
         //save = new Save(this);
 
+        progress_bar();
+
+        chronometer_function();
+    } // end onCreate
+
+    void progress_bar() {
         //Progress Bar
         txtProgress = (TextView) findViewById(R.id.txtProgress);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -89,7 +97,9 @@ public class MainActivity extends AppCompatActivity {
                 pStatus = 0;
             //}
         }).start();
+    }
 
+    void chronometer_function() {
         //Chronometer, toasts
         chronometer = findViewById(R.id.chronometer);
         chronometer.setOnChronometerTickListener(chronometer -> {
@@ -100,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Halfway through your first FP!", Toast.LENGTH_SHORT).show();
             }
         });
-    } // end onCreate
+    }
 
     /**
      * *****
