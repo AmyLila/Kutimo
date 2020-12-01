@@ -129,8 +129,8 @@ public class MainActivity extends AppCompatActivity {
     //Chronometer, saves time and resets
     public void resetChronometer(View view) {
         save = new Save(this);
-        hours = (pauseOffset / 3600000);
-        minutes = (pauseOffset - hours * 3600000) / 60000;
+        hours = (pauseOffset / 3_600_000);
+        minutes = (pauseOffset - hours * 3_600_000) / 60_000;
 
         updateFaithPoints();
         Log.d(TAG, "resetChronometer: " + faithPoints);
