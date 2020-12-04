@@ -8,16 +8,13 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.datepicker.MaterialCalendar;
-import com.google.android.material.datepicker.MaterialDatePicker;
-
 import java.util.ArrayList;
+import java.lang.Math;
 
 /**
  * Entry point for Kutimo project.
@@ -30,20 +27,16 @@ public class MainActivity extends AppCompatActivity {
     // Fields
     // ******
     private static final String TAG = "Main Activity";
-
-    //Calendar
-    private Button calendarButton;
-
     //Chronometer
     private Chronometer chronometer;
     private boolean isRunning;
     private long pauseOffset;
-    private long hours;
-    private long minutes;
-    private int intMinutes = (int) (minutes);
+    private int hours;
+    private int minutes;
+
 
     //Faith Points
-    private int faithPoints = 0;
+    private int faithPoints = 300;
     private int multiplier = 1;
 
     //Progress Bar and progress levels
@@ -51,10 +44,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView levelNumber;
     private TextView multiplierLevel;
     private ProgressBar progressBar;
-    private int pStatus = 0;
+    public float pStatus = 0;
     private int levelUpPoints = 500;
-    private int currentLevel = 0;
-    private int multiplierView = multiplier;
+    public int currentLevel = 0;
     private Handler handler = new Handler();
 
     //Scripture Picker
@@ -68,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     public void updateFaithPoints() {
         //will not update continuously - the current value will be 1
         faithPoints = save.retrieveFaithPoints();
-        faithPoints += intMinutes * multiplier;
+        faithPoints += minutes * multiplier;
         save.saveFaithPoints(faithPoints);
         Log.i(TAG, "faith points: " + faithPoints);
     }
@@ -78,12 +70,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        chronometer_function();
+        //Create a new save object and update faith points
+        //save = new Save(this);
 
         progress_bar();
 
+        chronometer_function();
     } // end onCreate
-
 
     void progress_bar() {
         //Progress Bar and levels
@@ -92,14 +85,17 @@ public class MainActivity extends AppCompatActivity {
         multiplierLevel = (TextView) findViewById(R.id.multiplierLevel);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
+        //progress bar update in percentage
+        pStatus = (float)faithPoints/levelUpPoints * 100;
+
         new Thread(() -> {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    progressBar.setProgress(pStatus);
+                    progressBar.setProgress((int)pStatus);
                     txtProgress.setText(pStatus + " %");
                     levelNumber.setText(currentLevel + " ");
-                    multiplierLevel.setText(multiplierView + " ");
+                    multiplierLevel.setText(multiplier + " ");
                 }
             });
             try {
@@ -107,22 +103,25 @@ public class MainActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            pStatus = (faithPoints / levelUpPoints) * 100;
+
             if (pStatus == 100) {
                 pStatus = 0;
                 levelUpPoints *= 2;
                 currentLevel++;
             }
         }).start();
+        System.out.println(faithPoints);
+        System.out.println(pStatus);
+        System.out.println(levelUpPoints);
     }
 
-    private boolean is_time_range(Chronometer chronometer, int start_second, int end_second) {
+    private boolean is_time_range(Chronometer chronometer, int start_second, int end_second){
         boolean start = SystemClock.elapsedRealtime() - chronometer.getBase() >= start_second * 1000;
         boolean end = SystemClock.elapsedRealtime() - chronometer.getBase() <= end_second * 1000;
         return start && end;
     }
 
-    private void short_toast(String message) {
+    private void short_toast(String message){
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -147,36 +146,6 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param view
      */
-    //Cards
-    public void openCards(View view) {
-        //TODO need to pass faith points in when the button is pushed.
-        Intent intent = new Intent(this, CardActivity.class);
-        startActivity(intent);
-
-        Log.i(TAG, "open cards button tapped");
-    }
-
-    //Calendar
-     public void openCalendar(View view) {
-
-         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
-         builder.setTitleText("SELECT A DATE");
-         final MaterialDatePicker materialdatepicker = builder.build();
-         materialdatepicker.show(getSupportFragmentManager(), "CALENDAR");
-
-         /*calendarButton.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 materialdatepicker.show(getSupportFragmentManager(), "CALENDAR");
-             }
-         });*/
-
-
-     }
-    //  Intent intent = new Intent(this, Calendar_checkmarks.class);
-    //startActivity(intent);
-    //}
-
     //Chronometer, start
     public void toggleChronometer(View view) {
         if (isRunning) {
@@ -194,13 +163,15 @@ public class MainActivity extends AppCompatActivity {
     public void resetChronometer(View view) {
         // TODO: update pauseOffset when user press resetChronometer while isRunning is set to true
         save = new Save(this);
-        hours = (pauseOffset / 3_600_000);
-        minutes = (pauseOffset - hours * 3_600_000) / 60_000;
+        pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+        hours = (int) (pauseOffset / 3_600_000);
+        minutes = (int) ((pauseOffset - hours * 3_600_000) / 60_000);
 
         updateFaithPoints();
         Log.d(TAG, "resetChronometer (faithPoints): " + faithPoints);
-        Log.d(TAG, "resetChronometer (intMinutes): " + intMinutes);
+        //Log.d(TAG, "resetChronometer (intMinutes): " + intMinutes);
         Log.d(TAG, "resetChronometer (minutes): " + minutes);
+        Log.d(TAG, "resetChronometer (pause offset): " + pauseOffset);
 
         chronometer.stop();
         isRunning = false;
@@ -217,10 +188,19 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openFavorites(View view) {
-        Intent intent = new Intent(this, FavoriteActivity.class);
+    //Cards
+    public void openCards(View view) {
+        //TODO need to pass faith points in when the button is pushed.
+        // This doesn't need done because the card activity gets faithpoints from shared preferences through the save class.
+        Intent intent = new Intent(this, CardActivity.class);
         startActivity(intent);
+
+        Log.i(TAG, "open cards button tapped");
     }
 
-
+    //Calendar
+    public void openCalendar(View view) {
+        Intent intent = new Intent(this, Calendar_checkmarks.class);
+        startActivity(intent);
+    }
 }
