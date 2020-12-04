@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="#000000" >
-
-
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -36,16 +35,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/kutimo" />
 
-    <ImageView
-        android:id="@+id/calendar"
-        android:layout_width="112dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
-        android:onClick="openCalendar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar"
-        app:srcCompat="@drawable/calendar" />
 
     <ImageView
         android:id="@+id/favorites"
@@ -54,9 +43,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="28dp"
         android:onClick="openFavorites"
+        app:layout_constraintBottom_toTopOf="@+id/chronometer"
         app:layout_constraintEnd_toStartOf="@+id/cards"
-        app:layout_constraintStart_toEndOf="@+id/calendar"
+
         app:layout_constraintTop_toBottomOf="@+id/progressBar"
         app:srcCompat="@drawable/favorite" />
 
@@ -77,11 +68,14 @@
         android:id="@+id/watch"
         android:layout_width="105dp"
         android:layout_height="116dp"
-        android:layout_marginStart="80dp"
         android:layout_marginTop="28dp"
+        android:layout_marginBottom="140dp"
         android:onClick="toggleChronometer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.163"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendar"
+        app:layout_constraintTop_toBottomOf="@+id/calendarButton"
         app:srcCompat="@drawable/watch" />
 
     <TextView
@@ -94,6 +88,7 @@
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
         app:layout_constraintStart_toStartOf="@+id/progressBar"
         app:layout_constraintTop_toTopOf="@+id/progressBar" />
+
 
     <Button
         android:id="@+id/scripture_picker_button"
@@ -208,4 +203,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/scripture_picker_button" />
+
+    <ImageButton
+        android:id="@+id/calendarButton"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="103dp"
+        android:layout_height="112dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="35dp"
+        android:background="@drawable/calendar"
+        android:onClick="openCalendar"
+        app:layout_constraintBottom_toTopOf="@+id/chronometer"
+        app:layout_constraintEnd_toStartOf="@+id/favorites"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/calendar"
+        tools:srcCompat="@drawable/calendar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

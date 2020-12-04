@@ -8,10 +8,14 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.datepicker.MaterialCalendar;
+import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.util.ArrayList;
 
@@ -26,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
     // Fields
     // ******
     private static final String TAG = "Main Activity";
+
+    //Calendar
+    private Button calendarButton;
+
     //Chronometer
     private Chronometer chronometer;
     private boolean isRunning;
@@ -70,10 +78,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        chronometer_function();
+
         progress_bar();
 
-        chronometer_function();
     } // end onCreate
+
 
     void progress_bar() {
         //Progress Bar and levels
@@ -106,13 +116,13 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
-    private boolean is_time_range(Chronometer chronometer, int start_second, int end_second){
+    private boolean is_time_range(Chronometer chronometer, int start_second, int end_second) {
         boolean start = SystemClock.elapsedRealtime() - chronometer.getBase() >= start_second * 1000;
         boolean end = SystemClock.elapsedRealtime() - chronometer.getBase() <= end_second * 1000;
         return start && end;
     }
 
-    private void short_toast(String message){
+    private void short_toast(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -137,6 +147,36 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param view
      */
+    //Cards
+    public void openCards(View view) {
+        //TODO need to pass faith points in when the button is pushed.
+        Intent intent = new Intent(this, CardActivity.class);
+        startActivity(intent);
+
+        Log.i(TAG, "open cards button tapped");
+    }
+
+    //Calendar
+     public void openCalendar(View view) {
+
+         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
+         builder.setTitleText("SELECT A DATE");
+         final MaterialDatePicker materialdatepicker = builder.build();
+         materialdatepicker.show(getSupportFragmentManager(), "CALENDAR");
+
+         /*calendarButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 materialdatepicker.show(getSupportFragmentManager(), "CALENDAR");
+             }
+         });*/
+
+
+     }
+    //  Intent intent = new Intent(this, Calendar_checkmarks.class);
+    //startActivity(intent);
+    //}
+
     //Chronometer, start
     public void toggleChronometer(View view) {
         if (isRunning) {
@@ -177,23 +217,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openFavorites(View view){
+    public void openFavorites(View view) {
         Intent intent = new Intent(this, FavoriteActivity.class);
         startActivity(intent);
     }
 
-    //Cards
-    public void openCards(View view) {
-        //TODO need to pass faith points in when the button is pushed.
-        Intent intent = new Intent(this, CardActivity.class);
-        startActivity(intent);
 
-        Log.i(TAG, "open cards button tapped");
-    }
-
-    //Calendar
-    public void openCalendar(View view) {
-        Intent intent = new Intent(this, Calendar_checkmarks.class);
-        startActivity(intent);
-    }
 }
