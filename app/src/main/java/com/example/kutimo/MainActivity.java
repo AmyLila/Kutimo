@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         progress_bar();
 
         chronometer_function();
-    } // end onCreate
+    }
 
     void progress_bar() {
         //Progress Bar and levels
@@ -192,6 +192,12 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "Opening Scripture Picker");
 
         Intent intent = new Intent(this, Scripture_picker.class);
+        startActivity(intent);
+    }
+
+    public void openFavorites(View view) {
+        //TODO need to pass faith points in when the button is pushed.
+        Intent intent = new Intent(this, FavoriteActivity.class);
         startActivity(intent);
     }
 
