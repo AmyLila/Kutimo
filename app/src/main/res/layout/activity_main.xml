@@ -2,11 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="#000000" >
-
+    android:background="#000000"
+    tools:context=".MainActivity">
 
 
     <ProgressBar
@@ -37,17 +37,6 @@
         app:srcCompat="@drawable/kutimo" />
 
     <ImageView
-        android:id="@+id/calendar"
-        android:layout_width="112dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
-        android:onClick="openCalendar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar"
-        app:srcCompat="@drawable/calendar" />
-
-    <ImageView
         android:id="@+id/favorites"
         android:layout_width="106dp"
         android:layout_height="119dp"
@@ -56,7 +45,7 @@
         android:layout_marginEnd="16dp"
         android:onClick="openFavorites"
         app:layout_constraintEnd_toStartOf="@+id/cards"
-        app:layout_constraintStart_toEndOf="@+id/calendar"
+        app:layout_constraintStart_toEndOf="@+id/calendarButton"
         app:layout_constraintTop_toBottomOf="@+id/progressBar"
         app:srcCompat="@drawable/favorite" />
 
@@ -70,8 +59,7 @@
         android:onClick="openCards"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar"
-        app:srcCompat="@drawable/cards"
-        />
+        app:srcCompat="@drawable/cards" />
 
     <ImageView
         android:id="@+id/watch"
@@ -81,7 +69,7 @@
         android:layout_marginTop="16dp"
         android:onClick="toggleChronometer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendar"
+        app:layout_constraintTop_toBottomOf="@+id/calendarButton"
         app:srcCompat="@drawable/watch" />
 
     <TextView
@@ -208,4 +196,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/scripture_picker_button" />
+
+    <ImageButton
+        android:id="@+id/calendarButton"
+        android:layout_width="106dp"
+        android:layout_height="119dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="2dp"
+        android:backgroundTint="#00FFFFFF"
+        android:foreground="@drawable/calendar"
+        android:onClick="openCalendar"
+        app:layout_constraintEnd_toStartOf="@+id/favorites"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        app:srcCompat="@drawable/calendar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

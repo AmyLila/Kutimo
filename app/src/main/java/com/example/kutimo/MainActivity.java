@@ -8,10 +8,14 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.util.ArrayList;
 import java.lang.Math;
@@ -27,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     // Fields
     // ******
     private static final String TAG = "Main Activity";
+
+    //Calendar
+    private ImageButton calendarButton;
+
     //Chronometer
     private Chronometer chronometer;
     private boolean isRunning;
@@ -34,12 +42,11 @@ public class MainActivity extends AppCompatActivity {
     private int hours;
     private int minutes;
 
-
     //Faith Points
     private int faithPoints = 300;
     private int multiplier = 1;
 
-    //Progress Bar and progress levels
+    //Progress Bar
     private TextView txtProgress;
     private TextView levelNumber;
     private TextView multiplierLevel;
@@ -200,7 +207,15 @@ public class MainActivity extends AppCompatActivity {
 
     //Calendar
     public void openCalendar(View view) {
-        Intent intent = new Intent(this, Calendar_checkmarks.class);
-        startActivity(intent);
+        //or try range picker
+        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
+
+        //MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker(); // customDatePicker(). datePicker();
+        builder.setTitleText("SELECT A DATE");
+        final MaterialDatePicker materialdatepicker = builder.build();
+
+        materialdatepicker.show(getSupportFragmentManager(), "CALENDAR_FRAGMENT");
+        //Intent intent = new Intent(this, Calendar_checkmarks.class);
+        //startActivity(intent);
     }
 }
