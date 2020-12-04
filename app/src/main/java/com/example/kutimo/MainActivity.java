@@ -31,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private Chronometer chronometer;
     private boolean isRunning;
     private long pauseOffset;
-    private long hours;
-    private long minutes;
-    private int intMinutes = (int) (minutes);
+    private int hours;
+    private int minutes;
+
 
     //Faith Points
     private int faithPoints = 300;
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     public void updateFaithPoints() {
         //will not update continuously - the current value will be 1
         faithPoints = save.retrieveFaithPoints();
-        faithPoints += intMinutes * multiplier;
+        faithPoints += minutes * multiplier;
         save.saveFaithPoints(faithPoints);
         Log.i(TAG, "faith points: " + faithPoints);
     }
@@ -163,13 +163,15 @@ public class MainActivity extends AppCompatActivity {
     public void resetChronometer(View view) {
         // TODO: update pauseOffset when user press resetChronometer while isRunning is set to true
         save = new Save(this);
-        hours = (pauseOffset / 3_600_000);
-        minutes = (pauseOffset - hours * 3_600_000) / 60_000;
+        pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+        hours = (int) (pauseOffset / 3_600_000);
+        minutes = (int) ((pauseOffset - hours * 3_600_000) / 60_000);
 
         updateFaithPoints();
         Log.d(TAG, "resetChronometer (faithPoints): " + faithPoints);
-        Log.d(TAG, "resetChronometer (intMinutes): " + intMinutes);
+        //Log.d(TAG, "resetChronometer (intMinutes): " + intMinutes);
         Log.d(TAG, "resetChronometer (minutes): " + minutes);
+        Log.d(TAG, "resetChronometer (pause offset): " + pauseOffset);
 
         chronometer.stop();
         isRunning = false;
@@ -195,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
     //Cards
     public void openCards(View view) {
         //TODO need to pass faith points in when the button is pushed.
+        // This doesn't need done because the card activity gets faithpoints from shared preferences through the save class.
         Intent intent = new Intent(this, CardActivity.class);
         startActivity(intent);
 
