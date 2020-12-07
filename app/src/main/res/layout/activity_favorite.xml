@@ -6,25 +6,30 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".FavoriteActivity">
-    <LinearLayout
-        android:id="@+id/linear_layout"
+    <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
-
-        <com.example.kutimo.ScriptureItemView
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:artistText="ColdPlay"
-            app:trackText="Paradise"
-            app:buyButton="Buy"/>
+            android:orientation="vertical"
+            tools:context=".MainActivity">
 
-        <com.example.kutimo.ScriptureItemView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:artistText="The Script"
-            app:trackText="This=Love"
-            app:buyButton="Buy"/>
-    </LinearLayout>
+            <com.example.kutimo.ScriptureItemView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:artistText="ColdPlay"
+                app:trackText="Paradise"
+                app:buyButton="Buy"/>
+
+            <com.example.kutimo.ScriptureItemView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:artistText="The Script"
+                app:trackText="This=Love"
+                app:buyButton="Buy"/>
+        </LinearLayout>
+    </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
