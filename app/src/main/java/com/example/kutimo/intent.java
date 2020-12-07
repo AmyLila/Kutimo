@@ -45,11 +45,24 @@ public class intent extends AppCompatActivity {
         return url_string;
     }
 
+    private String getTitle(String text){
+        String url_regex = "(https:\\/\\/www[.][-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|])";
+        Pattern p = Pattern.compile(url_regex, Pattern.MULTILINE);
+        Matcher m = p.matcher(text);
+
+        // Get the last url in case potential of url in content text.
+        String url_string = "";
+        while(m.find()) {
+            url_string = m.group();
+        }
+        return url_string;
+    }
+
     void handleSendText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (sharedText != null) {
             String title = "";
-            String content = "";
+            String content = getTitle(sharedText);
             String link = getGospelUrl(sharedText);
             Toast.makeText(this, sharedText, Toast.LENGTH_SHORT).show();
             EditText textView = (EditText) findViewById(R.id.intentResult);
