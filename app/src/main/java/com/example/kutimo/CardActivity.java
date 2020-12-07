@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
-
 public class CardActivity extends AppCompatActivity {
 
     private static final String TAG = "Card Activity";
@@ -22,7 +20,7 @@ public class CardActivity extends AppCompatActivity {
 
         //Amy's Card Activity
 
-        faithPoints = data.load(StorageKeys.FAITH_POINTS);
+        faithPoints = data.loadInt(StorageKeys.FAITH_POINTS);
         Log.i(TAG, "faith points: " + faithPoints);
 
         int level = 500;

@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import org.json.JSONException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -47,19 +45,27 @@ public class Data {
         StringWriter out = new StringWriter();
         JSONParser parser = new JSONParser();
         try {
-            JSONObject main_json = main_json = (JSONObject) parser.parse(load(shared_preference, ""));
+            JSONObject main_json = main_json = (JSONObject) parser.parse(loadString(shared_preference));
             main_json.put(named_key, json_value);
             main_json.writeJSONString(out);
             save(shared_preference, out.toString());
         } catch (Exception ignored) {}
     }
 
-    public int load(String shared_preference) {
+    public int loadInt(String shared_preference) {
         return sharedPreferences.getInt(shared_preference, 0);
     }
 
-    public String load(String shared_preference, String default_value) {
+    public String loadString(String shared_preference) {
+        return sharedPreferences.getString(shared_preference, "");
+    }
+
+    public String loadString(String shared_preference, String default_value) {
         return sharedPreferences.getString(shared_preference, default_value);
+    }
+
+    public String loadFromJSON(String shared_preference){
+        return "";
     }
 }
 

@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void updateFaithPoints() {
         //will not update continuously - the current value will be 1
-        faithPoints = data.load(StorageKeys.FAITH_POINTS) * minutes * multiplier;
+        faithPoints = data.loadInt(StorageKeys.FAITH_POINTS) * minutes * multiplier;
         data.save(StorageKeys.FAITH_POINTS, faithPoints);
         Log.i(TAG, "faith points: " + faithPoints);
     }
