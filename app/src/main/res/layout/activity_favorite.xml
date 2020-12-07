@@ -7,7 +7,6 @@
     android:fitsSystemWindows="true"
     tools:context=".FavoriteActivity">
     <ScrollView
-        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -16,20 +15,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:context=".MainActivity">
-
-            <com.example.kutimo.ScriptureItemView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:artistText="ColdPlay"
-                app:trackText="Paradise"
-                app:buyButton="Buy"/>
-
-            <com.example.kutimo.ScriptureItemView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:artistText="The Script"
-                app:trackText="This=Love"
-                app:buyButton="Buy"/>
         </LinearLayout>
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
