@@ -1,8 +1,69 @@
 package com.example.kutimo;
 
-import java.util.ArrayList;
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import org.json.JSONException;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
+import java.io.StringWriter;
 
 public class Data {
+    Activity activity;
+    SharedPreferences sharedPreferences;
+
+    Data(Activity activity) {
+        this.activity = activity;
+        this.sharedPreferences = activity.getSharedPreferences("com.storage", Context.MODE_PRIVATE);
+    }
+
+    Data(Activity activity, String page) {
+        this.activity = activity;
+        this.sharedPreferences = activity.getSharedPreferences("com." + page, Context.MODE_PRIVATE);
+    }
+
+    public void save(String shared_preference, int number) {
+        sharedPreferences.edit().putInt(shared_preference, number).apply();
+    }
+
+    public void save(String shared_preference, String variable) {
+        sharedPreferences.edit().putString(shared_preference, variable).apply();
+    }
+
+    public void save(String shared_preference, JSONObject json_value) {
+        StringWriter out = new StringWriter();
+        try {
+            json_value.writeJSONString(out);
+            save(shared_preference, out.toString());
+        } catch (IOException ignored) {
+        }
+    }
+
+    public void append(String shared_preference, String named_key, JSONObject json_value) {
+        StringWriter out = new StringWriter();
+        JSONParser parser = new JSONParser();
+        try {
+            JSONObject main_json = main_json = (JSONObject) parser.parse(load(shared_preference, ""));
+            main_json.put(named_key, json_value);
+            main_json.writeJSONString(out);
+            save(shared_preference, out.toString());
+        } catch (Exception ignored) {}
+    }
+
+    public int load(String shared_preference) {
+        return sharedPreferences.getInt(shared_preference, 0);
+    }
+
+    public String load(String shared_preference, String default_value) {
+        return sharedPreferences.getString(shared_preference, default_value);
+    }
+}
+
+    /*
     public int faithPoints;
     Save save;
     public ArrayList<String> scriptures = new ArrayList<>();
@@ -29,5 +90,4 @@ public class Data {
                 ", scriptures=" + scriptures +
                 '}';
     }
-
-}
+     */
