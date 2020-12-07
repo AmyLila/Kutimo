@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -18,7 +17,6 @@ import android.widget.Toast;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.util.ArrayList;
-import java.lang.Math;
 
 /**
  * Entry point for Kutimo project.
@@ -57,24 +55,23 @@ public class MainActivity extends AppCompatActivity {
     private Handler handler = new Handler();
 
     //Scripture Picker
-    Data data;
     ArrayList<String> scriptures;
-    Save save;
+    Data data;
 
     /**
      * Each sessions' faith points and multiplier
      */
     public void updateFaithPoints() {
         //will not update continuously - the current value will be 1
-        faithPoints = save.retrieveFaithPoints();
-        faithPoints += minutes * multiplier;
-        save.saveFaithPoints(faithPoints);
+        faithPoints = data.load(StorageKeys.FAITH_POINTS) * minutes * multiplier;
+        data.save(StorageKeys.FAITH_POINTS, faithPoints);
         Log.i(TAG, "faith points: " + faithPoints);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        data = new Data(this);
         setContentView(R.layout.activity_main);
 
         //Create a new save object and update faith points
@@ -169,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
     //Chronometer, saves time and resets
     public void resetChronometer(View view) {
         // TODO: update pauseOffset when user press resetChronometer while isRunning is set to true
-        save = new Save(this);
         pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
         hours = (int) (pauseOffset / 3_600_000);
         minutes = (int) ((pauseOffset - hours * 3_600_000) / 60_000);
