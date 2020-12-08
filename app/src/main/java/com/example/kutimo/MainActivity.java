@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
         progressBar.setProgress((int) faith_point_status);
         txtProgress.setText(faith_point_status + " %");
-        levelNumber.setText(currentLevel + " ");
+        //levelNumber.setText(currentLevel + " ");
         multiplierLevel.setText(multiplier + " ");
 
         //progress bar update in percentage
