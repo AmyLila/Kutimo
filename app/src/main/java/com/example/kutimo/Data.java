@@ -65,6 +65,11 @@ public class Data {
         return sharedPreferences.getInt(shared_preference, 0);
     }
 
+    public int loadInt(String shared_preference, int default_value) {
+        return sharedPreferences.getInt(shared_preference, default_value);
+    }
+
+
     public String loadString(String shared_preference) {
         return sharedPreferences.getString(shared_preference, "");
     }
