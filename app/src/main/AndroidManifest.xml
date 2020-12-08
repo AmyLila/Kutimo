@@ -15,8 +15,13 @@
         android:theme="@style/Theme.Kutimo">
         <activity
             android:name=".FavoriteActivity"
-            android:label="@string/title_activity_favorite"
-            android:theme="@style/Theme.Kutimo.NoActionBar"></activity>
+            android:label="Add to Favorites">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,11 +32,13 @@
         <activity
             android:name=".intent"
             android:label="@string/title_activity_intent">
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.SEND"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data android:mimeType="text/plain"/>
             </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".Scripture_picker"
