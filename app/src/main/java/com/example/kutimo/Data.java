@@ -55,10 +55,7 @@ public class Data {
 
     public JSONArray loadListItemsFromJSON(String shared_preference) throws ParseException{
         JSONArray json_array = (JSONArray) loadJSON(shared_preference).get(LIST_NAME);
-        if (json_array == null) {
-            json_array = new JSONArray();
-        }
-        return json_array;
+        return json_array == null ? new JSONArray() : json_array;
     }
 
     public int loadInt(String shared_preference) {
