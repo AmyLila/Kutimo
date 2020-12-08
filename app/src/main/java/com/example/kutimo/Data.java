@@ -4,15 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 
 public class Data {
     Activity activity;
     SharedPreferences sharedPreferences;
+    protected String LIST_NAME = "list";
 
     Data(Activity activity) {
         this.activity = activity;
@@ -24,32 +28,37 @@ public class Data {
         this.sharedPreferences = activity.getSharedPreferences("com." + page, Context.MODE_PRIVATE);
     }
 
-    public void save(String shared_preference, int number) {
+    public void saveInt(String shared_preference, int number) {
         sharedPreferences.edit().putInt(shared_preference, number).apply();
     }
 
-    public void save(String shared_preference, String variable) {
+    public void saveString(String shared_preference, String variable) {
         sharedPreferences.edit().putString(shared_preference, variable).apply();
     }
 
-    public void save(String shared_preference, JSONObject json_value) {
-        StringWriter out = new StringWriter();
+    public void saveJSON(String shared_preference, JSONObject json_value) {
+        saveString(shared_preference, json_value.toJSONString());
+    }
+
+    public void appendItemToJSON(String shared_preference, JSONObject json_value) {
         try {
-            json_value.writeJSONString(out);
-            save(shared_preference, out.toString());
-        } catch (IOException ignored) {
+            JSONObject scripture_json = loadJSON(shared_preference);
+
+            JSONArray json_array = loadListItemsFromJSON(shared_preference);
+            json_array.add(json_value);
+            scripture_json.put(LIST_NAME, json_array);
+
+            saveJSON(shared_preference, scripture_json);
+        } catch (Exception ignored) {
         }
     }
 
-    public void append(String shared_preference, String named_key, JSONObject json_value) {
-        StringWriter out = new StringWriter();
-        JSONParser parser = new JSONParser();
-        try {
-            JSONObject main_json = main_json = (JSONObject) parser.parse(loadString(shared_preference));
-            main_json.put(named_key, json_value);
-            main_json.writeJSONString(out);
-            save(shared_preference, out.toString());
-        } catch (Exception ignored) {}
+    public JSONArray loadListItemsFromJSON(String shared_preference) throws ParseException{
+        JSONArray json_array = (JSONArray) loadJSON(shared_preference).get(LIST_NAME);
+        if (json_array == null) {
+            json_array = new JSONArray();
+        }
+        return json_array;
     }
 
     public int loadInt(String shared_preference) {
@@ -64,8 +73,8 @@ public class Data {
         return sharedPreferences.getString(shared_preference, default_value);
     }
 
-    public String loadFromJSON(String shared_preference){
-        return "";
+    public JSONObject loadJSON(String shared_preference) throws ParseException {
+        return (JSONObject) new JSONParser().parse(loadString(shared_preference));
     }
 }
 
