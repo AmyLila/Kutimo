@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         multiplierLevel.setText(multiplier + " ");
 
         //progress bar update in percentage
-        faith_point_status = Math.round((float) faithPoints/levelUpPoints * 100);
+        faith_point_status = Math.round((float) faithPoints / levelUpPoints * 100);
 
         levelUpPoints = data.loadInt(StorageKeys.LEVEL_UP_POINTS, 500);
         currentLevel = data.loadInt(StorageKeys.CURRENT_LEVEL, 0);
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "progress_bar levelUpPoints " + levelUpPoints);
     }
 
-    private boolean is_time_range(Chronometer chronometer, long start_second, long end_second){
+    private boolean is_time_range(Chronometer chronometer, long start_second, long end_second) {
         boolean start = SystemClock.elapsedRealtime() - chronometer.getBase() >= start_second * 1_000L;
         boolean end = SystemClock.elapsedRealtime() - chronometer.getBase() <= end_second * 1_000L;
         return start && end;
@@ -130,13 +130,20 @@ public class MainActivity extends AppCompatActivity {
             if (is_time_range(chronometer, 30, 31)) { // reduce by 1 second to prevent double toast
                 short_toast("Halfway through your first FP!");
             }
-            if (is_time_range(chronometer, number.get() + 60L, number.get() + 61L)) {
-                number.addAndGet(60L);
+            // if (is_time_range(chronometer, number.get() + 60L, number.get() + 61L)) {
+            if (is_time_range(chronometer, number.get() + 30L, number.get() + 31L)) {
+                number.addAndGet(30L);
+                faithPoints += 1;
+                data.saveInt(StorageKeys.FAITH_POINTS, faithPoints);
+
+                faith_point_status = Math.round((float) faithPoints / levelUpPoints * 100);
 
                 progressBar.setProgress((int) faith_point_status);
                 txtProgress.setText(faith_point_status + " %");
                 levelNumber.setText(currentLevel + " ");
                 multiplierLevel.setText(multiplier + " ");
+
+
             }
             if (faith_point_status >= 100) {
                 faith_point_status = 0;
@@ -217,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Calendar
     public void openCalendar(View view) {
-       //Overlay with onClick
+        //Overlay with onClick
         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
         builder.setTitleText("SELECT A DATE");
         final MaterialDatePicker materialdatepicker = builder.build();

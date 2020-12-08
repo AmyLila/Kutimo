@@ -27,18 +27,18 @@ public class CardActivity extends AppCompatActivity {
 
 
         // Levels
-        level1 = level;
-        level2 = level * 2;
-        level3 = level * 3;
-        level4 = level * 4;
-        level5 = level * 5;
-        level6 = level * 6;
-        level7 = level * 7;
-        level8 = level * 8;
-        level9 = level * 9;
-        level10 = level * 10;
-        level11 = level * 11;
-        level12 = level * 12;
+        level1 = 500; // 500
+        level2 = 500 * (int) Math.pow(2, 1); // 500 * 2 = 1,000
+        level3 = 500 * (int) Math.pow(2, 2); // 500 * 4 = 2,000
+        level4 = 500 * (int) Math.pow(2, 3); // 500 * 8 = 4,000
+        level5 = 500 * (int) Math.pow(2, 4);
+        level6 = 500 * (int) Math.pow(2, 5);
+        level7 = 500 * (int) Math.pow(2, 6);
+        level8 = 500 * (int) Math.pow(2, 7);
+        level9 = 500 * (int) Math.pow(2, 8);
+        level10 = 500 * (int) Math.pow(2, 9);
+        level11 = 500 * (int) Math.pow(2, 10);
+        level12 = 500 * (int) Math.pow(2, 11); // 500 * 4,096 = 2,048,000
 
         changeImage();
     }
