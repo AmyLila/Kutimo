@@ -36,7 +36,7 @@
         <activity
             android:name=".Scripture_picker"
             android:label="@string/title_activity_scripture_picker"
-            android:theme="@style/Theme.Kutimo.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".CardActivity">
             android:parentActivityName=".MainActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->

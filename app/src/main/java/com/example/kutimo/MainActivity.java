@@ -221,6 +221,8 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "Opening Scripture Picker");
 
         Intent intent = new Intent(this, Scripture_picker.class);
+        Scripture_picker scripture_picker = new Scripture_picker();
+        // scripture_picker.show();
         startActivity(intent);
     }
 
