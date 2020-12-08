@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.annotation.StyleableRes;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 public class ScriptureItemView extends LinearLayout {
 
     TextView titleText;
@@ -48,6 +51,20 @@ public class ScriptureItemView extends LinearLayout {
         setTitleText(setTitle);
         setQuoteText(setQuote);
         setButton(setLink);
+    }
+
+    /**
+     * Created to handle incoming JSONObject that contains "title", "content", and "link", all as
+     * strings.
+     * @param context Pass in from current activity
+     * @param scripture JSONObject containing "title", "content", "link" as string objects.
+     */
+    public ScriptureItemView(Context context, JSONObject scripture) {
+        super(context);
+        initializeViewById(context);
+        setTitleText((String) scripture.get("title"));
+        setQuoteText((String) scripture.get("content"));
+        setButton((String) scripture.get("link"));
     }
 
     /**
