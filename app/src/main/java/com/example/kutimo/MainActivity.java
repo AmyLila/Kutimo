@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Entry point for Kutimo project.
@@ -90,46 +91,25 @@ public class MainActivity extends AppCompatActivity {
         multiplierLevel = (TextView) findViewById(R.id.multiplierLevel);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
+        progressBar.setProgress((int) faith_point_status);
+        txtProgress.setText(faith_point_status + " %");
+        levelNumber.setText(currentLevel + " ");
+        multiplierLevel.setText(multiplier + " ");
+
         //progress bar update in percentage
-        faith_point_status = Math.round((float) faithPoints/levelUpPoints * 100); // / 100.0f;
+        faith_point_status = Math.round((float) faithPoints/levelUpPoints * 100);
 
         levelUpPoints = data.loadInt(StorageKeys.LEVEL_UP_POINTS, 500);
         currentLevel = data.loadInt(StorageKeys.CURRENT_LEVEL, 0);
 
-
-        new Thread(() -> {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    progressBar.setProgress((int) faith_point_status);
-                    txtProgress.setText(faith_point_status + " %");
-                    levelNumber.setText(currentLevel + " ");
-                    multiplierLevel.setText(multiplier + " ");
-                }
-            });
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            if (faith_point_status == 100) {
-                faith_point_status = 0;
-                levelUpPoints *= 2;
-                currentLevel++;
-
-                data.saveInt(StorageKeys.LEVEL_UP_POINTS, levelUpPoints);
-                data.saveInt(StorageKeys.CURRENT_LEVEL, currentLevel);
-            }
-        }).start();
         Log.d(TAG, "progress_bar faithPoints " + faithPoints);
         Log.d(TAG, "progress_bar faith_point_status " + faith_point_status);
         Log.d(TAG, "progress_bar levelUpPoints " + levelUpPoints);
     }
 
-    private boolean is_time_range(Chronometer chronometer, int start_second, int end_second){
-        boolean start = SystemClock.elapsedRealtime() - chronometer.getBase() >= start_second * 1000;
-        boolean end = SystemClock.elapsedRealtime() - chronometer.getBase() <= end_second * 1000;
+    private boolean is_time_range(Chronometer chronometer, long start_second, long end_second){
+        boolean start = SystemClock.elapsedRealtime() - chronometer.getBase() >= start_second * 1_000L;
+        boolean end = SystemClock.elapsedRealtime() - chronometer.getBase() <= end_second * 1_000L;
         return start && end;
     }
 
@@ -140,6 +120,9 @@ public class MainActivity extends AppCompatActivity {
     void chronometer_function() {
         //Chronometer, toasts
         chronometer = findViewById(R.id.chronometer);
+
+        AtomicLong number = new AtomicLong();
+
         chronometer.setOnChronometerTickListener(chronometer -> {
             if (is_time_range(chronometer, 10, 11)) { // reduce by 1 second to prevent double toast
                 short_toast("It's been 10sec! Felt the Spirit yet?");
@@ -147,6 +130,23 @@ public class MainActivity extends AppCompatActivity {
             if (is_time_range(chronometer, 30, 31)) { // reduce by 1 second to prevent double toast
                 short_toast("Halfway through your first FP!");
             }
+            if (is_time_range(chronometer, number.get() + 60L, number.get() + 61L)) {
+                number.addAndGet(60L);
+
+                progressBar.setProgress((int) faith_point_status);
+                txtProgress.setText(faith_point_status + " %");
+                levelNumber.setText(currentLevel + " ");
+                multiplierLevel.setText(multiplier + " ");
+            }
+            if (faith_point_status >= 100) {
+                faith_point_status = 0;
+                levelUpPoints *= 2;
+                currentLevel++;
+
+                data.saveInt(StorageKeys.LEVEL_UP_POINTS, levelUpPoints);
+                data.saveInt(StorageKeys.CURRENT_LEVEL, currentLevel);
+            }
+
         });
     }
 
