@@ -96,6 +96,15 @@ public class Data {
         return json_array == null ? new JSONArray() : json_array;
     }
 
+    public void clearJSON(String shared_preference){
+        try {
+            JSONObject main_json = loadJSON(shared_preference);
+            main_json.put(LIST_NAME, new JSONArray());
+            saveJSON(shared_preference, main_json);
+        } catch (Exception ignored) {
+        }
+    }
+
     /**
      * @param shared_preference key name for number variable
      * @return number stored under shared_preference key, returns 0 if non-existence

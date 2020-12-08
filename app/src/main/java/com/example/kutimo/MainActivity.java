@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 
+import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         data = new Data(this);
+        falsify_data();
         setContentView(R.layout.activity_main);
 
         faithPoints = data.loadInt(StorageKeys.FAITH_POINTS, 0);
@@ -72,6 +75,21 @@ public class MainActivity extends AppCompatActivity {
 
         progress_bar();
         chronometer_function();
+    }
+
+    private void falsify_data() {
+        data.clearJSON(StorageKeys.SCRIPTURES);
+        JSONObject scripture = new JSONObject();
+
+        scripture.put("title", "THIS IS THE TITLE");
+        scripture.put("content", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet vehicula metus. Pellentesque luctus libero ac sapien sagittis dapibus. Nam nec nunc massa. In.");
+        scripture.put("link", "GOSPEL LINK");
+
+        for (int i = 0; i < 10; i++) {
+            data.appendItemToJSON(StorageKeys.SCRIPTURES, scripture);
+            data.appendItemToJSON(StorageKeys.SCRIPTURES, scripture);
+        }
+
     }
 
     /**
