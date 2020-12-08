@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView levelNumber;
     private TextView multiplierLevel;
     private ProgressBar progressBar;
-    public float pStatus = 0;
+    public float faith_point_status = 0;
     private int levelUpPoints = 500;
     public int currentLevel = 0;
     private Handler handler = new Handler();
@@ -63,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void updateFaithPoints() {
         //will not update continuously - the current value will be 1
-        faithPoints = data.loadInt(StorageKeys.FAITH_POINTS) * minutes * multiplier;
-        data.saveInt(StorageKeys.FAITH_POINTS, faithPoints);
+        faithPoints = data.loadInt(StorageKeys.FAITH_POINTS);
+        data.saveInt(StorageKeys.FAITH_POINTS, faithPoints * minutes * multiplier);
         Log.i(TAG, "faith points: " + faithPoints);
     }
 
@@ -86,14 +86,14 @@ public class MainActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         //progress bar update in percentage
-        pStatus = (float)faithPoints/levelUpPoints * 100;
+        faith_point_status = Math.round((float) faithPoints/levelUpPoints * 100); // / 100.0f;
 
         new Thread(() -> {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    progressBar.setProgress((int)pStatus);
-                    txtProgress.setText(pStatus + " %");
+                    progressBar.setProgress((int) faith_point_status);
+                    txtProgress.setText(faith_point_status + " %");
                     levelNumber.setText(currentLevel + " ");
                     multiplierLevel.setText(multiplier + " ");
                 }
@@ -104,15 +104,15 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if (pStatus == 100) {
-                pStatus = 0;
+            if (faith_point_status == 100) {
+                faith_point_status = 0;
                 levelUpPoints *= 2;
                 currentLevel++;
             }
         }).start();
-        System.out.println(faithPoints);
-        System.out.println(pStatus);
-        System.out.println(levelUpPoints);
+        Log.d(TAG, "progress_bar faithPoints " + faithPoints);
+        Log.d(TAG, "progress_bar faith_point_status " + faith_point_status);
+        Log.d(TAG, "progress_bar levelUpPoints " + levelUpPoints);
     }
 
     private boolean is_time_range(Chronometer chronometer, int start_second, int end_second){
