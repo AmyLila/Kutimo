@@ -5,17 +5,26 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.simple.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class intent extends AppCompatActivity {
 
     protected String TAG_NAME = "intent";
+    Data data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intent);
+        data = new Data(this);
 
         // Get intent, action and MIME type
         Intent intent = getIntent();
@@ -33,37 +42,44 @@ public class intent extends AppCompatActivity {
     }
 
     private String getGospelUrl(String text){
-        String url_regex = "(https:\\/\\/www[.][-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|])";
-        Pattern p = Pattern.compile(url_regex, Pattern.MULTILINE);
-        Matcher m = p.matcher(text);
-
-        // Get the last url in case potential of url in content text.
-        String url_string = "";
-        while(m.find()) {
-            url_string = m.group();
-        }
-        return url_string;
+        String[] items = text.split("\n");
+        return items[items.length - 1];
     }
 
     private String getTitle(String text){
-        String url_regex = "(https:\\/\\/www[.][-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|])";
-        Pattern p = Pattern.compile(url_regex, Pattern.MULTILINE);
-        Matcher m = p.matcher(text);
+        String[] items = text.split("\n");
+        return items[items.length - 3];
+    }
 
-        // Get the last url in case potential of url in content text.
-        String url_string = "";
-        while(m.find()) {
-            url_string = m.group();
+    private String getContent(String text){
+        List<String> items = new ArrayList<String>(Arrays.asList(text.split("\n")));
+
+        // remove ending part of the items list to have beginning only
+        for (int i = 0; i < 4; i++){
+            items.remove(items.size() - 1);
         }
-        return url_string;
+
+        // remove excesses space
+        for (int i = 0; i < items.size(); i++){
+            items.set(i, items.get(i).trim());
+        }
+
+        return String.join("\n", items);
     }
 
     void handleSendText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (sharedText != null) {
-            String title = "";
-            String content = getTitle(sharedText);
-            String link = getGospelUrl(sharedText);
+            getContent(sharedText);
+
+            JSONObject scripture = new JSONObject();
+
+            scripture.put("title", getTitle(sharedText));
+            scripture.put("content", getContent(sharedText));
+            scripture.put("link", getGospelUrl(sharedText));
+
+            data.appendItemToJSON(StorageKeys.SCRIPTURES, scripture);
+
             Toast.makeText(this, sharedText, Toast.LENGTH_SHORT).show();
             EditText textView = (EditText) findViewById(R.id.intentResult);
             // textView.setText(sharedText);
