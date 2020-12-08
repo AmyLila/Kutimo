@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void falsify_data() {
-        data.clearJSON(StorageKeys.SCRIPTURES);
+        data.clearJSONArray(StorageKeys.SCRIPTURES);
         JSONObject scripture = new JSONObject();
 
         scripture.put("title", "THIS IS THE TITLE");
