@@ -6,7 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.widget.LinearLayout;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+
+import java.util.ArrayList;
+
 public class FavoriteActivity extends AppCompatActivity {
+    Data data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,9 +21,14 @@ public class FavoriteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_favorite);
 
         LinearLayout linearLayout = findViewById(R.id.linear_layout);
+        data = new Data(this);
 
-        for (int i = 0; i < 100; i++) {
-            linearLayout.addView(new ScriptureItemView(this, "Esther 8:9", "Then were the king’s scribes called at that time in the third month, that is, the month Sivan, on the three and twentieth day thereof; and it was written according to all that Mordecai commanded unto the Jews, and to the lieutenants, and the deputies and rulers of the provinces which are from India unto Ethiopia, an hundred twenty and seven provinces, unto every province according to the writing thereof, and unto every people after their language, and to the Jews according to their writing, and according to their language.", "SHARE"));
+        try {
+            JSONArray scriptures = data.loadListItemsFromJSON(StorageKeys.SCRIPTURES);
+            for (Object each : scriptures)
+                linearLayout.addView(new ScriptureItemView(this, (JSONObject) each));
+        } catch (ParseException ignored) {
         }
+
     }
 }
