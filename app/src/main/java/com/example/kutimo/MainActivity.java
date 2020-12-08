@@ -41,32 +41,24 @@ public class MainActivity extends AppCompatActivity {
     private int minutes;
 
     //Faith Points
-    private int faithPoints = 300;
-    private int multiplier = 1;
+    private int faithPoints;
+    private int multiplier;
 
     //Progress Bar
     private TextView txtProgress;
     private TextView levelNumber;
     private TextView multiplierLevel;
     private ProgressBar progressBar;
-    public float faith_point_status = 0;
-    private int levelUpPoints = 500;
-    public int currentLevel = 0;
     private Handler handler = new Handler();
+
+    // Progress bar values
+    public float faith_point_status = 0;
+    private int levelUpPoints;
+    public int currentLevel;
 
     //Scripture Picker
     ArrayList<String> scriptures;
     Data data;
-
-    /**
-     * Each sessions' faith points and multiplier
-     */
-    public void updateFaithPoints() {
-        //will not update continuously - the current value will be 1
-        faithPoints = data.loadInt(StorageKeys.FAITH_POINTS);
-        data.saveInt(StorageKeys.FAITH_POINTS, faithPoints * minutes * multiplier);
-        Log.i(TAG, "faith points: " + faithPoints);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +66,22 @@ public class MainActivity extends AppCompatActivity {
         data = new Data(this);
         setContentView(R.layout.activity_main);
 
+        faithPoints = data.loadInt(StorageKeys.FAITH_POINTS, 0);
+        multiplier = data.loadInt(StorageKeys.MULTIPLIER, 1);
+
         progress_bar();
         chronometer_function();
     }
+
+    /**
+     * Each sessions' faith points and multiplier
+     */
+    public void updateFaithPoints() {
+        //will not update continuously - the current value will be 1
+        data.saveInt(StorageKeys.FAITH_POINTS, faithPoints * minutes * multiplier);
+        Log.i(TAG, "faith points: " + faithPoints);
+    }
+
 
     void progress_bar() {
         //Progress Bar and levels
@@ -87,6 +92,10 @@ public class MainActivity extends AppCompatActivity {
 
         //progress bar update in percentage
         faith_point_status = Math.round((float) faithPoints/levelUpPoints * 100); // / 100.0f;
+
+        levelUpPoints = data.loadInt(StorageKeys.LEVEL_UP_POINTS, 500);
+        currentLevel = data.loadInt(StorageKeys.CURRENT_LEVEL, 0);
+
 
         new Thread(() -> {
             handler.post(new Runnable() {
@@ -108,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
                 faith_point_status = 0;
                 levelUpPoints *= 2;
                 currentLevel++;
+
+                data.saveInt(StorageKeys.LEVEL_UP_POINTS, levelUpPoints);
+                data.saveInt(StorageKeys.CURRENT_LEVEL, currentLevel);
             }
         }).start();
         Log.d(TAG, "progress_bar faithPoints " + faithPoints);
