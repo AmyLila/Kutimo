@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         //progress bar update in percentage
-        faith_point_status = Math.round((float) faithPoints/levelUpPoints * 100); // / 100.0f;
+        faith_point_status = Math.round((float) faithPoints / levelUpPoints * 100); // / 100.0f;
 
         levelUpPoints = data.loadInt(StorageKeys.LEVEL_UP_POINTS, 500);
         currentLevel = data.loadInt(StorageKeys.CURRENT_LEVEL, 0);
@@ -127,13 +127,13 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "progress_bar levelUpPoints " + levelUpPoints);
     }
 
-    private boolean is_time_range(Chronometer chronometer, int start_second, int end_second){
+    private boolean is_time_range(Chronometer chronometer, int start_second, int end_second) {
         boolean start = SystemClock.elapsedRealtime() - chronometer.getBase() >= start_second * 1000;
         boolean end = SystemClock.elapsedRealtime() - chronometer.getBase() <= end_second * 1000;
         return start && end;
     }
 
-    private void short_toast(String message){
+    private void short_toast(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -217,15 +217,10 @@ public class MainActivity extends AppCompatActivity {
 
     //Calendar
     public void openCalendar(View view) {
-        //or try range picker
+       //Overlay with onClick
         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
-
-        //MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker(); // customDatePicker(). datePicker();
         builder.setTitleText("SELECT A DATE");
         final MaterialDatePicker materialdatepicker = builder.build();
-
         materialdatepicker.show(getSupportFragmentManager(), "CALENDAR_FRAGMENT");
-        //Intent intent = new Intent(this, Calendar_checkmarks.class);
-        //startActivity(intent);
     }
 }
