@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         return start && end;
     }
 
-    private void short_toast(String message){
+    private void short_toast(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -217,15 +217,10 @@ public class MainActivity extends AppCompatActivity {
 
     //Calendar
     public void openCalendar(View view) {
-        //or try range picker
+       //Overlay with onClick
         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
-
-        //MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker(); // customDatePicker(). datePicker();
         builder.setTitleText("SELECT A DATE");
         final MaterialDatePicker materialdatepicker = builder.build();
-
         materialdatepicker.show(getSupportFragmentManager(), "CALENDAR_FRAGMENT");
-        //Intent intent = new Intent(this, Calendar_checkmarks.class);
-        //startActivity(intent);
     }
 }

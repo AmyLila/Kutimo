@@ -51,11 +51,10 @@
 
     <ImageView
         android:id="@+id/cards"
-        android:layout_width="107dp"
-        android:layout_height="121dp"
+        android:layout_width="106dp"
+        android:layout_height="119dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:onClick="openCards"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar"
@@ -200,7 +199,7 @@
     <ImageButton
         android:id="@+id/calendarButton"
         android:layout_width="106dp"
-        android:layout_height="119dp"
+        android:layout_height="115dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="2dp"
