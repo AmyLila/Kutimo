@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Kutimo</string>
     <string name="title_activity_scripture_picker">Scripture_picker</string>
+
+    <!-- Strings used for the calendar -->
+    <string name="material_calendar_today_button">Today</string>
+    <string name="material_calendar_positive_button">OK</string>
+    <string name="material_calendar_negative_button">Cancel</string>
+
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
