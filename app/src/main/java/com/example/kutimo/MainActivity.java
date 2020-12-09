@@ -131,8 +131,8 @@ public class MainActivity extends AppCompatActivity {
         return start && end;
     }
 
-    private void short_toast(String message) {
-        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+    private void long_toast(String message) {
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
     void chronometer_function() {
@@ -143,11 +143,40 @@ public class MainActivity extends AppCompatActivity {
 
         chronometer.setOnChronometerTickListener(chronometer -> {
             if (is_time_range(chronometer, 10, 11)) { // reduce by 1 second to prevent double toast
-                short_toast("It's been 10sec! Felt the Spirit yet?");
+                long_toast("It's been 10sec! Feel the Spirit yet?");
             }
-            if (is_time_range(chronometer, 30, 31)) { // reduce by 1 second to prevent double toast
-                short_toast("Halfway through your first FP!");
+            if (is_time_range(chronometer, 60, 61)) {
+                long_toast("First FP of the day!");
             }
+            if (is_time_range(chronometer, 300, 301)) { // 5 minutes
+                long_toast("These are times of faith, these are times of perseverance.");
+            }
+            if (is_time_range(chronometer, 600, 601)) { // 10 minutes
+                long_toast("He who reads it oftenest will like it best!");
+            }
+            if (is_time_range(chronometer, 900, 901)) { // 15 minutes
+                long_toast("First I obey, then I understand!");
+            }
+            if (is_time_range(chronometer, 1800, 1801)) { // 30 minutes
+                long_toast("Believing requires action.");
+            }
+            if (is_time_range(chronometer, 2700, 2701)) { // 45 minutes
+                long_toast("We did not come this far to only come this far!");
+            }
+            if (is_time_range(chronometer, 3600, 3601)) { // 1 hour
+                long_toast("Decisions determine destiny!");
+            }
+            if (is_time_range(chronometer, 7200, 7201)) { // 2 hours
+                long_toast("Joy comes from and because of Him.");
+            }
+            if (is_time_range(chronometer, 10800, 10801)) { // 3 hours
+                long_toast("No one is destined to fail.");
+            }
+            if (is_time_range(chronometer, 18000, 18001)) { // 5 hours
+                long_toast("Well done, thou good and faithful servant.");
+            }
+
+
             // if (is_time_range(chronometer, number.get() + 60L, number.get() + 61L)) {
             if (is_time_range(chronometer, number.get() + 30L, number.get() + 31L)) {
                 number.addAndGet(30L);
