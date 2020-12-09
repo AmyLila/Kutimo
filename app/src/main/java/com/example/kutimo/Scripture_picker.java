@@ -70,7 +70,6 @@ public class Scripture_picker extends AppCompatActivity {
     void launch_study(String url) {
         url = url.replace('_', '-');
         Uri uri = Uri.parse(String.format("https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-individuals-and-families-%s", url));
-        Log.d(TAG, String.format("https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-individuals-and-families-%s", url));
 
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         if (intent.resolveActivity(getPackageManager()) != null) {

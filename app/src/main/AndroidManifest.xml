@@ -15,18 +15,14 @@
         android:theme="@style/Theme.Kutimo">
         <activity
             android:name=".FavoriteActivity"
-            android:label="@string/title_activity_favorite"
-            android:theme="@style/Theme.Kutimo.NoActionBar"></activity>
-        <activity android:name=".MainActivity">
+            android:label="Add to Favorites">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/plain"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".intent"
-            android:label="@string/title_activity_intent">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,7 +32,7 @@
         <activity
             android:name=".Scripture_picker"
             android:label="@string/title_activity_scripture_picker"
-            android:theme="@style/Theme.Kutimo.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".CardActivity">
             android:parentActivityName=".MainActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
