@@ -161,18 +161,18 @@ public class MainActivity extends AppCompatActivity {
 
     //Chronometer, saves time and resets
     public void resetChronometer(View view) {
-        // TODO: update pauseOffset when user press resetChronometer while isRunning is set to true
         save = new Save(this);
-        hours = (pauseOffset / 3_600_000);
-        minutes = (pauseOffset - hours * 3_600_000) / 60_000;
+        hours = (pauseOffset / 3600000);
+        minutes = (pauseOffset - hours * 3600000) / 60000;
 
         updateFaithPoints();
         Log.d(TAG, "resetChronometer (faithPoints): " + faithPoints);
         Log.d(TAG, "resetChronometer (intMinutes): " + intMinutes);
         Log.d(TAG, "resetChronometer (minutes): " + minutes);
-
-        chronometer.stop();
-        isRunning = false;
+        if (isRunning) {
+            chronometer.stop();
+            isRunning = false;
+        }
         chronometer.setBase(SystemClock.elapsedRealtime());
         pauseOffset = 0;
     }
