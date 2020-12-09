@@ -14,8 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.datepicker.MaterialDatePicker;
-
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -244,10 +242,8 @@ public class MainActivity extends AppCompatActivity {
 
     //Calendar
     public void openCalendar(View view) {
-        //Overlay with onClick
-        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
-        builder.setTitleText("SELECT A DATE");
-        final MaterialDatePicker materialdatepicker = builder.build();
-        materialdatepicker.show(getSupportFragmentManager(), "CALENDAR_FRAGMENT");
+        Intent intent = new Intent(this, DatePicker.class);
+        startActivity(intent);
+
     }
 }
