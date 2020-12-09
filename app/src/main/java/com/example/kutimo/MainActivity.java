@@ -105,13 +105,13 @@ public class MainActivity extends AppCompatActivity {
     void progress_bar() {
         //Progress Bar and levels
         txtProgress = (TextView) findViewById(R.id.txtProgress);
-        //levelNumber = (TextView) findViewById(R.id.levelNumber);
+        levelNumber = (TextView) findViewById(R.id.levelNumber);
         multiplierLevel = (TextView) findViewById(R.id.multiplierLevel);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         progressBar.setProgress((int) faith_point_status);
         txtProgress.setText(faith_point_status + " %");
-        //levelNumber.setText(currentLevel + " ");
+        levelNumber.setText(currentLevel + " ");
         multiplierLevel.setText(multiplier + " ");
 
         //progress bar update in percentage
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
                 progressBar.setProgress((int) faith_point_status);
                 txtProgress.setText(faith_point_status + " %");
-                levelNumber.setText(currentLevel + " ");
+                //levelNumber.setText(currentLevel + " ");
                 multiplierLevel.setText(multiplier + " ");
 
 
