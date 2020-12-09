@@ -51,7 +51,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline13"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/image_level2"
+        app:layout_constraintTop_toBottomOf="@id/guideline12"
         app:srcCompat="@drawable/hidden_bronze" />
 
     <ImageView
@@ -62,7 +62,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline13"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/image_level2"
+        app:layout_constraintTop_toBottomOf="@id/guideline12"
         app:srcCompat="@drawable/hidden_bronze" />
 
     <ImageView
@@ -73,7 +73,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline13"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@+id/image_level3"
+        app:layout_constraintTop_toBottomOf="@id/guideline12"
         app:srcCompat="@drawable/hidden_silver" />
 
     <ImageView
@@ -85,7 +85,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/image_level4"
+        app:layout_constraintTop_toBottomOf="@id/guideline13"
         app:srcCompat="@drawable/hidden_silver" />
 
     <ImageView
@@ -96,7 +96,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/image_level5"
+        app:layout_constraintTop_toBottomOf="@id/guideline13"
         app:srcCompat="@drawable/hidden_silver" />
 
     <ImageView
@@ -107,7 +107,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@+id/image_level6"
+        app:layout_constraintTop_toBottomOf="@id/guideline13"
         app:srcCompat="@drawable/hidden_silver" />
 
     <ImageView
@@ -118,7 +118,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/image_level8"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
         app:srcCompat="@drawable/hidden_gold" />
 
     <ImageView
@@ -128,8 +128,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintHorizontal_bias="0.116"
-        app:layout_constraintStart_toEndOf="@+id/image_level10"
-        app:layout_constraintTop_toBottomOf="@+id/image_level8"
+        app:layout_constraintStart_toEndOf="@id/guideline7"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/hidden_gold" />
 
@@ -139,38 +139,39 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toEndOf="@+id/image_level11"
-        app:layout_constraintTop_toBottomOf="@+id/image_level9"
+        app:layout_constraintStart_toEndOf="@id/guideline8"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
         app:srcCompat="@drawable/hidden_gold" />
 
     <ImageView
         android:id="@+id/image_level13"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toEndOf="@+id/image_level11"
-        app:layout_constraintTop_toBottomOf="@+id/image_level9"
+        app:layout_constraintBottom_toTopOf="@+id/guideline11"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toBottomOf="@id/guideline2"
         app:srcCompat="@drawable/hidden_gold" />
+
     <ImageView
         android:id="@+id/image_level14"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toEndOf="@+id/image_level11"
-        app:layout_constraintTop_toBottomOf="@+id/image_level9"
-        app:srcCompat="@drawable/hidden" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline11"
+        app:layout_constraintEnd_toStartOf="@id/guideline8"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@id/guideline2"
+        app:srcCompat="@drawable/hidden_gold" />
 
     <ImageView
         android:id="@+id/image_level15"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/guideline11"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toEndOf="@+id/image_level11"
-        app:layout_constraintTop_toBottomOf="@+id/image_level9"
-        app:srcCompat="@drawable/hidden" />
+        app:layout_constraintStart_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toBottomOf="@id/guideline2"
+        app:srcCompat="@drawable/hidden_gold" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
