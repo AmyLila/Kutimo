@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, Scripture_picker.class);
         Scripture_picker scripture_picker = new Scripture_picker();
-        // scripture_picker.show();
+        //scripture_picker.show();
         startActivity(intent);
     }
 
