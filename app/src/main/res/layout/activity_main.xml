@@ -46,8 +46,8 @@
         android:layout_marginBottom="14dp"
         android:onClick="openFavorites"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintEnd_toStartOf="@+id/cards"
-        app:layout_constraintStart_toEndOf="@+id/calendarButton"
+        app:layout_constraintEnd_toStartOf="@id/guideline16"
+        app:layout_constraintStart_toEndOf="@id/guideline17"
         app:layout_constraintTop_toTopOf="@+id/guideline4"
         app:srcCompat="@drawable/favorite" />
 
