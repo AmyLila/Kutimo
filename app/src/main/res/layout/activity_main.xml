@@ -195,13 +195,15 @@
         android:id="@+id/multiplierLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="264dp"
         android:layout_marginBottom="43dp"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#fafcfc"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline18"
-        app:layout_constraintStart_toEndOf="@+id/imageView3" />
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.constraintlayout.widget.Guideline
