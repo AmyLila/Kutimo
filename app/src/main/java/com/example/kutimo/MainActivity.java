@@ -16,7 +16,11 @@ import android.widget.Toast;
 
 import org.json.simple.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -42,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private int minutes;
 
     //Faith Points
-    private int faithPoints;
-    private int multiplier;
+    private float faithPoints;
+    private float multiplier;
 
     //Progress Bar
     private TextView txtProgress;
@@ -70,8 +74,9 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        faithPoints = data.loadInt(StorageKeys.FAITH_POINTS, 0);
-        multiplier = data.loadInt(StorageKeys.MULTIPLIER, 1);
+        faithPoints = data.loadFloat(StorageKeys.FAITH_POINTS, 0);
+        multiplier = data.loadFloat(StorageKeys.MULTIPLIER, 1);
+        Log.d(TAG, String.format("Multiplier:%f", multiplier));
 
         progress_bar();
         chronometer_function();
@@ -91,16 +96,39 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
+    private float MultiplierPercentage(){
+        return multiplier / 365;
+    }
     /**
      * Each sessions' faith points and multiplier
      */
     public void updateFaithPoints() {
         //will not update continuously - the current value will be 1
-        data.saveInt(StorageKeys.FAITH_POINTS, faithPoints * minutes * multiplier);
+        data.saveFloat(StorageKeys.FAITH_POINTS, faithPoints * (1 + MultiplierPercentage()));
         Log.i(TAG, "faith points: " + faithPoints);
     }
 
+    private void setStreakMultiplier() {
+        String current_date = data.loadString(StorageKeys.CURRENT_DATE, Now());
+        try {
+            long days_between = daysBetween(current_date, Now());
+            if (days_between == 1){
+                multiplier += 1;
+                data.saveFloat(StorageKeys.MULTIPLIER, multiplier);
+            } else if (days_between != 0){
+                multiplier = 1;
+                data.saveFloat(StorageKeys.MULTIPLIER, multiplier);
+            }
+        } catch (ParseException parseException) {
+        }
+    }
+
+    private long daysBetween(String one, String two) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        Date one_date = simpleDateFormat.parse(one);
+        Date two_date = simpleDateFormat.parse(two);
+        return Math.abs((one_date.getTime() - two_date.getTime()) / 86_400_000);
+    }
 
     void progress_bar() {
         //Progress Bar and levels
@@ -109,20 +137,21 @@ public class MainActivity extends AppCompatActivity {
         multiplierLevel = (TextView) findViewById(R.id.multiplierLevel);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        progressBar.setProgress((int) faith_point_status);
-        txtProgress.setText(faith_point_status + " %");
-        levelNumber.setText(currentLevel + " ");
-        multiplierLevel.setText(multiplier + " ");
-
         //progress bar update in percentage
-        faith_point_status = Math.round((float) faithPoints / levelUpPoints * 100);
+        faith_point_status = Math.round(faithPoints / levelUpPoints * 100);
 
         levelUpPoints = data.loadInt(StorageKeys.LEVEL_UP_POINTS, 500);
         currentLevel = data.loadInt(StorageKeys.CURRENT_LEVEL, 0);
 
+        progressBar.setProgress((int) faith_point_status);
+        txtProgress.setText(faith_point_status + " %");
+        levelNumber.setText(currentLevel + " ");
+        multiplierLevel.setText(String.format("%2.2f", MultiplierPercentage() * 100) + '%');
+
         Log.d(TAG, "progress_bar faithPoints " + faithPoints);
         Log.d(TAG, "progress_bar faith_point_status " + faith_point_status);
         Log.d(TAG, "progress_bar levelUpPoints " + levelUpPoints);
+        Log.d(TAG, "progress_bar multiplier " + MultiplierPercentage());
     }
 
     private boolean is_time_range(Chronometer chronometer, long start_second, long end_second) {
@@ -141,55 +170,36 @@ public class MainActivity extends AppCompatActivity {
 
         AtomicLong number = new AtomicLong();
 
+        int[] times = {10, 30, 60, 300, 600, 900, 1800, 2700, 3600, 7200, 10800, 18000, 31622400};
+        String[] message = {"First Faith Point of the day!",
+                "Second FP of the day!",
+                "These are times of faith, these are times of perseverance.",
+                "He who reads it oftenest will like it best!",
+                "First I obey, then I understand!",
+                "Believing requires action.",
+                "We did not come this far to only come this far!",
+                "Decisions determine destiny!",
+                "Joy comes from and because of Him.",
+                "No one is destined to fail.",
+                "Well done, thou good and faithful servant.",
+                "Watch out, you're getting a transfiguration in 5... 4... 3... 2.. 1.."};
+
         chronometer.setOnChronometerTickListener(chronometer -> {
-            if (is_time_range(chronometer, 10, 11)) { // reduce by 1 second to prevent double toast
-                long_toast("It's been 10sec! Feel the Spirit yet?");
-            }
-            if (is_time_range(chronometer, 60, 61)) {
-                long_toast("First FP of the day!");
-            }
-            if (is_time_range(chronometer, 300, 301)) { // 5 minutes
-                long_toast("These are times of faith, these are times of perseverance.");
-            }
-            if (is_time_range(chronometer, 600, 601)) { // 10 minutes
-                long_toast("He who reads it oftenest will like it best!");
-            }
-            if (is_time_range(chronometer, 900, 901)) { // 15 minutes
-                long_toast("First I obey, then I understand!");
-            }
-            if (is_time_range(chronometer, 1800, 1801)) { // 30 minutes
-                long_toast("Believing requires action.");
-            }
-            if (is_time_range(chronometer, 2700, 2701)) { // 45 minutes
-                long_toast("We did not come this far to only come this far!");
-            }
-            if (is_time_range(chronometer, 3600, 3601)) { // 1 hour
-                long_toast("Decisions determine destiny!");
-            }
-            if (is_time_range(chronometer, 7200, 7201)) { // 2 hours
-                long_toast("Joy comes from and because of Him.");
-            }
-            if (is_time_range(chronometer, 10800, 10801)) { // 3 hours
-                long_toast("No one is destined to fail.");
-            }
-            if (is_time_range(chronometer, 18000, 18001)) { // 5 hours
-                long_toast("Well done, thou good and faithful servant.");
-            }
+            for (int i = 0; i < message.length; i++)
+                if (is_time_range(chronometer, times[i], times[i] + 1))
+                    long_toast(message[i]);
 
-
-            // if (is_time_range(chronometer, number.get() + 60L, number.get() + 61L)) {
             if (is_time_range(chronometer, number.get() + 30L, number.get() + 31L)) {
                 number.addAndGet(30L);
                 faithPoints += 1;
-                data.saveInt(StorageKeys.FAITH_POINTS, faithPoints);
+                updateFaithPoints();
 
-                faith_point_status = Math.round((float) faithPoints / levelUpPoints * 100);
+                faith_point_status = Math.round(faithPoints / levelUpPoints * 100);
 
                 progressBar.setProgress((int) faith_point_status);
                 txtProgress.setText(faith_point_status + " %");
                 levelNumber.setText(currentLevel + " ");
-                multiplierLevel.setText(multiplier + " ");
-
+                multiplierLevel.setText(String.format("%2.2f", MultiplierPercentage() * 100) + '%');
 
             }
             if (faith_point_status >= 100) {
@@ -202,6 +212,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    private String Now() {
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        return String.format("%d-%d-%d", month, day, year);
     }
 
     /**
@@ -221,18 +238,30 @@ public class MainActivity extends AppCompatActivity {
         } else {
             isRunning = true;
             chronometer.start();
+            setStreakMultiplier();
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+
+            data.saveString(StorageKeys.CURRENT_DATE, Now());
+
+            Log.d(TAG, "formatted " + Now());
+        }
+    }
+
+    public void triggerTimer() {
+        if (!isRunning) {
+            isRunning = true;
+            chronometer.start();
             chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
         }
     }
 
     //Chronometer, saves time and resets
     public void resetChronometer(View view) {
-        // TODO: update pauseOffset when user press resetChronometer while isRunning is set to true
         pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
         hours = (int) (pauseOffset / 3_600_000);
         minutes = (int) ((pauseOffset - hours * 3_600_000) / 60_000);
 
-        updateFaithPoints();
+        // updateFaithPoints();
         Log.d(TAG, "resetChronometer (faithPoints): " + faithPoints);
         //Log.d(TAG, "resetChronometer (intMinutes): " + intMinutes);
         Log.d(TAG, "resetChronometer (minutes): " + minutes);
