@@ -6,9 +6,9 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:backgroundTint="@color/white"
-    android:backgroundTintMode="screen"
+    android:backgroundTintMode="multiply"
     android:foregroundTint="@color/light_blue"
-    android:foregroundTintMode="src_atop"
+    android:foregroundTintMode="screen"
     android:minWidth="350dp"
     android:minHeight="500dp"
     android:outlineAmbientShadowColor="@color/light_blue"
@@ -26,10 +26,10 @@
         android:text="Current week (study)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintHorizontal_bias="0.456"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.82" />
+        app:layout_constraintVertical_bias="0.893" />
 
     <ImageButton
         android:id="@+id/ot"
@@ -110,9 +110,12 @@
 
     <ImageButton
         android:id="@+id/new_testament_2019"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="40dp"
         android:backgroundTint="@color/white"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.167"
@@ -123,9 +126,11 @@
 
     <ImageButton
         android:id="@+id/book_of_mormon_2020"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="60dp"
         android:backgroundTint="@color/white"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -135,9 +140,12 @@
 
     <ImageButton
         android:id="@+id/doctrine_and_covenants_2021"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
         android:backgroundTint="@color/white"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.839"
