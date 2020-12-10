@@ -6,18 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".DatePicker">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="351dp"
-        android:layout_height="62dp"
-        android:layout_marginBottom="132dp"
-        android:fontFamily="sans-serif-thin"
-        android:text="Which dates did you read?"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/calendarView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
@@ -25,14 +13,16 @@
         app:abbreviationsBarColor="@color/dark_blue"
         app:eventsEnabled="true"
         app:headerColor="@color/snow4"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:pagesColor="@color/snow3"
         app:selectionColor="@color/dark_blue"
         app:todayLabelColor="@color/light_blue"
-        app:type="many_days_picker"
-        tools:layout_editor_absoluteY="38dp">
+        app:type="many_days_picker">
 
     </com.applandeo.materialcalendarview.CalendarView>
 
