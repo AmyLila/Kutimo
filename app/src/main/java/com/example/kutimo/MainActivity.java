@@ -108,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "faith points: " + faithPoints);
     }
 
+    /**
+     *  TODO document
+     */
     private void setStreakMultiplier() {
         String current_date = data.loadString(StorageKeys.CURRENT_DATE, Now());
         try {
@@ -123,6 +126,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * TODO
+     * @param one
+     * @param two
+     * @return
+     * @throws ParseException
+     */
     private long daysBetween(String one, String two) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy");
         Date one_date = simpleDateFormat.parse(one);
@@ -130,6 +140,9 @@ public class MainActivity extends AppCompatActivity {
         return Math.abs((one_date.getTime() - two_date.getTime()) / 86_400_000);
     }
 
+    /**
+     *
+     */
     void progress_bar() {
         //Progress Bar and levels
         txtProgress = (TextView) findViewById(R.id.txtProgress);
@@ -154,16 +167,30 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "progress_bar multiplier " + MultiplierPercentage());
     }
 
+    /**
+     *
+     * @param chronometer
+     * @param start_second
+     * @param end_second
+     * @return
+     */
     private boolean is_time_range(Chronometer chronometer, long start_second, long end_second) {
         boolean start = SystemClock.elapsedRealtime() - chronometer.getBase() >= start_second * 1_000L;
         boolean end = SystemClock.elapsedRealtime() - chronometer.getBase() <= end_second * 1_000L;
         return start && end;
     }
 
+    /**
+     *
+     * @param message
+     */
     private void long_toast(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     *
+     */
     void chronometer_function() {
         //Chronometer, toasts
         chronometer = findViewById(R.id.chronometer);
@@ -214,6 +241,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     * @return
+     */
     private String Now() {
         int month = Calendar.getInstance().get(Calendar.MONTH);
         int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -222,14 +253,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * *****
-     * Public Methods
-     * *****
-     * Calendar, Cards, Chronometer, and Scripture Picker
-     *
+     * TODO
      * @param view
      */
-    //Chronometer, start
     public void toggleChronometer(View view) {
         if (isRunning) {
             isRunning = false;
@@ -248,6 +274,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *
+     */
     public void triggerTimer() {
         if (!isRunning) {
             isRunning = true;
@@ -256,7 +285,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //Chronometer, saves time and resets
+    /**
+     *
+     * @param view
+     */
     public void resetChronometer(View view) {
         pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
         hours = (int) (pauseOffset / 3_600_000);
@@ -274,7 +306,10 @@ public class MainActivity extends AppCompatActivity {
         pauseOffset = 0;
     }
 
-    //Scripture Picker
+    /**
+     *
+     * @param view
+     */
     public void openScripturePicker(View view) {
 
         Log.i(TAG, "Opening Scripture Picker");
@@ -285,6 +320,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -294,13 +330,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     *
+     * @param view
+     */
+
     public void openFavorites(View view) {
         //TODO need to pass faith points in when the button is pushed.
         Intent intent = new Intent(this, FavoriteActivity.class);
         startActivity(intent);
     }
 
-    //Cards
+    /**
+     *
+     * @param view
+     */
     public void openCards(View view) {
         //TODO need to pass faith points in when the button is pushed.
         // This doesn't need done because the card activity gets faithpoints from shared preferences through the save class.
@@ -310,7 +355,10 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "open cards button tapped");
     }
 
-    //Calendar
+    /**
+     *
+     * @param view
+     */
     public void openCalendar(View view) {
         //This method starts the DatePicker Class
         Intent intent = new Intent(this, DatePicker.class);

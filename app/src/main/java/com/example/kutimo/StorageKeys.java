@@ -1,5 +1,8 @@
 package com.example.kutimo;
 
+/**
+ *
+ */
 public class StorageKeys {
     protected static String FAITH_POINTS = "faith point";
     protected static String MULTIPLIER = "faith multipliers";

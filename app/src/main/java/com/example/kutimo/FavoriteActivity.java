@@ -17,7 +17,7 @@ import org.json.simple.parser.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+//TODO document class and methods
 public class FavoriteActivity extends AppCompatActivity {
     Data data;
     boolean is_from_intent = false;

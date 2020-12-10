@@ -37,13 +37,5 @@ public class DatePicker extends AppCompatActivity {
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
         calendarView.setEvents(events);
 
-        /** //Setting the current date
-         calendar = Calendar.getInstance();
-         calendar.set(2020, 11, 8);
-         try {
-         calendarView.setDate(calendar);
-         } catch (OutOfDateRangeException e) {
-         e.printStackTrace();**/
-
     }
 }
