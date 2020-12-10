@@ -12,6 +12,9 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Data {
     Activity activity;
@@ -43,6 +46,10 @@ public class Data {
      */
     public void saveInt(String shared_preference, int number) {
         sharedPreferences.edit().putInt(shared_preference, number).apply();
+    }
+
+    public void saveFloat(String shared_preference, float number) {
+        sharedPreferences.edit().putFloat(shared_preference, number).apply();
     }
 
     /**
@@ -86,6 +93,16 @@ public class Data {
         }
     }
 
+    public void appendItemToJSON(String shared_preference, JSONArray json_value) {
+        try {
+            // load
+            JSONObject main_json = loadJSON(shared_preference);
+            main_json.put(LIST_NAME, json_value);
+            saveJSON(shared_preference, main_json);
+        } catch (Exception ignored) {
+        }
+    }
+
     /**
      * @param shared_preference key for Data.LIST_NAME to be loaded as json_array
      * @return json_array loaded under Data.LIST_NAME found in shared_preference key returns empty JSONArray if empty/non-existance
@@ -108,12 +125,53 @@ public class Data {
         }
     }
 
+    public List<String> loadStringList(String shared_preference) {
+        try {
+            JSONArray json_array = loadListItemsFromJSON(shared_preference);
+            List<String> list = new ArrayList<String>();
+            for (int i = 0; i < json_array.size(); i++) {
+                list.add((String) json_array.get(i));
+            }
+            return list;
+        } catch (ParseException ignored) {
+        }
+        return new ArrayList<String>();
+    }
+
+    public void saveStringList(String shared_preference, List<String> list) {
+        JSONArray json_array = new JSONArray();
+        for (int i = 0; i < list.size(); i++) {
+            json_array.add(list.get(i));
+        }
+        appendItemToJSON(shared_preference, json_array);
+    }
+
+    public void appendStringItem(String shared_preference, String item) {
+        List<String> list = loadStringList(shared_preference);
+        list.add(item);
+        saveStringList(shared_preference, list);
+    }
+
+    public void appendUniqueStringItem(String shared_preference, String item) {
+        List<String> list = loadStringList(shared_preference);
+        list.add(item);
+        saveStringList(shared_preference, new ArrayList<String>(new HashSet<String>(list)));
+    }
+
     /**
      * @param shared_preference key name for number variable
      * @return number stored under shared_preference key, returns 0 if non-existence
      */
     public int loadInt(String shared_preference) {
         return sharedPreferences.getInt(shared_preference, 0);
+    }
+
+    public float loadFloat(String shared_preference) {
+        return sharedPreferences.getFloat(shared_preference, 0f);
+    }
+
+    public float loadFloat(String shared_preference, float default_value) {
+        return sharedPreferences.getFloat(shared_preference, default_value);
     }
 
     /**
