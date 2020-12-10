@@ -62,9 +62,8 @@ public class Scripture_picker extends AppCompatActivity {
             // minor adjustment for 2020
             week_of_year -= week_of_year > 14 ? week_of_year > 39 ? 2 : 1 : 0;
             launch_study("book-of-mormon-2020" + "/" + week_of_year);
-        } else if (year == 2021) {
+        } else if (year == 2021)
             launch_study("doctrine-and-covenants-2021" + "/" + week_of_year);
-        }
     }
 
     /**
