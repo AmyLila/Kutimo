@@ -39,10 +39,10 @@ public class ScriptureItemView extends LinearLayout {
     /**
      * Created for convenience of setting all text on one line.
      *
-     * @param context Pass in from current activity.
+     * @param context  Pass in from current activity.
      * @param setTitle Set the resource title from Gospel Library.
      * @param setQuote Set the quote from Gospel Library.
-     * @param setLink Set the link from Gospel Library.
+     * @param setLink  Set the link from Gospel Library.
      */
     public ScriptureItemView(Context context, String setTitle, String setQuote, String setLink) {
         super(context);
@@ -56,7 +56,8 @@ public class ScriptureItemView extends LinearLayout {
     /**
      * Created to handle incoming JSONObject that contains "title", "content", and "link", all as
      * strings.
-     * @param context Pass in from current activity
+     *
+     * @param context   Pass in from current activity
      * @param scripture JSONObject containing "title", "content", "link" as string objects.
      */
     public ScriptureItemView(Context context, JSONObject scripture) {

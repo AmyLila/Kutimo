@@ -1,9 +1,12 @@
 package com.example.kutimo;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;

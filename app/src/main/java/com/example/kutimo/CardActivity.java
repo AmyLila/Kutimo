@@ -41,7 +41,7 @@ public class CardActivity extends AppCompatActivity {
                 image_views[i].setImageResource(image_ids[i]);
     }
 
-    private void preload(){
+    private void preload() {
         int level = 500;
         int image_names_total = 15;
         String image_prefix_name = "image";

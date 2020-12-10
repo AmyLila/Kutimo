@@ -99,7 +99,7 @@ public class Data {
     /**
      * @param shared_preference key to clear its JSONArray value
      */
-    public void clearJSONArray(String shared_preference){
+    public void clearJSONArray(String shared_preference) {
         try {
             JSONObject main_json = loadJSON(shared_preference);
             main_json.put(LIST_NAME, new JSONArray());
