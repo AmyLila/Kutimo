@@ -3,48 +3,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/black"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceLarge"
-        android:textColor="#4689C8"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
-        tools:text="Favorite Title" />
+        tools:text="Favorite Title"
+         />
 
     <TextView
         android:id="@+id/quote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:textColor="#4689C8"
-        android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        android:justificationMode="inter_word"
+        android:textAlignment="textStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#FFFFFF"
+        android:textStyle="normal|italic"
         tools:text="Favorite quote" />
 
     <Button
         android:id="@+id/link"
-        android:layout_width="240dp"
+        android:layout_width="135dp"
         android:layout_height="wrap_content"
         tools:text="Share" />
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:srcCompat="@tools:sample/avatars" />
-
     <Button
         android:id="@+id/button"
-        android:layout_width="match_parent"
+        android:layout_width="135dp"
         android:layout_height="wrap_content"
         android:text="Button" />
 
