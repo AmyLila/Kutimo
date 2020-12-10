@@ -20,6 +20,7 @@ import java.util.List;
 
 public class FavoriteActivity extends AppCompatActivity {
     Data data;
+    boolean is_from_intent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,9 @@ public class FavoriteActivity extends AppCompatActivity {
         data = new Data(this);
 
         setupIntent();
+        if (!is_from_intent) {
+            this.setTitle("Favorite Scriptures");
+        }
 
         try {
             JSONArray scriptures = data.loadListItemsFromJSON(StorageKeys.SCRIPTURES);
@@ -52,16 +56,13 @@ public class FavoriteActivity extends AppCompatActivity {
 
     private void setupIntent() {
         Intent intent = getIntent();
-        String action = intent.getAction();
         String type = intent.getType();
 
-        if (Intent.ACTION_SEND.equals(action) && type != null) {
+        if (Intent.ACTION_SEND.equals(intent.getAction()) && type != null) {
             if ("text/plain".equals(type)) {
-                handleSendText(intent); // Handle text being sent
+                is_from_intent = true;
+                handleSendText(intent);
             }
-        } else {
-            // Handle other intents, such as being started from the home screen
-            Toast.makeText(this, "Not working.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -78,8 +79,6 @@ public class FavoriteActivity extends AppCompatActivity {
             scripture.put("link", getGospelUrl(sharedText));
 
             data.appendItemToJSON(StorageKeys.SCRIPTURES, scripture);
-
-            Toast.makeText(this, sharedText, Toast.LENGTH_SHORT).show();
         }
     }
 
