@@ -3,6 +3,7 @@ package com.example.kutimo;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,6 +21,7 @@ public class Data {
     Activity activity;
     SharedPreferences sharedPreferences;
     protected String LIST_NAME = "list";
+    protected String TAG = "DataClass";
 
     /**
      * @param activity Pass in "this" from activity object.
@@ -80,35 +82,28 @@ public class Data {
      * @param json_value        gets appended to JSONArray and JSONArray converts to String before saving under shared_preference
      */
     public void appendItemToJSON(String shared_preference, JSONObject json_value) {
-        try {
-            // load
-            JSONObject main_json = loadJSON(shared_preference);
+        JSONObject main_json = loadJSON(shared_preference);
+        JSONArray json_array = loadListItemsFromJSON(shared_preference);
 
-            JSONArray json_array = loadListItemsFromJSON(shared_preference);
-            json_array.add(json_value);
-            main_json.put(LIST_NAME, json_array);
+        json_array.add(json_value);
+        main_json.put(LIST_NAME, json_array);
 
-            saveJSON(shared_preference, main_json);
-        } catch (Exception ignored) {
-        }
+        saveJSON(shared_preference, main_json);
     }
 
     public void appendItemToJSON(String shared_preference, JSONArray json_value) {
-        try {
-            // load
-            JSONObject main_json = loadJSON(shared_preference);
-            main_json.put(LIST_NAME, json_value);
-            saveJSON(shared_preference, main_json);
-        } catch (Exception ignored) {
-        }
+        JSONObject main_json = loadJSON(shared_preference);
+
+        main_json.put(LIST_NAME, json_value);
+
+        saveJSON(shared_preference, main_json);
     }
 
     /**
      * @param shared_preference key for Data.LIST_NAME to be loaded as json_array
      * @return json_array loaded under Data.LIST_NAME found in shared_preference key returns empty JSONArray if empty/non-existance
-     * @throws ParseException error when there's syntax error in JSON string.
      */
-    public JSONArray loadListItemsFromJSON(String shared_preference) throws ParseException {
+    public JSONArray loadListItemsFromJSON(String shared_preference) {
         JSONArray json_array = (JSONArray) loadJSON(shared_preference).get(LIST_NAME);
         return json_array == null ? new JSONArray() : json_array;
     }
@@ -117,25 +112,18 @@ public class Data {
      * @param shared_preference key to clear its JSONArray value
      */
     public void clearJSONArray(String shared_preference) {
-        try {
-            JSONObject main_json = loadJSON(shared_preference);
-            main_json.put(LIST_NAME, new JSONArray());
-            saveJSON(shared_preference, main_json);
-        } catch (Exception ignored) {
-        }
+        JSONObject main_json = loadJSON(shared_preference);
+        main_json.put(LIST_NAME, new JSONArray());
+        saveJSON(shared_preference, main_json);
     }
 
     public List<String> loadStringList(String shared_preference) {
-        try {
-            JSONArray json_array = loadListItemsFromJSON(shared_preference);
-            List<String> list = new ArrayList<String>();
-            for (int i = 0; i < json_array.size(); i++) {
-                list.add((String) json_array.get(i));
-            }
-            return list;
-        } catch (ParseException ignored) {
+        JSONArray json_array = loadListItemsFromJSON(shared_preference);
+        List<String> list = new ArrayList<String>();
+        for (int i = 0; i < json_array.size(); i++) {
+            list.add((String) json_array.get(i));
         }
-        return new ArrayList<String>();
+        return list;
     }
 
     public void saveStringList(String shared_preference, List<String> list) {
@@ -204,9 +192,13 @@ public class Data {
     /**
      * @param shared_preference key name for JSONObject variable
      * @return JSONObject stored under shared_preference
-     * @throws ParseException error when there is JSON syntax error
      */
-    public JSONObject loadJSON(String shared_preference) throws ParseException {
-        return (JSONObject) new JSONParser().parse(loadString(shared_preference));
+    public JSONObject loadJSON(String shared_preference) {
+        try {
+            return (JSONObject) new JSONParser().parse(loadString(shared_preference));
+        } catch (ParseException error) {
+            Log.w(TAG, String.format("Failed to parse \"%s\" key with \"%s\" as JSONObject(), returning empty JSONObject()", shared_preference, loadString(shared_preference)));
+            return new JSONObject();
+        }
     }
 }

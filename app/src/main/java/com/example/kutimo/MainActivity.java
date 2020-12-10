@@ -92,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < 10; i++) {
             data.appendItemToJSON(StorageKeys.SCRIPTURES, scripture);
-            data.appendItemToJSON(StorageKeys.SCRIPTURES, scripture);
         }
+        System.out.println();
 
     }
     private float MultiplierPercentage(){

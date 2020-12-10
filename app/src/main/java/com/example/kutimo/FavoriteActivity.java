@@ -21,6 +21,7 @@ import java.util.List;
 public class FavoriteActivity extends AppCompatActivity {
     Data data;
     boolean is_from_intent = false;
+    String Tag = "FavoriteActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +36,10 @@ public class FavoriteActivity extends AppCompatActivity {
             this.setTitle("Favorite Scriptures");
         }
 
-        try {
-            JSONArray scriptures = data.loadListItemsFromJSON(StorageKeys.SCRIPTURES);
-            for (Object each : scriptures)
-                linearLayout.addView(new ScriptureItemView(this, (JSONObject) each));
-        } catch (ParseException ignored) {
-        }
+        JSONArray scriptures = data.loadListItemsFromJSON(StorageKeys.SCRIPTURES);
+        for (Object each : scriptures)
+            linearLayout.addView(new ScriptureItemView(this, (JSONObject) each));
+
 
     }
 
