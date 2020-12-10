@@ -271,6 +271,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Calendar
     public void openCalendar(View view) {
+        //This method starts the DatePicker Class
         Intent intent = new Intent(this, DatePicker.class);
         startActivity(intent);
 

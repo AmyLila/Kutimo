@@ -12,7 +12,7 @@
         android:layout_height="62dp"
         android:layout_marginBottom="132dp"
         android:fontFamily="sans-serif-thin"
-        android:text="Which days did you read?"
+        android:text="Which dates did you read?"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/calendarView"
         app:layout_constraintEnd_toEndOf="parent"
