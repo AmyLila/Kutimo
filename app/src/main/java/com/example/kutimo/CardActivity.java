@@ -9,7 +9,7 @@ import android.widget.ImageView;
 public class CardActivity extends AppCompatActivity {
 
     private static final String TAG = "Card Activity";
-    private int faithPoints;
+    private float faithPoints;
     Data data;
     ImageView[] image_views;
     int[] level_ranges;
@@ -31,7 +31,7 @@ public class CardActivity extends AppCompatActivity {
 
         //Amy's Card Activity
 
-        faithPoints = data.loadInt(StorageKeys.FAITH_POINTS);
+        faithPoints = data.loadFloat(StorageKeys.FAITH_POINTS);
         Log.i(TAG, "faith points: " + faithPoints);
 
         preload();
