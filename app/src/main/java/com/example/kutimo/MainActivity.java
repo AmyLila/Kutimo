@@ -325,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 2 ) {
+         if (resultCode == 2 && requestCode == 2 ) {
             if (data.hasExtra("launchScriptures")){
                 Log.d(TAG, "1!");
                 triggerTimer();
