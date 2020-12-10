@@ -334,9 +334,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "2!");
                 triggerTimer();
                 launchStudy(data.getExtras().getString("launchStudy"));
+            } else if (data.hasExtra("currentWeek")){
+                Log.d(TAG, "2!");
+                triggerTimer();
+                launchStudy(data.getExtras().getString("launchStudy"));
             }
-            // do what you want here.
-        }
+        } else if (resultCode == 3 && requestCode == 2){
+             currentWeek();
+         }
     }
 
 
@@ -354,7 +359,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Launch the current week in Come, Follow Me for year 2020 then year 2021
      */
-    public void current_week(View v) {
+    public void currentWeek() {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int week_of_year = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
         int day_of_week = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
