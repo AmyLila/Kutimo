@@ -87,7 +87,7 @@ public class Scripture_picker extends AppCompatActivity {
      * Open an intent activity with an option to use Gospel Library or Website with Come, Follow Me
      * book as a parameter for link.
      *
-     * @param url
+     * @param url any Come, Follow Me link from website
      */
     void launch_study(String url) {
         url = url.replace('_', '-'); // convert id underscores as dashes
