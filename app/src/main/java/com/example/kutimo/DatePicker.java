@@ -20,20 +20,19 @@ public class DatePicker extends AppCompatActivity {
     Data data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //onCreate method completes the creation of activity_calendar
         super.onCreate(savedInstanceState);
         data = new Data(this);
         setContentView(R.layout.activity_calendar);
-        data.appendUniqueStringItem(StorageKeys.DATE, Now());
+        List<String> list = data.loadStringList(StorageKeys.DATE);
 
         getSupportActionBar().hide();
 
-        //Adding dates read with our app icon
+        // Adding dates read with our app icon
         List<EventDay> events = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         events.add(new EventDay(calendar, R.drawable.kutimo));
 
-        //Displaying dates clicked
+        // Displaying dates clicked
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
         calendarView.setEvents(events);
 
