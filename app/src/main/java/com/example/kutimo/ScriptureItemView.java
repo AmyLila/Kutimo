@@ -61,11 +61,7 @@ public class ScriptureItemView extends LinearLayout {
      * @param scripture JSONObject containing "title", "content", "link" as string objects.
      */
     public ScriptureItemView(Context context, JSONObject scripture) {
-        super(context);
-        initializeViewById(context);
-        setTitleText((String) scripture.get("title"));
-        setQuoteText((String) scripture.get("content"));
-        setButton((String) scripture.get("link"));
+        this(context, (String) scripture.get("title"), (String) scripture.get("content"), (String) scripture.get("link"));
     }
 
     /**
