@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     // ******
     // Fields
     // ******
-    private static final String TAG = "Main Activity";
+    private static final String TAG = "MainActivity";
 
     //Calendar
     private ImageButton calendarButton;
@@ -242,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
             chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
 
             data.saveString(StorageKeys.CURRENT_DATE, Now());
+            data.loadStringList(StorageKeys.DATE);
 
             Log.d(TAG, "formatted " + Now());
         }
@@ -282,6 +283,15 @@ public class MainActivity extends AppCompatActivity {
         Scripture_picker scripture_picker = new Scripture_picker();
         //scripture_picker.show();
         startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2 ) {
+            // do what you want here.
+            Log.d(TAG, "HEYO!");
+        }
     }
 
     public void openFavorites(View view) {

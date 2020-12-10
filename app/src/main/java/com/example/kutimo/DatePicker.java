@@ -17,12 +17,14 @@ import java.util.List;
  * @author Megan De Leon
  */
 public class DatePicker extends AppCompatActivity {
-
+    Data data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //onCreate method completes the creation of activity_calendar
         super.onCreate(savedInstanceState);
+        data = new Data(this);
         setContentView(R.layout.activity_calendar);
+        data.appendUniqueStringItem(StorageKeys.DATE, Now());
 
         getSupportActionBar().hide();
 

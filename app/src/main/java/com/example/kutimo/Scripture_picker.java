@@ -12,7 +12,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 public class Scripture_picker extends AppCompatActivity {
-    private static final String TAG = "Scripture Picker";
+    private static final String TAG = "ScripturePicker";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,11 @@ public class Scripture_picker extends AppCompatActivity {
         for (int each : scriptureIDs) {
             findViewById(each).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    launch_scriptures(getResources().getResourceEntryName(v.getId()));
+                    Intent intent = new Intent();
+                    intent.putExtra("MESSAGE", "Hey");
+                    setResult(2, intent);
+                    finish();
+                    // launch_scriptures(getResources().getResourceEntryName(v.getId()));
                 }
             });
         }
@@ -42,7 +46,11 @@ public class Scripture_picker extends AppCompatActivity {
         for (int each : studyIDs) {
             findViewById(each).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    launch_study(getResources().getResourceEntryName(v.getId()));
+                    Intent intent = new Intent();
+                    intent.putExtra("MESSAGE", "Hey");
+                    setResult(2, intent);
+                    finish();
+                    // launch_study(getResources().getResourceEntryName(v.getId()));
                 }
             });
         }
@@ -98,6 +106,7 @@ public class Scripture_picker extends AppCompatActivity {
             stopwatch();
         }
     }
+
 
     void stopwatch() {
 
