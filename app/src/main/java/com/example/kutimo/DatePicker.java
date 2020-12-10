@@ -24,6 +24,8 @@ public class DatePicker extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
+        getSupportActionBar().hide();
+
         //Adding dates read with our app icon
         List<EventDay> events = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
