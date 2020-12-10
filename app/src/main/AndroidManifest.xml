@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Scripture_picker"
+            android:name=".ScripturePicker"
             android:label="@string/title_activity_scripture_picker"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".CardActivity">

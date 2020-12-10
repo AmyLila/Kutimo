@@ -13,7 +13,7 @@
     android:minHeight="500dp"
     android:outlineAmbientShadowColor="@color/light_blue"
     android:scrollbarThumbHorizontal="@color/light_blue"
-    tools:context=".Scripture_picker">
+    tools:context=".ScripturePicker">
 
 
     <Button
