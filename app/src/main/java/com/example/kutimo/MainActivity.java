@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         falsify_data();
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().hide();
+
         faithPoints = data.loadInt(StorageKeys.FAITH_POINTS, 0);
         multiplier = data.loadInt(StorageKeys.MULTIPLIER, 1);
 
@@ -185,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
                 progressBar.setProgress((int) faith_point_status);
                 txtProgress.setText(faith_point_status + " %");
-                //levelNumber.setText(currentLevel + " ");
+                levelNumber.setText(currentLevel + " ");
                 multiplierLevel.setText(multiplier + " ");
 
 
