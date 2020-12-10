@@ -21,7 +21,12 @@ public class Scripture_picker extends AppCompatActivity {
         setup_buttons();
     }
 
+    /**
+     * Smaller code by using for loop for several buttons performing similar scripture actions and
+     * Come, Follow Me materials
+     */
     private void setup_buttons(){
+        // setup buttons actions for scriptures by using id name as part of link
         int[] scriptureIDs = {R.id.bofm, R.id.ot, R.id.nt, R.id.dc_testament, R.id.pgp};
         for (int each : scriptureIDs){
             findViewById(each).setOnClickListener(new View.OnClickListener() {
@@ -31,6 +36,7 @@ public class Scripture_picker extends AppCompatActivity {
             });
         }
 
+        // setup buttons actions for Come, Follow Me by using id name as part of link
         int[] studyIDs = {R.id.new_testament_2019, R.id.book_of_mormon_2020, R.id.doctrine_and_covenants_2021}; // doctrine-and-covenants-2021
         for (int each : studyIDs){
             findViewById(each).setOnClickListener(new View.OnClickListener() {
@@ -41,6 +47,9 @@ public class Scripture_picker extends AppCompatActivity {
         }
     }
 
+    /**
+     * Launch the current week in Come, Follow Me for year 2020 then year 2021
+     */
     public void current_week(View v){
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int week_of_year = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
@@ -57,8 +66,13 @@ public class Scripture_picker extends AppCompatActivity {
         }
     }
 
-    void launch_scriptures(String url) {
-        Uri uri = Uri.parse(String.format("https://www.churchofjesuschrist.org/study/scriptures/%s", url));
+    /**
+     * Open an intent activity with an option to use Gospel Library or Website with scripture_book
+     * as a parameter for link.
+     * @param scripture_book Any scripture found in the header from the website.
+     */
+    void launch_scriptures(String scripture_book) {
+        Uri uri = Uri.parse(String.format("https://www.churchofjesuschrist.org/study/scriptures/%s", scripture_book));
 
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         if (intent.resolveActivity(getPackageManager()) != null) {
@@ -67,8 +81,13 @@ public class Scripture_picker extends AppCompatActivity {
         }
     }
 
+    /**
+     * Open an intent activity with an option to use Gospel Library or Website with Come, Follow Me
+     * book as a parameter for link.
+     * @param url
+     */
     void launch_study(String url) {
-        url = url.replace('_', '-');
+        url = url.replace('_', '-'); // convert id underscores as dashes
         Uri uri = Uri.parse(String.format("https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-individuals-and-families-%s", url));
 
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
