@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         currentLevel = data.loadInt(StorageKeys.CURRENT_LEVEL, 0);
 
         progressBar.setProgress((int) faith_point_status);
-        txtProgress.setText(faith_point_status + " %");
+        txtProgress.setText(String.format("%1.1f",faith_point_status)+ " %");
         levelNumber.setText(currentLevel + " ");
         multiplierLevel.setText(String.format("%2.2f", MultiplierPercentage() * 100) + '%');
 
