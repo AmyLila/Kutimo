@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         scripture.put("title", "THIS IS THE TITLE");
         scripture.put("content", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet vehicula metus. Pellentesque luctus libero ac sapien sagittis dapibus. Nam nec nunc massa. In.");
-        scripture.put("link", "GOSPEL LINK");
+        scripture.put("link", "https://www.churchofjesuschrist.org/study/scriptures/ot/lev/18?id=p2&lang=eng#p2");
 
         for (int i = 0; i < 10; i++) {
             data.appendItemToJSON(StorageKeys.SCRIPTURES, scripture);
