@@ -3,6 +3,7 @@ package com.example.kutimo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -314,19 +315,27 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i(TAG, "Opening Scripture Picker");
 
-        Intent intent = new Intent(this, Scripture_picker.class);
-        Scripture_picker scripture_picker = new Scripture_picker();
+        Intent intent = new Intent(this, ScripturePicker.class);
+        ScripturePicker scripture_picker = new ScripturePicker();
         //scripture_picker.show();
-        startActivity(intent);
+        startActivityForResult(intent, 2);
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 2 ) {
+         if (resultCode == 2 && requestCode == 2 ) {
+            if (data.hasExtra("launchScriptures")){
+                Log.d(TAG, "1!");
+                triggerTimer();
+                launchScriptures(data.getExtras().getString("launchScriptures"));
+            } else if (data.hasExtra("launchStudy")){
+                Log.d(TAG, "2!");
+                triggerTimer();
+                launchStudy(data.getExtras().getString("launchStudy"));
+            }
             // do what you want here.
-            Log.d(TAG, "HEYO!");
         }
     }
 
@@ -340,6 +349,55 @@ public class MainActivity extends AppCompatActivity {
         //TODO need to pass faith points in when the button is pushed.
         Intent intent = new Intent(this, FavoriteActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * Launch the current week in Come, Follow Me for year 2020 then year 2021
+     */
+    public void current_week(View v) {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int week_of_year = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
+        int day_of_week = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+
+        week_of_year -= day_of_week == Calendar.SUNDAY ? 1 : 0; // if it's Sunday go back 1 week
+
+        if (year == 2020) {
+            // minor adjustment for 2020
+            week_of_year -= week_of_year > 14 ? week_of_year > 39 ? 2 : 1 : 0;
+            launchStudy("book-of-mormon-2020" + "/" + week_of_year);
+        } else if (year == 2021)
+            launchStudy("doctrine-and-covenants-2021" + "/" + week_of_year);
+    }
+
+    /**
+     * Open an intent activity with an option to use Gospel Library or Website with scripture_book
+     * as a parameter for link.
+     *
+     * @param scripture_book Any scripture found in the header from the website.
+     */
+    void launchScriptures(String scripture_book) {
+        Uri uri = Uri.parse(String.format("https://www.churchofjesuschrist.org/study/scriptures/%s", scripture_book));
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+    /**
+     * Open an intent activity with an option to use Gospel Library or Website with Come, Follow Me
+     * book as a parameter for link.
+     *
+     * @param url any Come, Follow Me link from website
+     */
+    void launchStudy(String url) {
+        url = url.replace('_', '-'); // convert id underscores as dashes
+        Uri uri = Uri.parse(String.format("https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-individuals-and-families-%s", url));
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     /**
