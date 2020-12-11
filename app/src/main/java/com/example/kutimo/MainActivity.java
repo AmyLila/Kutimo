@@ -30,26 +30,23 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 
 public class MainActivity extends AppCompatActivity {
-    // ******
-    // Fields
-    // ******
-    private static final String TAG = "MainActivity";
+     private static final String TAG = "MainActivity";
 
-    //Calendar
+    // Calendar
     private ImageButton calendarButton;
 
-    //Chronometer
+    // Chronometer
     private Chronometer chronometer;
     private boolean isRunning;
     private long pauseOffset;
     private int hours;
     private int minutes;
 
-    //Faith Points
+    // Faith Points
     private float faithPoints;
     private float multiplier;
 
-    //Progress Bar
+    // Progress Bar
     private TextView txtProgress;
     private TextView levelNumber;
     private TextView multiplierLevel;
@@ -61,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private int levelUpPoints;
     public int currentLevel;
 
-    //Scripture Picker
+    // Scripture Picker
     ArrayList<String> scriptures;
     Data data;
 
@@ -70,7 +67,11 @@ public class MainActivity extends AppCompatActivity {
     int IMAGE_NAMES_TOTAL = 12;
     int DAYS_UNTIL_LAMP_FULL = 365;
 
-
+    /**
+     *
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,10 +80,10 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        //load faith points from shared preferences
+        // Load faith points from shared preferences
         faithPoints = data.loadFloat(StorageKeys.FAITH_POINTS, 0);
 
-        //load the multiplier from shared preferences
+        // Load the multiplier from shared preferences
         multiplier = data.loadFloat(StorageKeys.MULTIPLIER, 1);
         Log.d(TAG, String.format("Multiplier:%f", multiplier));
 
@@ -98,8 +99,6 @@ public class MainActivity extends AppCompatActivity {
     private float MultiplierPercentage(){
         return multiplier / DAYS_UNTIL_LAMP_FULL;
     }
-
-
 
     /**
      * Each sessions' faith points and multiplier
@@ -139,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     *  TODO document
+     *  Calculates multiplier depending on consecutive reading streak.
      */
     private void setStreakMultiplier() {
         String current_date = data.loadString(StorageKeys.CURRENT_DATE, Now());
@@ -158,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * TODO
+     *
      * @param one
      * @param two
      * @return
@@ -172,11 +171,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * sets the visuals related to game progress, such as the progress donut,
+     * Sets the visuals related to game progress, such as the progress donut,
      * level number and multiplier number.
      */
     void progress_bar() {
-        //Progress Bar and levels
+        // Progress Bar and levels
         txtProgress = (TextView) findViewById(R.id.txtProgress);
         levelNumber = (TextView) findViewById(R.id.levelNumber);
         multiplierLevel = (TextView) findViewById(R.id.multiplierLevel);
@@ -277,8 +276,8 @@ public class MainActivity extends AppCompatActivity {
                     multiplierLevel.setText(String.format("%.1f", multiplier));
 
             }
-            //this block will set up variables to next level depending on faithpoints
-            //and store them.
+            // This block will set up variables to next level depending on faithpoints,
+            // and store them.
             if (faith_point_status >= 100) {
                 levelUpPoints *= 2;
                 faith_point_status = Math.round((faithPoints / levelUpPoints) * 100);
@@ -370,7 +369,12 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 2);
     }
 
-
+    /**
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -470,7 +474,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void openCalendar(View view) {
-        //This method starts the DatePicker Class
+        // Starts the DatePicker Class
         Intent intent = new Intent(this, DatePicker.class);
         startActivity(intent);
 

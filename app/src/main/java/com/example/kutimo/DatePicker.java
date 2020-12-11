@@ -33,12 +33,13 @@ public class DatePicker extends AppCompatActivity {
         List<String> list = data.loadStringList(StorageKeys.DATE);
         List<EventDay> events = new ArrayList<>();
 
-        int KUTIMO_ID = R.drawable.kutimo;
+        // Preset to false
         boolean is_today_in_list = false;
 
         for (String each : list) {
             Calendar each_calendar = Calendar.getInstance();
 
+            // If it today is on the list add a checked mark image
             try {
                 each_calendar.setTime(new SimpleDateFormat("MM-dd-yyyy").parse(each));
                 if (Calendar.getInstance().getTime() == each_calendar.getTime()) {
@@ -49,11 +50,10 @@ public class DatePicker extends AppCompatActivity {
             } catch (ParseException ignored) {
             }
         }
+        // Otherwise keep K logo image on today's date.
         if (!is_today_in_list) {
             events.add(new EventDay(Calendar.getInstance(), R.drawable.kutimo));
         }
-
-        getSupportActionBar().hide();
 
         // Displays dates clicked
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);

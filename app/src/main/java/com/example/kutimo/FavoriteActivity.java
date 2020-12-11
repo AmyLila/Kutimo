@@ -17,12 +17,22 @@ import org.json.simple.parser.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-//TODO document class and methods
+
+/**
+ *
+ *
+ * @author Timothy
+ */
 public class FavoriteActivity extends AppCompatActivity {
     Data data;
     boolean is_from_intent = false;
     String Tag = "FavoriteActivity";
 
+
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +53,9 @@ public class FavoriteActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     */
     private void setupIntent() {
         Intent intent = getIntent();
         String type = intent.getType();
@@ -55,7 +68,10 @@ public class FavoriteActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     *
+     * @param intent
+     */
     void handleSendText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (sharedText != null) {
@@ -71,25 +87,40 @@ public class FavoriteActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *
+     * @param text
+     * @return
+     */
     private String getGospelUrl(String text) {
         String[] items = text.split("\n");
         return items[items.length - 1];
     }
 
+    /**
+     *
+     * @param text
+     * @return
+     */
     private String getTitle(String text) {
         String[] items = text.split("\n");
         return items[items.length - 3];
     }
 
+    /**
+     *
+     * @param text
+     * @return
+     */
     private String getContent(String text) {
         List<String> items = new ArrayList<String>(Arrays.asList(text.split("\n")));
 
-        // remove ending part of the items list to have beginning only
+        // Remove ending part of the items list to have beginning only
         for (int i = 0; i < 4; i++) {
             items.remove(items.size() - 1);
         }
 
-        // remove excesses space
+        // Remove excesses space
         for (int i = 0; i < items.size(); i++) {
             items.set(i, items.get(i).trim());
         }

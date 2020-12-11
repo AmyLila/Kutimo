@@ -11,6 +11,11 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+/**
+ *
+ *
+ * @author Timothy
+ */
 public class ScripturePicker extends AppCompatActivity {
     private static final String TAG = "ScripturePicker";
 
