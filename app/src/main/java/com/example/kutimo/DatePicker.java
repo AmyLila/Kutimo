@@ -3,6 +3,7 @@ package com.example.kutimo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
@@ -25,27 +26,32 @@ public class DatePicker extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("Imcrazy", "here top");
         data = new Data(this);
         setContentView(R.layout.activity_calendar);
 
         // Utilize the list of dates stored through the chronometer to add dates read
         List<String> list = data.loadStringList(StorageKeys.DATE);
-        List<Calendar> calendars = new ArrayList<>();
         List<EventDay> events = new ArrayList<>();
 
-        //Magic trick
-        Calendar calendar = Calendar.getInstance();
-        events.add(new EventDay(calendar, R.drawable.kutimo));
+        int KUTIMO_ID = R.drawable.kutimo;
+        boolean is_today_in_list = false;
 
         for (String each : list) {
-            calendar = Calendar.getInstance();
+            Calendar each_calendar = Calendar.getInstance();
 
             try {
-                calendar.setTime(new SimpleDateFormat("MM-dd-yyyy").parse(each));
-                events.add(new EventDay(calendar, R.drawable.checkmark));
-                calendars.add(calendar);
+                each_calendar.setTime(new SimpleDateFormat("MM-dd-yyyy").parse(each));
+                if (Calendar.getInstance().getTime() == each_calendar.getTime()) {
+                    is_today_in_list = true;
+                }
+                events.add(new EventDay(each_calendar, R.drawable.checkmark));
+
             } catch (ParseException ignored) {
             }
+        }
+        if (!is_today_in_list) {
+            events.add(new EventDay(Calendar.getInstance(), R.drawable.kutimo));
         }
 
         getSupportActionBar().hide();
@@ -54,5 +60,6 @@ public class DatePicker extends AppCompatActivity {
         // Displays dates clicked
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
         calendarView.setEvents(events);
+        Log.d("Imcrazy", "here bottom");
     }
 }

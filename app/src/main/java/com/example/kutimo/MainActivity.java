@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             if (days_between == 1){
                 multiplier += 1;
                 data.saveFloat(StorageKeys.MULTIPLIER, multiplier);
+                multiplierLevel.setText(String.format("%2.2f", MultiplierPercentage() * 100) + '%');
             } else if (days_between != 0){
                 multiplier = 1;
                 data.saveFloat(StorageKeys.MULTIPLIER, multiplier);
@@ -232,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
      * @return
      */
     private String Now() {
-        int month = Calendar.getInstance().get(Calendar.MONTH);
+        int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         int year = Calendar.getInstance().get(Calendar.YEAR);
         return String.format("%d-%d-%d", month, day, year);
@@ -254,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
             chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
 
             data.saveString(StorageKeys.CURRENT_DATE, Now());
-            data.loadStringList(StorageKeys.DATE);
+            data.appendUniqueStringItem(StorageKeys.DATE, Now());
 
             Log.d(TAG, "formatted " + Now());
         }
