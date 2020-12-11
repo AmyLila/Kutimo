@@ -16,8 +16,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.simple.JSONObject;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -67,11 +65,11 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> scriptures;
     Data data;
 
-    //Lamp
-    int[] level_ranges;
-    int[] lampImage_ids;
-    int image_names_total = 15;
+    // Lamp Image
     ImageView lampFrame;
+    int IMAGE_NAMES_TOTAL = 12;
+    int DAYS_UNTIL_LAMP_FULL = 365;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,12 +90,13 @@ public class MainActivity extends AppCompatActivity {
         chronometer_function();
 
         // Set the lamp image
+        lampFrame = (ImageView) findViewById(R.id.imageView2);
         setLampImage();
 
     }
 
     private float MultiplierPercentage(){
-        return multiplier / 365;
+        return multiplier / DAYS_UNTIL_LAMP_FULL;
     }
 
 
@@ -133,30 +132,10 @@ public class MainActivity extends AppCompatActivity {
      * Set the lamp image according to the streak multiplier
      */
     private void setLampImage() {
-        int level = 500;
-        String image_prefix_name = "lamp_level";
-        lampFrame = (ImageView) findViewById(R.id.imageView2);
-        lampImage_ids = new int[image_names_total];
-
-
-        for (int i = 0; i < image_names_total; i++)
-            lampImage_ids[i] = getIdByName(image_prefix_name + (i + 1));
-
-
-        for (int i = 0; i < image_names_total; i++)
-            lampFrame = (ImageView) findViewById(getIdByView(image_prefix_name + (i + 1)));
-
-
-        // Levels
-        level_ranges = new int[image_names_total];
-        int power = 1;
-        for (int i = 0; i < level_ranges.length; i++)
-            level_ranges[i] = level * (int) Math.pow(2, power);
-
-        for (int i = 0; i < lampImage_ids.length; i++)
-            if (faithPoints >= level_ranges[i])
-                lampFrame.setImageResource(lampImage_ids[i]);
-    }// end set lamp image
+        final int LAMP_IMAGE_INCREMENT = DAYS_UNTIL_LAMP_FULL / IMAGE_NAMES_TOTAL;
+        int lamp_image_frame = Math.min(Math.floorDiv((int) multiplier, LAMP_IMAGE_INCREMENT), IMAGE_NAMES_TOTAL - 1);
+        lampFrame.setImageResource(getIdByName("lamp_level" + (lamp_image_frame + 1)));
+    }
 
 
     /**
@@ -169,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
             if (days_between == 1){
                 multiplier += 1;
                 data.saveFloat(StorageKeys.MULTIPLIER, multiplier);
+                multiplierLevel.setText(String.format("%2.2f", MultiplierPercentage() * 100) + '%');
             } else if (days_between != 0){
                 multiplier = 1;
                 data.saveFloat(StorageKeys.MULTIPLIER, multiplier);
@@ -307,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
      * @return
      */
     private String Now() {
-        int month = Calendar.getInstance().get(Calendar.MONTH);
+        int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         int year = Calendar.getInstance().get(Calendar.YEAR);
         return String.format("%d-%d-%d", month, day, year);
@@ -329,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
             chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
 
             data.saveString(StorageKeys.CURRENT_DATE, Now());
-            data.loadStringList(StorageKeys.DATE);
+            data.appendUniqueStringItem(StorageKeys.DATE, Now());
 
             Log.d(TAG, "formatted " + Now());
         }

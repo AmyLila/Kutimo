@@ -15,11 +15,11 @@ public class CardActivity extends AppCompatActivity {
     int[] level_ranges;
     int[] image_ids;
 
-    private int getIdByName(String name) {
+    private int getImageIdByName(String name) {
         return getResources().getIdentifier(name, "drawable", this.getPackageName());
     }
 
-    private int getIdByView(String name) {
+    private int getViewIdByName(String name) {
         return getResources().getIdentifier(name, "id", this.getPackageName());
     }
 
@@ -46,11 +46,11 @@ public class CardActivity extends AppCompatActivity {
         image_ids = new int[image_names_total];
 
         for (int i = 0; i < image_names_total; i++)
-            image_ids[i] = getIdByName(image_prefix_name + (i + 1));
+            image_ids[i] = getImageIdByName(image_prefix_name + (i + 1));
 
         image_views = new ImageView[image_names_total];
         for (int i = 0; i < image_names_total; i++)
-            image_views[i] = (ImageView) findViewById(getIdByView("image_level" + (i + 1)));
+            image_views[i] = (ImageView) findViewById(getViewIdByName("image_level" + (i + 1)));
 
 
         // Levels
