@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, String.format("Multiplier:%f", multiplier));
 
         chronometerFunction();
+        progress_bar();
         updateVisualsWithFaithPoints();
 
         // Set the lamp image
