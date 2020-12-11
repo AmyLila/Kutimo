@@ -1,244 +1,337 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    app:layout_constraintBottom_toTopOf="parent"
-    tools:context=".MainActivity">
+    android:fillViewport="true">
 
-    <ImageView
-        android:id="@+id/image_level1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline12"
-        app:layout_constraintEnd_toStartOf="@+id/guideline7"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/guideline10"
-        app:srcCompat="@drawable/hidden_bronze" />
 
-    <ImageView
-        android:id="@+id/image_level2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:padding="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline12"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline10"
-        app:srcCompat="@drawable/hidden_bronze" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        app:layout_constraintBottom_toTopOf="parent"
+        tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/image_level3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline12"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toTopOf="@+id/guideline10"
-        app:srcCompat="@drawable/hidden_bronze" />
+        <ImageView
+            android:id="@+id/image_level1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/one_quarter"
+            app:layout_constraintEnd_toStartOf="@+id/left_center_verticle"
+            app:layout_constraintStart_toStartOf="@+id/left_edge"
+            app:layout_constraintTop_toTopOf="@+id/top"
+            app:srcCompat="@drawable/hidden_bronze" />
 
-    <ImageView
-        android:id="@+id/image_level4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline13"
-        app:layout_constraintEnd_toStartOf="@+id/guideline7"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@id/guideline12"
-        app:srcCompat="@drawable/hidden_bronze" />
+        <ImageView
+            android:id="@+id/image_level2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/one_quarter"
+            app:layout_constraintEnd_toStartOf="@+id/right_edge"
+            app:layout_constraintStart_toStartOf="@+id/right_center_verticle"
+            app:layout_constraintTop_toTopOf="@+id/top"
+            app:srcCompat="@drawable/hidden_bronze" />
 
-    <ImageView
-        android:id="@+id/image_level5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline13"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@id/guideline12"
-        app:srcCompat="@drawable/hidden_bronze" />
+        <ImageView
+            android:id="@+id/image_level3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/half"
+            app:layout_constraintEnd_toStartOf="@+id/left_center_verticle"
+            app:layout_constraintStart_toStartOf="@+id/left_edge"
+            app:layout_constraintTop_toTopOf="@+id/one_quarter"
+            app:srcCompat="@drawable/hidden_bronze" />
 
-    <ImageView
-        android:id="@+id/image_level6"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline13"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@id/guideline12"
-        app:srcCompat="@drawable/hidden_silver" />
+        <ImageView
+            android:id="@+id/image_level4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/half"
+            app:layout_constraintEnd_toStartOf="@+id/right_edge"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/right_center_verticle"
+            app:layout_constraintTop_toBottomOf="@id/one_quarter"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/hidden_bronze" />
 
-    <ImageView
-        android:id="@+id/image_level7"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toStartOf="@+id/guideline7"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@id/guideline13"
-        app:srcCompat="@drawable/hidden_silver" />
+        <ImageView
+            android:id="@+id/image_level5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/three_quarters"
+            app:layout_constraintEnd_toStartOf="@+id/left_center_verticle"
+            app:layout_constraintStart_toStartOf="@+id/left_edge"
+            app:layout_constraintTop_toTopOf="@+id/half"
+            app:srcCompat="@drawable/hidden_bronze" />
 
-    <ImageView
-        android:id="@+id/image_level8"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@id/guideline13"
-        app:srcCompat="@drawable/hidden_silver" />
+        <ImageView
+            android:id="@+id/image_level6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/three_quarters"
+            app:layout_constraintEnd_toStartOf="@+id/right_edge"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/right_center_verticle"
+            app:layout_constraintTop_toTopOf="@+id/half"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/hidden_silver" />
 
-    <ImageView
-        android:id="@+id/image_level9"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@id/guideline13"
-        app:srcCompat="@drawable/hidden_silver" />
+        <ImageView
+            android:id="@+id/image_level7"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/four_quarters"
+            app:layout_constraintEnd_toStartOf="@+id/left_center_verticle"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/left_edge"
+            app:layout_constraintTop_toTopOf="@+id/three_quarters"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/hidden_silver" />
 
-    <ImageView
-        android:id="@+id/image_level10"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline7"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@id/guideline"
-        app:srcCompat="@drawable/hidden_gold" />
+        <ImageView
+            android:id="@+id/image_level8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/four_quarters"
+            app:layout_constraintEnd_toStartOf="@+id/right_edge"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/right_center_verticle"
+            app:layout_constraintTop_toTopOf="@+id/three_quarters"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/hidden_silver" />
 
-    <ImageView
-        android:id="@+id/image_level11"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toEndOf="@id/guideline7"
-        app:layout_constraintTop_toBottomOf="@id/guideline"
-        app:srcCompat="@drawable/hidden_gold" />
 
-    <ImageView
-        android:id="@+id/image_level12"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toEndOf="@id/guideline8"
-        app:layout_constraintTop_toBottomOf="@id/guideline"
-        app:srcCompat="@drawable/hidden_gold" />
+        <ImageView
+            android:id="@+id/image_level9"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/five_quarters"
+            app:layout_constraintEnd_toStartOf="@+id/left_center_verticle"
+            app:layout_constraintStart_toStartOf="@+id/left_edge"
+            app:layout_constraintTop_toTopOf="@+id/four_quarters"
+            app:srcCompat="@drawable/hidden_silver" />
 
-    <ImageView
-        android:id="@+id/image_level13"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline11"
-        app:layout_constraintEnd_toStartOf="@+id/guideline7"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@id/guideline2"
-        app:srcCompat="@drawable/hidden_gold" />
+        <ImageView
+            android:id="@+id/image_level10"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/five_quarters"
+            app:layout_constraintEnd_toStartOf="@+id/right_edge"
+            app:layout_constraintStart_toStartOf="@+id/right_center_verticle"
+            app:layout_constraintTop_toTopOf="@+id/four_quarters"
+            app:srcCompat="@drawable/hidden_silver" />
 
-    <ImageView
-        android:id="@+id/image_level14"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline11"
-        app:layout_constraintEnd_toStartOf="@id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@id/guideline2"
-        app:srcCompat="@drawable/hidden_gold" />
 
-    <ImageView
-        android:id="@+id/image_level15"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline11"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@id/guideline2"
-        app:srcCompat="@drawable/hidden_gold" />
+        <ImageView
+            android:id="@+id/image_level11"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/six_quarters"
+            app:layout_constraintEnd_toStartOf="@+id/left_center_verticle"
+            app:layout_constraintStart_toStartOf="@+id/left_edge"
+            app:layout_constraintTop_toTopOf="@id/five_quarters"
+            app:srcCompat="@drawable/hidden_gold" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="395dp" />
+        <ImageView
+            android:id="@+id/image_level12"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/six_quarters"
+            app:layout_constraintEnd_toStartOf="@+id/right_edge"
+            app:layout_constraintStart_toStartOf="@+id/right_center_verticle"
+            app:layout_constraintTop_toTopOf="@id/five_quarters"
+            app:srcCompat="@drawable/hidden_gold" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="142dp" />
+        <ImageView
+            android:id="@+id/image_level13"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/seven_quarters"
+            app:layout_constraintEnd_toStartOf="@+id/left_center_verticle"
+            app:layout_constraintStart_toStartOf="@+id/left_edge"
+            app:layout_constraintTop_toTopOf="@+id/six_quarters"
+            app:srcCompat="@drawable/hidden_gold" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="274dp" />
+        <ImageView
+            android:id="@+id/image_level14"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/seven_quarters"
+            app:layout_constraintEnd_toStartOf="@+id/right_edge"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/right_center_verticle"
+            app:layout_constraintTop_toTopOf="@+id/six_quarters"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/hidden_gold" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+        <ImageView
+            android:id="@+id/image_level15"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/right_edge"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/left_edge"
+            app:layout_constraintTop_toTopOf="@+id/seven_quarters"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/hidden_gold" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/right_edge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="715dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left_center_verticle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.47"  />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="158dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/right_center_verticle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.52"  />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="299dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left_edge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="446dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.0" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="600dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/one_quarter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="250dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/half"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="500dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/three_quarters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="750dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/four_quarters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="1000dp" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/five_quarters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="1250dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/six_quarters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="1500dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/seven_quarters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="1750dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/eight_quarters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="2000dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
