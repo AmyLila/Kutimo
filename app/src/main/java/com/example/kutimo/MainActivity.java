@@ -230,10 +230,19 @@ public class MainActivity extends AppCompatActivity {
 
         AtomicLong number = new AtomicLong();
 
-        int[] times = {10, 30, 60, 300, 600, 900, 1800, 2700, 3600, 7200, 10800, 18000, 31622400};
-        String[] message = {"First Faith Point of the day!",
-                "Second FP of the day!",
+        /**
+         * Times in order
+         * 1, 15, 30", 1', 2', 3', 5', 10', 15', 30', 45', 1 hour, 2 hours, 3 hours, 5 hours.
+         */
+        int[] times = {1, 15, 30, 60, 120, 180, 300, 600, 900, 1800, 2700, 3600, 7200, 10800, 18000};
+
+        // Messages for the toasts
+        String[] message = {"All efforts begin with desire.",
+                "It's been 15 sec. Feel the Spirit yet?",
+                "First Faith Point of the day!",
                 "These are times of faith, these are times of perseverance.",
+                "Believe. Love. Do.",
+                "Heaven is cheering you on!",
                 "He who reads it oftenest will like it best!",
                 "First I obey, then I understand!",
                 "Believing requires action.",
@@ -241,9 +250,9 @@ public class MainActivity extends AppCompatActivity {
                 "Decisions determine destiny!",
                 "Joy comes from and because of Him.",
                 "No one is destined to fail.",
-                "Well done, thou good and faithful servant.",
-                "Watch out, you're getting a transfiguration in 5... 4... 3... 2.. 1.."};
+                "Well done, thou good and faithful servant."};
 
+        // Long toasts that will be displayed after certain time of reading
         chronometer.setOnChronometerTickListener(chronometer -> {
             for (int i = 0; i < message.length; i++)
                 if (is_time_range(chronometer, times[i], times[i] + 1))
