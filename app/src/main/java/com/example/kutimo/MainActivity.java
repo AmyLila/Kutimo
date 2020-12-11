@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Progress bar values
     public float faith_point_status = 0;
-    private int levelUpPoints;
+    private float levelUpPoints;
     public int currentLevel;
 
     //Scripture Picker
@@ -84,15 +84,16 @@ public class MainActivity extends AppCompatActivity {
 
         //load the multiplier from shared preferences
         multiplier = data.loadFloat(StorageKeys.MULTIPLIER, 1);
+        multiplierLevel = (TextView) findViewById(R.id.multiplierLevel);
+        multiplierLevel.setText(String.format("%.1f", multiplier));
         Log.d(TAG, String.format("Multiplier:%f", multiplier));
 
-        progress_bar();
-        chronometer_function();
+        progressBar();
+        chronometerFunction();
 
         // Set the lamp image
         lampFrame = (ImageView) findViewById(R.id.imageView2);
         setLampImage();
-
     }
 
     private float MultiplierPercentage(){
@@ -107,7 +108,20 @@ public class MainActivity extends AppCompatActivity {
     public void updateFaithPoints() {
         //will not update continuously - the current value will be 1
         data.saveFloat(StorageKeys.FAITH_POINTS, faithPoints * (1 + MultiplierPercentage()));
+        updateVisualsWithFaithPoints();
         Log.i(TAG, "faith points: " + faithPoints);
+    }
+
+    public void updateVisualsWithFaithPoints() {
+        // refresh screen values because of faithPoints change
+        faith_point_status = Math.round(GetLevel.getPercent(faithPoints) * 100) / 100;
+        currentLevel = GetLevel.getCurrentLevel(faithPoints);
+        levelUpPoints = GetLevel.getLevelUpPoints(faithPoints);
+
+        // update visual
+        progressBar.setProgress((int) faith_point_status);
+        txtProgress.setText(String.format("%.2f", faith_point_status)+ " %");
+        levelNumber.setText(currentLevel + " ");
     }
 
     /**
@@ -175,24 +189,14 @@ public class MainActivity extends AppCompatActivity {
      * sets the visuals related to game progress, such as the progress donut,
      * level number and multiplier number.
      */
-    void progress_bar() {
+    void progressBar() {
         //Progress Bar and levels
         txtProgress = (TextView) findViewById(R.id.txtProgress);
         levelNumber = (TextView) findViewById(R.id.levelNumber);
-        multiplierLevel = (TextView) findViewById(R.id.multiplierLevel);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        levelUpPoints = data.loadInt(StorageKeys.LEVEL_UP_POINTS, 500);
-        levelUpPoints = levelUpPoints == 0 ? 500 : levelUpPoints;
-        currentLevel = data.loadInt(StorageKeys.CURRENT_LEVEL, 0);
+        updateVisualsWithFaithPoints();
 
-        faith_point_status = Math.round(faithPoints/levelUpPoints * 100);
-
-        progressBar.setProgress((int)faith_point_status);
-        txtProgress.setText(String.format("%.2f", faith_point_status) + " %");
-        levelNumber.setText(currentLevel + "");
-
-        multiplierLevel.setText(String.format("%.1f", multiplier));
 
         Log.d(TAG, "progress_bar faithPoints " + faithPoints);
         Log.d(TAG, "progress_bar faith_point_status " + faith_point_status);
@@ -224,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      *
      */
-    void chronometer_function() {
+    void chronometerFunction() {
         //Chronometer, toasts
         chronometer = findViewById(R.id.chronometer);
 
@@ -254,29 +258,15 @@ public class MainActivity extends AppCompatActivity {
                 faithPoints += 1;
                 updateFaithPoints();
 
-                //the following block updates the progress visuals according to chronometer
-                //and stores the new data for the next update.
-                faith_point_status = Math.round((faithPoints / levelUpPoints) * 100);
-
-                progressBar.setProgress((int) faith_point_status);
-                txtProgress.setText(String.format("%.2f", faith_point_status)+ " %");
-                levelNumber.setText(currentLevel + " ");
+                // TODO: check this out if it causes issue for not being here
+                /*
                 if(multiplier > 1) {
                     multiplierLevel.setText(String.format("%2.2f", MultiplierPercentage() * 100));
                 }
                 else
                     multiplierLevel.setText(String.format("%.1f", multiplier));
+                 */
 
-            }
-            //this block will set up variables to next level depending on faithpoints
-            //and store them.
-            if (faith_point_status >= 100) {
-                levelUpPoints *= 2;
-                faith_point_status = Math.round((faithPoints / levelUpPoints) * 100);
-                currentLevel++;
-
-                data.saveInt(StorageKeys.LEVEL_UP_POINTS, levelUpPoints);
-                data.saveInt(StorageKeys.CURRENT_LEVEL, currentLevel);
             }
 
         });
