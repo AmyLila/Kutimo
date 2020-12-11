@@ -53,4 +53,9 @@ public class ScripturePicker extends AppCompatActivity {
             });
         }
     }
+
+    public void current_week(View v) {
+        setResult(3);
+        finish();
+    }
 }

@@ -1,8 +1,11 @@
 package com.example.kutimo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +23,9 @@ public class ScriptureItemView extends LinearLayout {
     TextView titleText;
     TextView quoteText;
     Button linkButton;
+    Button shareButton;
+
+    private String gospel_link = "";
 
     // For Static view
     @StyleableRes
@@ -37,6 +43,9 @@ public class ScriptureItemView extends LinearLayout {
     public ScriptureItemView(Context context) {
         super(context);
         initializeViewById(context);
+
+        shareButton.setOnClickListener(this::onShareButton);
+        linkButton.setOnClickListener(this::onLinkButton);
     }
 
     /**
@@ -53,7 +62,10 @@ public class ScriptureItemView extends LinearLayout {
 
         setTitleText(setTitle);
         setQuoteText(setQuote);
-        setButton(setLink);
+        gospel_link = setLink;
+
+        shareButton.setOnClickListener(this::onShareButton);
+        linkButton.setOnClickListener(this::onLinkButton);
     }
 
     /**
@@ -79,8 +91,28 @@ public class ScriptureItemView extends LinearLayout {
 
         setTitleText(typedArray.getText(title_index));
         setQuoteText(typedArray.getText(quote_index));
-        setButton(typedArray.getText(link_index));
+        gospel_link = (String) typedArray.getText(link_index);
         typedArray.recycle();
+
+        shareButton.setOnClickListener(this::onShareButton);
+        linkButton.setOnClickListener(this::onLinkButton);
+    }
+
+    public void onShareButton(View view){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TITLE, "Send message");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, String.format("%s\n\"%s\"\n\n%s", getTitle(), getQuoteText(), gospel_link));
+        sendIntent.setType("text/plain");
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        getContext().startActivity(shareIntent);
+
+    }
+    public void onLinkButton(View view){
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(gospel_link));
+        if (intent.resolveActivity(getContext().getPackageManager()) != null) {
+            getContext().startActivity(intent);
+        }
     }
 
     /**
@@ -92,6 +124,7 @@ public class ScriptureItemView extends LinearLayout {
         titleText = (TextView) findViewById(R.id.title);
         quoteText = (TextView) findViewById(R.id.quote);
         linkButton = (Button) findViewById(R.id.link);
+        shareButton = (Button) findViewById(R.id.share);
     }
 
     /**
@@ -128,13 +161,5 @@ public class ScriptureItemView extends LinearLayout {
     public CharSequence getButton() {
         // TODO: update properly to return link
         return linkButton.getText();
-    }
-
-    /**
-     * @param new_button_link sets text for titleText TextView object
-     */
-    public void setButton(CharSequence new_button_link) {
-        // TODO: update properly to launch link by pressing a button.
-        linkButton.setText(new_button_link);
     }
 }

@@ -21,36 +21,38 @@ import java.util.List;
  */
 public class DatePicker extends AppCompatActivity {
     Data data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         data = new Data(this);
         setContentView(R.layout.activity_calendar);
-        List<String> list = data.loadStringList(StorageKeys.DATE);
 
+        // Utilize the list of dates stored through the chronometer to add dates read
+        List<String> list = data.loadStringList(StorageKeys.DATE);
         List<Calendar> calendars = new ArrayList<>();
         List<EventDay> events = new ArrayList<>();
-        for (String each: list){
-            Calendar calendar = Calendar.getInstance();
+
+        //Magic trick
+        Calendar calendar = Calendar.getInstance();
+        events.add(new EventDay(calendar, R.drawable.kutimo));
+
+        for (String each : list) {
+            calendar = Calendar.getInstance();
+
             try {
                 calendar.setTime(new SimpleDateFormat("MM-dd-yyyy").parse(each));
-                events.add(new EventDay(calendar, R.drawable.kutimo));
+                events.add(new EventDay(calendar, R.drawable.checkmark));
                 calendars.add(calendar);
-            } catch (ParseException ignored) {}
-
+            } catch (ParseException ignored) {
+            }
         }
 
         getSupportActionBar().hide();
 
-        // Adding dates read with our app icon
-        Calendar calendar = Calendar.getInstance();
-        events.add(new EventDay(calendar, R.drawable.kutimo));
 
-        // Displaying dates clicked
+        // Displays dates clicked
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
         calendarView.setEvents(events);
-
-        // calendarView.setHighlightedDays(calendars);
-        // calendarView.setDisabledDays(calendars);
     }
 }

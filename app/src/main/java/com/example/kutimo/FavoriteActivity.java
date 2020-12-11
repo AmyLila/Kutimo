@@ -43,16 +43,6 @@ public class FavoriteActivity extends AppCompatActivity {
 
     }
 
-    public void shareIntent(View v) {
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TITLE, "Send message");
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-        sendIntent.setType("text/plain");
-        Intent shareIntent = Intent.createChooser(sendIntent, null);
-        startActivity(shareIntent);
-    }
-
     private void setupIntent() {
         Intent intent = getIntent();
         String type = intent.getType();

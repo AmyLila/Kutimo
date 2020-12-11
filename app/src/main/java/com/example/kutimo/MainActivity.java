@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         data = new Data(this);
-        falsify_data();
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().hide();
@@ -97,20 +96,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void falsify_data() {
-        data.clearJSONArray(StorageKeys.SCRIPTURES);
-        JSONObject scripture = new JSONObject();
-
-        scripture.put("title", "THIS IS THE TITLE");
-        scripture.put("content", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet vehicula metus. Pellentesque luctus libero ac sapien sagittis dapibus. Nam nec nunc massa. In.");
-        scripture.put("link", "GOSPEL LINK");
-
-        for (int i = 0; i < 10; i++) {
-            data.appendItemToJSON(StorageKeys.SCRIPTURES, scripture);
-        }
-        System.out.println();
-
-    }
     private float MultiplierPercentage(){
         return multiplier / 365;
     }
@@ -223,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
         currentLevel = data.loadInt(StorageKeys.CURRENT_LEVEL, 0);
 
         progressBar.setProgress((int) faith_point_status);
-        txtProgress.setText(faith_point_status + " %");
+        txtProgress.setText(String.format("%.1f",faith_point_status)+ " %");
         levelNumber.setText(currentLevel + " ");
         multiplierLevel.setText(String.format("%2.2f", MultiplierPercentage() * 100) + '%');
 
@@ -399,9 +384,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "2!");
                 triggerTimer();
                 launchStudy(data.getExtras().getString("launchStudy"));
+            } else if (data.hasExtra("currentWeek")){
+                Log.d(TAG, "2!");
+                triggerTimer();
+                launchStudy(data.getExtras().getString("launchStudy"));
             }
-            // do what you want here.
-        }
+        } else if (resultCode == 3 && requestCode == 2){
+             currentWeek();
+         }
     }
 
 
@@ -419,7 +409,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Launch the current week in Come, Follow Me for year 2020 then year 2021
      */
-    public void current_week(View v) {
+    public void currentWeek() {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int week_of_year = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
         int day_of_week = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
