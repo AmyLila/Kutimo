@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         //load faith points from shared preferences
         faithPoints = data.loadFloat(StorageKeys.FAITH_POINTS, 0);
-        //faithPoints = 700;
+
         //load the multiplier from shared preferences
         multiplier = data.loadFloat(StorageKeys.MULTIPLIER, 1);
         Log.d(TAG, String.format("Multiplier:%f", multiplier));
@@ -192,7 +192,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * sets the visuals related to game progress, such as the progress donut,
+     * level number and multiplier number.
      */
     void progress_bar() {
         //Progress Bar and levels
@@ -201,16 +202,17 @@ public class MainActivity extends AppCompatActivity {
         multiplierLevel = (TextView) findViewById(R.id.multiplierLevel);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        //progress bar update in percentage
-        faith_point_status = Math.round(faithPoints / levelUpPoints * 100);
-
         levelUpPoints = data.loadInt(StorageKeys.LEVEL_UP_POINTS, 500);
+        levelUpPoints = levelUpPoints == 0 ? 500 : levelUpPoints;
         currentLevel = data.loadInt(StorageKeys.CURRENT_LEVEL, 0);
 
-        progressBar.setProgress((int) faith_point_status);
-        txtProgress.setText(String.format("%.1f",faith_point_status)+ " %");
-        levelNumber.setText(currentLevel + " ");
-        multiplierLevel.setText(String.format("%2.2f", MultiplierPercentage() * 100) + '%');
+        faith_point_status = Math.round(faithPoints/levelUpPoints * 100);
+
+        progressBar.setProgress((int)faith_point_status);
+        txtProgress.setText(String.format("%.2f", faith_point_status) + " %");
+        levelNumber.setText(currentLevel + "");
+
+        multiplierLevel.setText(String.format("%.1f", multiplier));
 
         Log.d(TAG, "progress_bar faithPoints " + faithPoints);
         Log.d(TAG, "progress_bar faith_point_status " + faith_point_status);
@@ -272,17 +274,25 @@ public class MainActivity extends AppCompatActivity {
                 faithPoints += 1;
                 updateFaithPoints();
 
-                faith_point_status = Math.round(faithPoints / levelUpPoints * 100);
+                //the following block updates the progress visuals according to chronometer
+                //and stores the new data for the next update.
+                faith_point_status = Math.round((faithPoints / levelUpPoints) * 100);
 
                 progressBar.setProgress((int) faith_point_status);
-                txtProgress.setText(faith_point_status + " %");
+                txtProgress.setText(String.format("%.2f", faith_point_status)+ " %");
                 levelNumber.setText(currentLevel + " ");
-                multiplierLevel.setText(String.format("%2.2f", MultiplierPercentage() * 100) + '%');
+                if(multiplier > 1) {
+                    multiplierLevel.setText(String.format("%2.2f", MultiplierPercentage() * 100));
+                }
+                else
+                    multiplierLevel.setText(String.format("%.1f", multiplier));
 
             }
+            //this block will set up variables to next level depending on faithpoints
+            //and store them.
             if (faith_point_status >= 100) {
-                faith_point_status = 0;
                 levelUpPoints *= 2;
+                faith_point_status = Math.round((faithPoints / levelUpPoints) * 100);
                 currentLevel++;
 
                 data.saveInt(StorageKeys.LEVEL_UP_POINTS, levelUpPoints);
@@ -467,7 +477,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Launches the calendar from DatePicker class
      * @param view
      */
     public void openCalendar(View view) {
