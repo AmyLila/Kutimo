@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         multiplierLevel.setText(String.format("%.1f", multiplier));
         Log.d(TAG, String.format("Multiplier:%f", multiplier));
 
-        progressBar();
         chronometerFunction();
 
         // Set the lamp image
