@@ -8,6 +8,8 @@ import android.os.Handler;
 
 /**
  * Creates, displays and finishes a splash screen.
+ *
+ * @author Wanderson
  */
 public class SplashScreen extends AppCompatActivity {
 
@@ -18,7 +20,7 @@ public class SplashScreen extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        //this block starts splash screen, then makes the transition to main
+        // Starts splash screen, then makes the transition to main
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

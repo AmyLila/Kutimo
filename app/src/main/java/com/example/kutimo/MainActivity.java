@@ -30,26 +30,23 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 
 public class MainActivity extends AppCompatActivity {
-    // ******
-    // Fields
-    // ******
-    private static final String TAG = "MainActivity";
+     private static final String TAG = "MainActivity";
 
-    //Calendar
+    // Calendar
     private ImageButton calendarButton;
 
-    //Chronometer
+    // Chronometer
     private Chronometer chronometer;
     private boolean isRunning;
     private long pauseOffset;
     private int hours;
     private int minutes;
 
-    //Faith Points
+    // Faith Points
     private float faithPoints;
     private float multiplier;
 
-    //Progress Bar
+    // Progress Bar
     private TextView txtProgress;
     private TextView levelNumber;
     private TextView multiplierLevel;
@@ -61,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private float levelUpPoints;
     public int currentLevel;
 
-    //Scripture Picker
+    // Scripture Picker
     ArrayList<String> scriptures;
     Data data;
 
@@ -70,7 +67,11 @@ public class MainActivity extends AppCompatActivity {
     int IMAGE_NAMES_TOTAL = 12;
     int DAYS_UNTIL_LAMP_FULL = 365;
 
-
+    /**
+     *
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,10 +80,10 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        //load faith points from shared preferences
+        // Load faith points from shared preferences
         faithPoints = data.loadFloat(StorageKeys.FAITH_POINTS, 0);
 
-        //load the multiplier from shared preferences
+        // Load the multiplier from shared preferences
         multiplier = data.loadFloat(StorageKeys.MULTIPLIER, 1);
         multiplierLevel = (TextView) findViewById(R.id.multiplierLevel);
         multiplierLevel.setText(String.format("%.1f", multiplier));
@@ -99,8 +100,6 @@ public class MainActivity extends AppCompatActivity {
     private float MultiplierPercentage(){
         return multiplier / DAYS_UNTIL_LAMP_FULL;
     }
-
-
 
     /**
      * Each sessions' faith points and multiplier
@@ -153,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     *  TODO document
+     *  Calculates multiplier depending on consecutive reading streak.
      */
     private void setStreakMultiplier() {
         String current_date = data.loadString(StorageKeys.CURRENT_DATE, Now());
@@ -172,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * TODO
+     *
      * @param one
      * @param two
      * @return
@@ -186,11 +185,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * sets the visuals related to game progress, such as the progress donut,
+     * Sets the visuals related to game progress, such as the progress donut,
      * level number and multiplier number.
      */
-    void progressBar() {
-        //Progress Bar and levels
+    void progress_bar() {
+        // Progress Bar and levels
         txtProgress = (TextView) findViewById(R.id.txtProgress);
         levelNumber = (TextView) findViewById(R.id.levelNumber);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -234,10 +233,19 @@ public class MainActivity extends AppCompatActivity {
 
         AtomicLong number = new AtomicLong();
 
-        int[] times = {10, 30, 60, 300, 600, 900, 1800, 2700, 3600, 7200, 10800, 18000, 31622400};
-        String[] message = {"First Faith Point of the day!",
-                "Second FP of the day!",
+        /**
+         * Times in order
+         * 1, 15, 30", 1', 2', 3', 5', 10', 15', 30', 45', 1 hour, 2 hours, 3 hours, 5 hours.
+         */
+        int[] times = {1, 15, 30, 60, 120, 180, 300, 600, 900, 1800, 2700, 3600, 7200, 10800, 18000};
+
+        // Messages for the toasts
+        String[] message = {"All efforts begin with desire.",
+                "It's been 15 sec. Feel the Spirit yet?",
+                "First Faith Point of the day!",
                 "These are times of faith, these are times of perseverance.",
+                "Believe. Love. Do.",
+                "Heaven is cheering you on!",
                 "He who reads it oftenest will like it best!",
                 "First I obey, then I understand!",
                 "Believing requires action.",
@@ -245,9 +253,9 @@ public class MainActivity extends AppCompatActivity {
                 "Decisions determine destiny!",
                 "Joy comes from and because of Him.",
                 "No one is destined to fail.",
-                "Well done, thou good and faithful servant.",
-                "Watch out, you're getting a transfiguration in 5... 4... 3... 2.. 1.."};
+                "Well done, thou good and faithful servant."};
 
+        // Long toasts that will be displayed after certain time of reading
         chronometer.setOnChronometerTickListener(chronometer -> {
             for (int i = 0; i < message.length; i++)
                 if (is_time_range(chronometer, times[i], times[i] + 1))
@@ -351,7 +359,12 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 2);
     }
 
-
+    /**
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -451,7 +464,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void openCalendar(View view) {
-        //This method starts the DatePicker Class
+        // Starts the DatePicker Class
         Intent intent = new Intent(this, DatePicker.class);
         startActivity(intent);
 

@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * DatePicker Class implements a Material View Calendar from Applandeo.
  *
- * @author Megan De Leon
+ * @author Megan and Timothy
  */
 public class DatePicker extends AppCompatActivity {
     Data data;
@@ -26,20 +26,20 @@ public class DatePicker extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("Imcrazy", "here top");
         data = new Data(this);
         setContentView(R.layout.activity_calendar);
 
-        // Utilize the list of dates stored through the chronometer to add dates read
+        // Utilize the list of dates stored through the chronometer to add the dates user reads
         List<String> list = data.loadStringList(StorageKeys.DATE);
         List<EventDay> events = new ArrayList<>();
 
-        int KUTIMO_ID = R.drawable.kutimo;
+        // Preset to false
         boolean is_today_in_list = false;
 
         for (String each : list) {
             Calendar each_calendar = Calendar.getInstance();
 
+            // If it today is on the list add a checked mark image
             try {
                 each_calendar.setTime(new SimpleDateFormat("MM-dd-yyyy").parse(each));
                 if (Calendar.getInstance().getTime() == each_calendar.getTime()) {
@@ -50,16 +50,13 @@ public class DatePicker extends AppCompatActivity {
             } catch (ParseException ignored) {
             }
         }
+        // Otherwise keep K logo image on today's date.
         if (!is_today_in_list) {
             events.add(new EventDay(Calendar.getInstance(), R.drawable.kutimo));
         }
 
-        getSupportActionBar().hide();
-
-
         // Displays dates clicked
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
         calendarView.setEvents(events);
-        Log.d("Imcrazy", "here bottom");
     }
 }

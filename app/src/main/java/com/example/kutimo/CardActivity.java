@@ -6,13 +6,28 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 
+/**
+ * Get images for card collections
+ *
+ * @author Amy and Timothy
+ */
 public class CardActivity extends AppCompatActivity {
     private static final String TAG = "CardActivity";
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     private int getImageIdByName(String name) {
         return getResources().getIdentifier(name, "drawable", this.getPackageName());
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     private int getViewIdByName(String name) {
         return getResources().getIdentifier(name, "id", this.getPackageName());
     }

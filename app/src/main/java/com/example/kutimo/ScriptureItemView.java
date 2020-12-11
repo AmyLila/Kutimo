@@ -17,6 +17,7 @@ import org.json.simple.JSONObject;
 
 /**
  *
+ * @author Timothy
  */
 public class ScriptureItemView extends LinearLayout {
 
