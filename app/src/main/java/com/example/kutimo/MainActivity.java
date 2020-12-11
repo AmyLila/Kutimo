@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, String.format("Multiplier:%f", multiplier));
 
         chronometerFunction();
+        updateVisualsWithFaithPoints();
 
         // Set the lamp image
         lampFrame = (ImageView) findViewById(R.id.imageView2);
