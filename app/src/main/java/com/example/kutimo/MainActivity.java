@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> scriptures;
     Data data;
 
+    //Lamp
+    int[] level_ranges;
+    int[] lampImage_ids;
+    int image_names_total = 15;
+    ImageView lampFrame;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,12 +82,19 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
+        //load faith points from shared preferences
         faithPoints = data.loadFloat(StorageKeys.FAITH_POINTS, 0);
+        //faithPoints = 700;
+        //load the multiplier from shared preferences
         multiplier = data.loadFloat(StorageKeys.MULTIPLIER, 1);
         Log.d(TAG, String.format("Multiplier:%f", multiplier));
 
         progress_bar();
         chronometer_function();
+
+        // Set the lamp image
+        setLampImage();
+
     }
 
     private void falsify_data() {
@@ -100,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
     private float MultiplierPercentage(){
         return multiplier / 365;
     }
+
+
+
     /**
      * Each sessions' faith points and multiplier
      */
@@ -108,6 +125,54 @@ public class MainActivity extends AppCompatActivity {
         data.saveFloat(StorageKeys.FAITH_POINTS, faithPoints * (1 + MultiplierPercentage()));
         Log.i(TAG, "faith points: " + faithPoints);
     }
+
+    /**
+     * find the image name from the drawable folder
+     * @param name
+     * @return
+     */
+    private int getIdByName(String name) {
+        return getResources().getIdentifier(name, "drawable", this.getPackageName());
+    }
+
+    /**
+     * get the image id
+     * @param name
+     * @return
+     */
+    private int getIdByView(String name) {
+        return getResources().getIdentifier(name, "id", this.getPackageName());
+    }
+
+    /**
+     * Set the lamp image according to the streak multiplier
+     */
+    private void setLampImage() {
+        int level = 500;
+        String image_prefix_name = "lamp_level";
+        lampFrame = (ImageView) findViewById(R.id.imageView2);
+        lampImage_ids = new int[image_names_total];
+
+
+        for (int i = 0; i < image_names_total; i++)
+            lampImage_ids[i] = getIdByName(image_prefix_name + (i + 1));
+
+
+        for (int i = 0; i < image_names_total; i++)
+            lampFrame = (ImageView) findViewById(getIdByView(image_prefix_name + (i + 1)));
+
+
+        // Levels
+        level_ranges = new int[image_names_total];
+        int power = 1;
+        for (int i = 0; i < level_ranges.length; i++)
+            level_ranges[i] = level * (int) Math.pow(2, power);
+
+        for (int i = 0; i < lampImage_ids.length; i++)
+            if (faithPoints >= level_ranges[i])
+                lampFrame.setImageResource(lampImage_ids[i]);
+    }// end set lamp image
+
 
     /**
      *  TODO document
@@ -401,12 +466,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * open an intent activity that views the reward cards
      * @param view
      */
     public void openCards(View view) {
-        //TODO need to pass faith points in when the button is pushed.
-        // This doesn't need done because the card activity gets faithpoints from shared preferences through the save class.
         Intent intent = new Intent(this, CardActivity.class);
         startActivity(intent);
 
