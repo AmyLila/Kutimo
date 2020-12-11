@@ -19,8 +19,10 @@ import android.widget.Toast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -30,7 +32,8 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 
 public class MainActivity extends AppCompatActivity {
-     private static final String TAG = "MainActivity";
+
+   private static final String TAG = "MainActivity";
 
     // Calendar
     private ImageButton calendarButton;
@@ -76,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         data = new Data(this);
+        falseData();
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().hide();
