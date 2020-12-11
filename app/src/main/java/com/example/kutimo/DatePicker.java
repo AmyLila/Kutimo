@@ -30,14 +30,15 @@ public class DatePicker extends AppCompatActivity {
 
         // Utilize the list of dates stored through the chronometer to add dates read
         List<String> list = data.loadStringList(StorageKeys.DATE);
-
-
         List<Calendar> calendars = new ArrayList<>();
-
         List<EventDay> events = new ArrayList<>();
 
+        //Magic trick
+        Calendar calendar = Calendar.getInstance();
+        events.add(new EventDay(calendar, R.drawable.kutimo));
+
         for (String each : list) {
-            Calendar calendar = Calendar.getInstance();
+            calendar = Calendar.getInstance();
 
             try {
                 calendar.setTime(new SimpleDateFormat("MM-dd-yyyy").parse(each));
@@ -45,13 +46,10 @@ public class DatePicker extends AppCompatActivity {
                 calendars.add(calendar);
             } catch (ParseException ignored) {
             }
-
         }
+
         getSupportActionBar().hide();
 
-        // Adds different image for current date.
-        Calendar calendar = Calendar.getInstance();
-        events.add(new EventDay(calendar, R.drawable.kutimo));
 
         // Displays dates clicked
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
