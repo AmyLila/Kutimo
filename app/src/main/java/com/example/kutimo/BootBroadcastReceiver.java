@@ -14,7 +14,7 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Prints reminder message as toast
+        // Prints reminder message as toast
         Toast.makeText(context, "Don't forget to read your scriptures", Toast.LENGTH_LONG).show();
     }
 }

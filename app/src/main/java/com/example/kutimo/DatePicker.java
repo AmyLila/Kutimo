@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * DatePicker Class implements a Material View Calendar from Applandeo.
  *
- * @author Megan De Leon
+ * @author Megan and Timothy
  */
 public class DatePicker extends AppCompatActivity {
     Data data;
@@ -26,11 +26,10 @@ public class DatePicker extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("Imcrazy", "here top");
         data = new Data(this);
         setContentView(R.layout.activity_calendar);
 
-        // Utilize the list of dates stored through the chronometer to add dates read
+        // Utilize the list of dates stored through the chronometer to add the dates user reads
         List<String> list = data.loadStringList(StorageKeys.DATE);
         List<EventDay> events = new ArrayList<>();
 
@@ -56,10 +55,8 @@ public class DatePicker extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-
         // Displays dates clicked
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
         calendarView.setEvents(events);
-        Log.d("Imcrazy", "here bottom");
     }
 }

@@ -6,8 +6,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 
+/**
+ * Get images for card collections
+ *
+ * @author Amy and Timothy
+ */
 public class CardActivity extends AppCompatActivity {
-
     private static final String TAG = "Card Activity";
     private float faithPoints;
     Data data;
@@ -15,10 +19,20 @@ public class CardActivity extends AppCompatActivity {
     int[] level_ranges;
     int[] image_ids;
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     private int getImageIdByName(String name) {
         return getResources().getIdentifier(name, "drawable", this.getPackageName());
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     private int getViewIdByName(String name) {
         return getResources().getIdentifier(name, "id", this.getPackageName());
     }
@@ -38,6 +52,9 @@ public class CardActivity extends AppCompatActivity {
                 image_views[i].setImageResource(image_ids[i]);
     }
 
+    /**
+     *
+     */
     private void preload() {
         int level = 500;
         int image_names_total = 15;
