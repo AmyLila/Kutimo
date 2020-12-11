@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         data = new Data(this);
-        falseData();
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().hide();
