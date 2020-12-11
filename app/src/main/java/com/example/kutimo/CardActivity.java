@@ -28,9 +28,6 @@ public class CardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
         data = new Data(this);
-
-        //Amy's Card Activity
-
         faithPoints = data.loadFloat(StorageKeys.FAITH_POINTS);
         Log.i(TAG, "faith points: " + faithPoints);
 
