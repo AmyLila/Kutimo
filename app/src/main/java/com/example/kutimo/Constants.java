@@ -1,7 +1,7 @@
 package com.example.kutimo;
 
 public class Constants {
-    private String CHURCH_LINK = "https://www.churchofjesuschrist.org/study/";
+    static private String CHURCH_LINK = "https://www.churchofjesuschrist.org/study/";
     static final String COME_FOLLOW_ME_LINK = CHURCH_LINK + "manual/come-follow-me-for-individuals-and-families-%s";
     static final String SCRIPTURE_LINK = CHURCH_LINK + "scriptures/%s";
 
