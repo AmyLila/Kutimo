@@ -75,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
         chronometerFunction();
     }
 
+    // ***************************
+    // *    Helper functions     *
+    // ***************************
+
     /**
      * Easier typing this method than the longer way around.
      * @param message A String message to be displayed in long toast
@@ -155,10 +159,14 @@ public class MainActivity extends AppCompatActivity {
         return String.format("%d-%d-%d", month, day, year);
     }
 
+    // ***********************
+    // *    Update visuals   *
+    // ***********************
+
     /**
      * Set the lamp image according to the streak multiplier
      */
-    private void setLampImage() {
+    public void setLampImage() {
         final int LAMP_IMAGE_INCREMENT = DAYS_UNTIL_LAMP_FULL / TOTAL_LAMP_IMAGES;
         int lamp_image_frame = Math.min(Math.floorDiv((int) streak_multiplier, LAMP_IMAGE_INCREMENT), TOTAL_LAMP_IMAGES - 1);
         String lamp_filename = "lamp_level" + (lamp_image_frame + 1);
@@ -172,6 +180,10 @@ public class MainActivity extends AppCompatActivity {
         text_progress_TextView.setText(String.format("%.2f", faith_point_percent) + " %");
         level_number_TextView.setText(GetLevel.getCurrentLevel(faith_points) + " ");
     }
+
+    // ***************************
+    // *    Handle chronometer   *
+    // ***************************
 
     /**
      * Displays inspiring messages as the user reads.
@@ -229,6 +241,24 @@ public class MainActivity extends AppCompatActivity {
         is_chronometer_running = false;
     }
 
+    // ****************************
+    // * Launch Scripture intents *
+    // ****************************
+
+    /**
+     * Open an intent activity with an option to use Gospel Library or Website with scripture_book
+     * or "Come, Follow Me" book as a parameter for link.
+     *
+     * @param id_name Any scripture or "Come, Follow Me" found in the header from the website.
+     */
+    void launchStudy(String id_name, String gospel_link) {
+        Uri gospel_uri = Uri.parse(String.format(gospel_link, id_name));
+
+        Intent uri_intent = new Intent(Intent.ACTION_VIEW, gospel_uri);
+        if (uri_intent.resolveActivity(getPackageManager()) != null)
+            startActivity(uri_intent);
+    }
+
     // Launch the current week in Come, Follow Me for year 2020 then year 2021.
     public void currentWeek() {
         int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -246,19 +276,10 @@ public class MainActivity extends AppCompatActivity {
             launchStudy("doctrine-and-covenants-2021" + "/" + week_of_year, Constants.COME_FOLLOW_ME_LINK);
     }
 
-    /**
-     * Open an intent activity with an option to use Gospel Library or Website with scripture_book
-     * or "Come, Follow Me" book as a parameter for link.
-     *
-     * @param id_name Any scripture or "Come, Follow Me" found in the header from the website.
-     */
-    void launchStudy(String id_name, String gospel_link) {
-        Uri gospel_uri = Uri.parse(String.format(gospel_link, id_name));
 
-        Intent uri_intent = new Intent(Intent.ACTION_VIEW, gospel_uri);
-        if (uri_intent.resolveActivity(getPackageManager()) != null)
-            startActivity(uri_intent);
-    }
+    // ***************************
+    // *      Button calls       *
+    // ***************************
 
     public void openScriptureDialog(View view) {
         Intent intent = new Intent(this, ScripturePicker.class);
@@ -278,6 +299,10 @@ public class MainActivity extends AppCompatActivity {
     public void openCalendar(View view) {
         startActivity(new Intent(this, DatePicker.class));
     }
+
+    // ***************************
+    // *  Handle ActivityResult  *
+    // ***************************
 
     /**
      * @param requestCode
