@@ -75,17 +75,12 @@ public class MainActivity extends AppCompatActivity {
         chronometerFunction();
     }
 
-    private float MultiplierPercentage() {
-        return streak_multiplier / DAYS_UNTIL_LAMP_FULL;
-    }
-
-
-    public void updateVisualsWithFaithPoints() {
-        faith_point_percent = (float) Math.round(GetLevel.getPercent(faith_points) * 100) / 100;
-        // refresh screen values because of faithPoints change
-        level_ProgressBar.setProgress((int) faith_point_percent);
-        text_progress_TextView.setText(String.format("%.2f", faith_point_percent) + " %");
-        level_number_TextView.setText(GetLevel.getCurrentLevel(faith_points) + " ");
+    /**
+     * Easier typing this method than the longer way around.
+     * @param message A String message to be displayed in long toast
+     */
+    private void longToast(String message) {
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -95,16 +90,6 @@ public class MainActivity extends AppCompatActivity {
      */
     private int getImageIdByName(String name) {
         return getResources().getIdentifier(name, "drawable", this.getPackageName());
-    }
-
-    /**
-     * Set the lamp image according to the streak multiplier
-     */
-    private void setLampImage() {
-        final int LAMP_IMAGE_INCREMENT = DAYS_UNTIL_LAMP_FULL / TOTAL_LAMP_IMAGES;
-        int lamp_image_frame = Math.min(Math.floorDiv((int) streak_multiplier, LAMP_IMAGE_INCREMENT), TOTAL_LAMP_IMAGES - 1);
-        String lamp_filename = "lamp_level" + (lamp_image_frame + 1);
-        lamp_ImageView.setImageResource(getImageIdByName(lamp_filename));
     }
 
     /**
@@ -127,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private float MultiplierPercentage() {
+        return streak_multiplier / DAYS_UNTIL_LAMP_FULL;
+    }
+
     /**
      * Returns the total days between start and end dates, regardless of order.
      *
@@ -143,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
         return Math.abs((start_time - end_time) / 86_400_000);
     }
 
-
     /**
      * @param chronometer
      * @param start_second
@@ -157,38 +145,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Easier typing this method than the longer way around.
-     * @param message A String message to be displayed in long toast
-     */
-    private void longToast(String message) {
-        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * Displays inspiring messages as the user reads.
-     * Increments the faith points every 30 seconds.
-     */
-    void chronometerFunction() {
-        // Chronometer, toasts
-        AtomicLong number = new AtomicLong();
-        int[] times = Constants.CHRONOMETER_TRIGGER_TOAST;
-
-        chronometer.setOnChronometerTickListener(chronometer -> {
-            // Long toasts that will be displayed after certain time of reading
-            for (int i = 0; i < times.length; i++)
-                if (isTimeRange(chronometer, times[i], times[i] + 1))
-                    longToast(Constants.CHRONOMETER_TOASTS[i]);
-
-            if (isTimeRange(chronometer, number.get() + 30L, number.get() + 31L)) {
-                number.addAndGet(30L);
-                faith_points += 1;
-                storage_data.saveFloat(StorageKeys.FAITH_POINTS, faith_points * (1 + MultiplierPercentage()));
-                updateVisualsWithFaithPoints();
-            }
-        });
-    }
-
-    /**
      * It returns the today's date.
      * @return a MM-dd-YYYY formatted String (i.e. 04-04-2004)
      */
@@ -197,6 +153,48 @@ public class MainActivity extends AppCompatActivity {
         int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         int year = Calendar.getInstance().get(Calendar.YEAR);
         return String.format("%d-%d-%d", month, day, year);
+    }
+
+    /**
+     * Set the lamp image according to the streak multiplier
+     */
+    private void setLampImage() {
+        final int LAMP_IMAGE_INCREMENT = DAYS_UNTIL_LAMP_FULL / TOTAL_LAMP_IMAGES;
+        int lamp_image_frame = Math.min(Math.floorDiv((int) streak_multiplier, LAMP_IMAGE_INCREMENT), TOTAL_LAMP_IMAGES - 1);
+        String lamp_filename = "lamp_level" + (lamp_image_frame + 1);
+        lamp_ImageView.setImageResource(getImageIdByName(lamp_filename));
+    }
+
+    public void updateVisualsWithFaithPoints() {
+        faith_point_percent = (float) Math.round(GetLevel.getPercent(faith_points) * 100) / 100;
+        // refresh screen values because of faithPoints change
+        level_ProgressBar.setProgress((int) faith_point_percent);
+        text_progress_TextView.setText(String.format("%.2f", faith_point_percent) + " %");
+        level_number_TextView.setText(GetLevel.getCurrentLevel(faith_points) + " ");
+    }
+
+    /**
+     * Displays inspiring messages as the user reads.
+     * Increments the faith points every 30 seconds.
+     */
+    void chronometerFunction() {
+        // Chronometer, toasts
+        AtomicLong time = new AtomicLong();
+        int[] times = Constants.CHRONOMETER_TRIGGER_TOAST;
+
+        chronometer.setOnChronometerTickListener(chronometer -> {
+            // Long toasts that will be displayed after certain time of reading
+            for (int i = 0; i < times.length; i++)
+                if (isTimeRange(chronometer, times[i], times[i] + 1))
+                    longToast(Constants.CHRONOMETER_TOASTS[i]);
+
+            if (isTimeRange(chronometer, time.get() + 30L, time.get() + 31L)) {
+                time.addAndGet(30L);
+                faith_points += 1;
+                storage_data.saveFloat(StorageKeys.FAITH_POINTS, faith_points * (1 + MultiplierPercentage()));
+                updateVisualsWithFaithPoints();
+            }
+        });
     }
 
     /**
@@ -231,39 +229,9 @@ public class MainActivity extends AppCompatActivity {
         is_chronometer_running = false;
     }
 
-
     public void openScriptureDialog(View view) {
         Intent intent = new Intent(this, ScripturePicker.class);
         startActivityForResult(intent, 1);
-    }
-
-    /**
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            if (!is_chronometer_running && resultCode >= 1 && resultCode <= 3)
-                startChronometer();
-            switch (resultCode) {
-                case 1:
-                    launchStudy(data.getExtras().getString("Link"), Constants.SCRIPTURE_LINK);
-                    break;
-                case 2:
-                    launchStudy(data.getExtras().getString("Link"), Constants.COME_FOLLOW_ME_LINK);
-                    break;
-                case 3:
-                    currentWeek();
-                    break;
-            }
-        }
-    }
-
-    public void openFavoriteActivity(View view) {
-        startActivity(new Intent(this, FavoriteActivity.class));
     }
 
     // Launch the current week in Come, Follow Me for year 2020 then year 2021.
@@ -297,6 +265,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(uri_intent);
     }
 
+    public void openFavoriteActivity(View view) {
+        startActivity(new Intent(this, FavoriteActivity.class));
+    }
+
     // Open an intent activity that views the reward cards.
     public void openCards(View view) {
         startActivity(new Intent(this, CardActivity.class));
@@ -305,5 +277,30 @@ public class MainActivity extends AppCompatActivity {
     // Launches the calendar from DatePicker class
     public void openCalendar(View view) {
         startActivity(new Intent(this, DatePicker.class));
+    }
+
+    /**
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (!is_chronometer_running && resultCode >= 1 && resultCode <= 3)
+                startChronometer();
+            switch (resultCode) {
+                case 1:
+                    launchStudy(data.getExtras().getString("Link"), Constants.SCRIPTURE_LINK);
+                    break;
+                case 2:
+                    launchStudy(data.getExtras().getString("Link"), Constants.COME_FOLLOW_ME_LINK);
+                    break;
+                case 3:
+                    currentWeek();
+                    break;
+            }
+        }
     }
 }
