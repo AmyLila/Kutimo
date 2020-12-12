@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageView;
@@ -15,9 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -30,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Mandatory values
     private static final String TAG = "MainActivity";
-    Data data;
+    Data storage_data;
 
     // Chronometer
     private Chronometer chronometer;
@@ -56,71 +53,48 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        data = new Data(this);
+        storage_data = new Data(this);
 
         chronometer = findViewById(R.id.chronometer);
         multiplier_Level_TextView = (TextView) findViewById(R.id.multiplierLevel);
         text_progress_TextView = (TextView) findViewById(R.id.txtProgress);
         level_number_TextView = (TextView) findViewById(R.id.levelNumber);
         level_ProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        lamp_ImageView = (ImageView) findViewById(R.id.imageView2);
 
+        // Set the lamp image
+        setLampImage();
 
         // Setup multiplier
-        streak_multiplier = data.loadFloat(StorageKeys.MULTIPLIER, 1);
-        multiplier_Level_TextView.setText(String.format("%.1f", streak_multiplier));
+        streak_multiplier = storage_data.loadFloat(StorageKeys.MULTIPLIER, 1);
+        multiplier_Level_TextView.setText(String.format("%2.2f", MultiplierPercentage() * 100) + '%');
 
-        faith_points = data.loadFloat(StorageKeys.FAITH_POINTS, 0);
+        faith_points = storage_data.loadFloat(StorageKeys.FAITH_POINTS, 0);
 
         updateVisualsWithFaithPoints();
         chronometerFunction();
-
-        // Set the lamp image
-        lamp_ImageView = (ImageView) findViewById(R.id.imageView2);
-        setLampImage();
     }
 
     private float MultiplierPercentage() {
         return streak_multiplier / DAYS_UNTIL_LAMP_FULL;
     }
 
-    /**
-     * Each sessions' faith points and multiplier
-     */
-    public void updateFaithPoints() {
-        //will not update continuously - the current value will be 1
-        data.saveFloat(StorageKeys.FAITH_POINTS, faith_points * (1 + MultiplierPercentage()));
-        updateVisualsWithFaithPoints();
-        Log.i(TAG, "faith points: " + faith_points);
-    }
 
     public void updateVisualsWithFaithPoints() {
-        // refresh screen values because of faithPoints change
         faith_point_percent = (float) Math.round(GetLevel.getPercent(faith_points) * 100) / 100;
-
-        // update visual
+        // refresh screen values because of faithPoints change
         level_ProgressBar.setProgress((int) faith_point_percent);
         text_progress_TextView.setText(String.format("%.2f", faith_point_percent) + " %");
         level_number_TextView.setText(GetLevel.getCurrentLevel(faith_points) + " ");
     }
 
     /**
-     * find the image name from the drawable folder
-     *
-     * @param name
-     * @return
+     * Get the image id by image name from the drawable folder.
+     * @param name file_name found in drawable folder
+     * @return image_id
      */
-    private int getIdByName(String name) {
+    private int getImageIdByName(String name) {
         return getResources().getIdentifier(name, "drawable", this.getPackageName());
-    }
-
-    /**
-     * get the image id
-     *
-     * @param name
-     * @return
-     */
-    private int getIdByView(String name) {
-        return getResources().getIdentifier(name, "id", this.getPackageName());
     }
 
     /**
@@ -129,42 +103,45 @@ public class MainActivity extends AppCompatActivity {
     private void setLampImage() {
         final int LAMP_IMAGE_INCREMENT = DAYS_UNTIL_LAMP_FULL / TOTAL_LAMP_IMAGES;
         int lamp_image_frame = Math.min(Math.floorDiv((int) streak_multiplier, LAMP_IMAGE_INCREMENT), TOTAL_LAMP_IMAGES - 1);
-        lamp_ImageView.setImageResource(getIdByName("lamp_level" + (lamp_image_frame + 1)));
+        String lamp_filename = "lamp_level" + (lamp_image_frame + 1);
+        lamp_ImageView.setImageResource(getImageIdByName(lamp_filename));
     }
-
 
     /**
      * Calculates multiplier depending on consecutive reading streak.
      */
     private void setStreakMultiplier() {
-        String current_date = data.loadString(StorageKeys.CURRENT_DATE, Now());
+        String current_date = storage_data.loadString(StorageKeys.CURRENT_DATE, todayDate());
         try {
-            long days_between = daysBetween(current_date, Now());
-            if (days_between == 1) {
+            long total_day_streak = daysBetween(current_date, todayDate());
+            if (total_day_streak == 1) {
                 streak_multiplier += 1;
-                data.saveFloat(StorageKeys.MULTIPLIER, streak_multiplier);
+                storage_data.saveFloat(StorageKeys.MULTIPLIER, streak_multiplier);
                 multiplier_Level_TextView.setText(String.format("%2.2f", MultiplierPercentage() * 100) + '%');
-            } else if (days_between != 0) {
+            } else if (total_day_streak > 1) {
                 streak_multiplier = 1;
-                data.saveFloat(StorageKeys.MULTIPLIER, streak_multiplier);
+                storage_data.saveFloat(StorageKeys.MULTIPLIER, streak_multiplier);
+                multiplier_Level_TextView.setText(String.format("%2.2f", MultiplierPercentage() * 100) + '%');
             }
         } catch (ParseException parseException) {
         }
     }
 
     /**
-     * @param one
-     * @param two
-     * @return
-     * @throws ParseException
+     * Returns the total days between start and end dates, regardless of order.
+     *
+     * @param start_date with month-day-year format (i.e. 03-04-2006)
+     * @param end_date   with month-day-year format (i.e. 04-05-2007)
+     * @return total days between start_date and end_date (always returns positive)
+     * @throws ParseException for not following "MM-dd-yyyy" format
      */
-    private long daysBetween(String one, String two) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy");
-        Date one_date = simpleDateFormat.parse(one);
-        Date two_date = simpleDateFormat.parse(two);
-        return Math.abs((one_date.getTime() - two_date.getTime()) / 86_400_000);
-    }
+    private long daysBetween(String start_date, String end_date) throws ParseException {
+        java.text.SimpleDateFormat date_format = new java.text.SimpleDateFormat("MM-dd-yyyy");
+        Long start_time = date_format.parse(start_date).getTime();
+        Long end_time = date_format.parse(end_date).getTime();
 
+        return Math.abs((start_time - end_time) / 86_400_000);
+    }
 
 
     /**
@@ -173,16 +150,17 @@ public class MainActivity extends AppCompatActivity {
      * @param end_second
      * @return
      */
-    private boolean is_time_range(Chronometer chronometer, long start_second, long end_second) {
+    private boolean isTimeRange(Chronometer chronometer, long start_second, long end_second) {
         boolean start = SystemClock.elapsedRealtime() - chronometer.getBase() >= start_second * 1_000L;
         boolean end = SystemClock.elapsedRealtime() - chronometer.getBase() <= end_second * 1_000L;
         return start && end;
     }
 
     /**
-     * @param message
+     * Easier typing this method than the longer way around.
+     * @param message A String message to be displayed in long toast
      */
-    private void long_toast(String message) {
+    private void longToast(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
@@ -191,28 +169,30 @@ public class MainActivity extends AppCompatActivity {
      * Increments the faith points every 30 seconds.
      */
     void chronometerFunction() {
-        //Chronometer, toasts
-
+        // Chronometer, toasts
         AtomicLong number = new AtomicLong();
         int[] times = Constants.CHRONOMETER_TRIGGER_TOAST;
 
-        // Long toasts that will be displayed after certain time of reading
         chronometer.setOnChronometerTickListener(chronometer -> {
+            // Long toasts that will be displayed after certain time of reading
             for (int i = 0; i < times.length; i++)
-                if (is_time_range(chronometer, times[i], times[i] + 1))
-                    long_toast(Constants.CHRONOMETER_TOASTS[i]);
-            if (is_time_range(chronometer, number.get() + 30L, number.get() + 31L)) {
+                if (isTimeRange(chronometer, times[i], times[i] + 1))
+                    longToast(Constants.CHRONOMETER_TOASTS[i]);
+
+            if (isTimeRange(chronometer, number.get() + 30L, number.get() + 31L)) {
                 number.addAndGet(30L);
                 faith_points += 1;
-                updateFaithPoints();
+                storage_data.saveFloat(StorageKeys.FAITH_POINTS, faith_points * (1 + MultiplierPercentage()));
+                updateVisualsWithFaithPoints();
             }
         });
     }
 
     /**
-     * @return
+     * It returns the today's date.
+     * @return a MM-dd-YYYY formatted String (i.e. 04-04-2004)
      */
-    private String Now() {
+    private String todayDate() {
         int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -221,67 +201,40 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Starts/pause the the chronometer.
-     *
-     * @param view
      */
     public void toggleChronometer(View view) {
         if (is_chronometer_running) {
             is_chronometer_running = false;
             chronometer.stop();
             chronometer_pause_offset = SystemClock.elapsedRealtime() - chronometer.getBase();
-        } else {
-            is_chronometer_running = true;
-            chronometer.start();
-            setStreakMultiplier();
-            chronometer.setBase(SystemClock.elapsedRealtime() - chronometer_pause_offset);
-
-            data.saveString(StorageKeys.CURRENT_DATE, Now());
-            data.appendUniqueStringItem(StorageKeys.DATE, Now());
-
-            Log.d(TAG, "formatted " + Now());
-        }
+        } else
+            startChronometer();
     }
 
-    /**
-     * Starts the chronometer.
-     */
-    public void triggerTimer() {
-        if (!is_chronometer_running) {
-            is_chronometer_running = true;
-            chronometer.start();
-            chronometer.setBase(SystemClock.elapsedRealtime() - chronometer_pause_offset);
-        }
+    public void startChronometer() {
+        is_chronometer_running = true;
+        chronometer.start();
+        setStreakMultiplier();
+        chronometer.setBase(SystemClock.elapsedRealtime() - chronometer_pause_offset);
+
+        storage_data.saveString(StorageKeys.CURRENT_DATE, todayDate());
+        storage_data.appendUniqueStringItem(StorageKeys.DATE, todayDate());
     }
 
     /**
      * Stops and resets chronometer to 0.
-     *
-     * @param view
      */
     public void resetChronometer(View view) {
-        chronometer_pause_offset = SystemClock.elapsedRealtime() - chronometer.getBase();
-
-        // updateFaithPoints();
-        Log.d(TAG, "resetChronometer (faithPoints): " + faith_points);
-        Log.d(TAG, "resetChronometer (pause offset): " + chronometer_pause_offset);
-
         chronometer.stop();
-        is_chronometer_running = false;
-        chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer_pause_offset = 0;
+        chronometer.setBase(SystemClock.elapsedRealtime() - chronometer.getBase());
+        is_chronometer_running = false;
     }
 
-    /**
-     * @param view
-     */
-    public void openScripturePicker(View view) {
 
-        Log.i(TAG, "Opening Scripture Picker");
-
+    public void openScriptureDialog(View view) {
         Intent intent = new Intent(this, ScripturePicker.class);
-        ScripturePicker scripture_picker = new ScripturePicker();
-        //scripture_picker.show();
-        startActivityForResult(intent, 2);
+        startActivityForResult(intent, 1);
     }
 
     /**
@@ -292,106 +245,65 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 2 && requestCode == 2) {
-            if (data.hasExtra("launchScriptures")) {
-                Log.d(TAG, "1!");
-                triggerTimer();
-                launchScriptures(data.getExtras().getString("launchScriptures"));
-            } else if (data.hasExtra("launchStudy")) {
-                Log.d(TAG, "2!");
-                triggerTimer();
-                launchStudy(data.getExtras().getString("launchStudy"));
-            } else if (data.hasExtra("currentWeek")) {
-                Log.d(TAG, "2!");
-                triggerTimer();
-                launchStudy(data.getExtras().getString("launchStudy"));
+        if (requestCode == 1) {
+            if (!is_chronometer_running && resultCode >= 1 && resultCode <= 3)
+                startChronometer();
+            switch (resultCode) {
+                case 1:
+                    launchStudy(data.getExtras().getString("Link"), Constants.SCRIPTURE_LINK);
+                    break;
+                case 2:
+                    launchStudy(data.getExtras().getString("Link"), Constants.COME_FOLLOW_ME_LINK);
+                    break;
+                case 3:
+                    currentWeek();
+                    break;
             }
-        } else if (resultCode == 3 && requestCode == 2) {
-            currentWeek();
         }
     }
 
-
-    /**
-     * @param view
-     */
-
-    public void openFavorites(View view) {
-        //TODO need to pass faith points in when the button is pushed.
-        Intent intent = new Intent(this, FavoriteActivity.class);
-        startActivity(intent);
+    public void openFavoriteActivity(View view) {
+        startActivity(new Intent(this, FavoriteActivity.class));
     }
 
-    /**
-     * Launch the current week in Come, Follow Me for year 2020 then year 2021
-     */
+    // Launch the current week in Come, Follow Me for year 2020 then year 2021.
     public void currentWeek() {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int week_of_year = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
         int day_of_week = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 
-        week_of_year -= day_of_week == Calendar.SUNDAY ? 1 : 0; // if it's Sunday go back 1 week
+        // if it's Sunday go back 1 week
+        week_of_year -= day_of_week == Calendar.SUNDAY ? 1 : 0;
 
         if (year == 2020) {
             // minor adjustment for 2020
             week_of_year -= week_of_year > 14 ? week_of_year > 39 ? 2 : 1 : 0;
-            launchStudy("book-of-mormon-2020" + "/" + week_of_year);
+            launchStudy("book-of-mormon-2020" + "/" + week_of_year, Constants.COME_FOLLOW_ME_LINK);
         } else if (year == 2021)
-            launchStudy("doctrine-and-covenants-2021" + "/" + week_of_year);
+            launchStudy("doctrine-and-covenants-2021" + "/" + week_of_year, Constants.COME_FOLLOW_ME_LINK);
     }
 
     /**
      * Open an intent activity with an option to use Gospel Library or Website with scripture_book
-     * as a parameter for link.
+     * or "Come, Follow Me" book as a parameter for link.
      *
-     * @param scripture_book Any scripture found in the header from the website.
+     * @param id_name Any scripture or "Come, Follow Me" found in the header from the website.
      */
-    void launchScriptures(String scripture_book) {
-        Uri uri = Uri.parse(String.format("https://www.churchofjesuschrist.org/study/scriptures/%s", scripture_book));
+    void launchStudy(String id_name, String gospel_link) {
+        Uri gospel_uri = Uri.parse(String.format(gospel_link, id_name));
 
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
+        Intent uri_intent = new Intent(Intent.ACTION_VIEW, gospel_uri);
+        if (uri_intent.resolveActivity(getPackageManager()) != null)
+            startActivity(uri_intent);
     }
 
-    /**
-     * Open an intent activity with an option to use Gospel Library or Website with Come, Follow Me
-     * book as a parameter for link.
-     *
-     * @param url any Come, Follow Me link from website
-     */
-    void launchStudy(String url) {
-        url = url.replace('_', '-'); // convert id underscores as dashes
-        Uri uri = Uri.parse(String.format("https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-individuals-and-families-%s", url));
-
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
-    }
-
-    /**
-     * open an intent activity that views the reward cards
-     *
-     * @param view
-     */
+    // Open an intent activity that views the reward cards.
     public void openCards(View view) {
-        Intent intent = new Intent(this, CardActivity.class);
-        startActivity(intent);
-
-        Log.i(TAG, "open cards button tapped");
+        startActivity(new Intent(this, CardActivity.class));
     }
 
-    /**
-     * Launches the calendar from DatePicker class
-     *
-     * @param view
-     */
+    // Launches the calendar from DatePicker class
     public void openCalendar(View view) {
-        // Starts the DatePicker Class
-        Intent intent = new Intent(this, DatePicker.class);
-        startActivity(intent);
-
+        startActivity(new Intent(this, DatePicker.class));
     }
 }

@@ -32,34 +32,27 @@ public class ScripturePicker extends AppCompatActivity {
      * Come, Follow Me materials
      */
     private void setup_buttons() {
-        // setup buttons actions for scriptures by using id name as part of link
+        // setup buttons actions for scriptures
         int[] scriptureIDs = {R.id.bofm, R.id.ot, R.id.nt, R.id.dc_testament, R.id.pgp};
-        for (int each : scriptureIDs) {
-            findViewById(each).setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent intent = new Intent();
-                    intent.putExtra("launchScriptures", getResources().getResourceEntryName(v.getId()));
-                    setResult(2, intent);
-                    finish();
-                }
-            });
-        }
+        for (int each : scriptureIDs)
+            findViewById(each).setOnClickListener(v -> returnIntent(v,2));
 
-        // setup buttons actions for Come, Follow Me by using id name as part of link
-        int[] studyIDs = {R.id.new_testament_2019, R.id.book_of_mormon_2020, R.id.doctrine_and_covenants_2021}; // doctrine-and-covenants-2021
-        for (int each : studyIDs) {
-            findViewById(each).setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent intent = new Intent();
-                    intent.putExtra("launchStudy", getResources().getResourceEntryName(v.getId()));
-                    setResult(2, intent);
-                    finish();
-                }
-            });
-        }
+        // setup buttons actions for Come, Follow Me
+        int[] studyIDs = {R.id.new_testament_2019, R.id.book_of_mormon_2020, R.id.doctrine_and_covenants_2021};
+        for (int each : studyIDs)
+            findViewById(each).setOnClickListener(v -> returnIntent(v,3));
     }
 
-    public void current_week(View v) {
+    public void returnIntent(View view, int result_code) {
+        Intent intent = new Intent();
+
+        String id_name =  getResources().getResourceEntryName(view.getId());
+        intent.putExtra("Link", id_name.replace('_', '-'));
+        setResult(result_code, intent);
+        finish();
+    }
+
+    public void currentWeek(View v) {
         setResult(3);
         finish();
     }

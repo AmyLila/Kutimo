@@ -1,6 +1,9 @@
 package com.example.kutimo;
 
 public class Constants {
+    static final String COME_FOLLOW_ME_LINK = "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-individuals-and-families-%s";
+    static final String SCRIPTURE_LINK = "https://www.churchofjesuschrist.org/study/scriptures/%s";
+
     static final int[] LEVELS = {0, 500, 1000, 1500, 2000, 2500, 3500, 4000, 5000, 5500, 6000, 7000, 7500, 8000, 8500, 10_000};
 
     static final int[] CHRONOMETER_TRIGGER_TOAST = {1, 15, 30, 60, 120, 180, 300, 600, 900, 1800, 2700, 3600, 7200, 10800, 18000};
@@ -18,5 +21,4 @@ public class Constants {
             "Joy comes from and because of Him.",
             "No one is destined to fail.",
             "Well done, thou good and faithful servant."};
-
 }
