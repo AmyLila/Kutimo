@@ -187,7 +187,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Displays inspiring messages as the user reads.
+     * Increments the faith points every 30 seconds.
      */
     void chronometerFunction() {
         //Chronometer, toasts
@@ -219,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * TODO
+     * Starts/pause the the chronometer.
      *
      * @param view
      */
@@ -242,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Starts the chronometer.
      */
     public void triggerTimer() {
         if (!is_chronometer_running) {
@@ -253,6 +254,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Stops and resets chronometer to 0.
+     *
      * @param view
      */
     public void resetChronometer(View view) {
