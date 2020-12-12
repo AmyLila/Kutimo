@@ -155,12 +155,4 @@ public class ScriptureItemView extends LinearLayout {
     public void setQuoteText(CharSequence new_quote_text) {
         quoteText.setText(new_quote_text);
     }
-
-    /**
-     * @return text from titleText TextView object
-     */
-    public CharSequence getButton() {
-        // TODO: update properly to return link
-        return linkButton.getText();
-    }
 }
