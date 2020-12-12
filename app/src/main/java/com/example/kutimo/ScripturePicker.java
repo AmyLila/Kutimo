@@ -23,7 +23,6 @@ public class ScripturePicker extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scripture_picker);
-
         setup_buttons();
     }
 
@@ -33,13 +32,13 @@ public class ScripturePicker extends AppCompatActivity {
      */
     private void setup_buttons() {
         // setup buttons actions for scriptures
-        int[] scriptureIDs = {R.id.bofm, R.id.ot, R.id.nt, R.id.dc_testament, R.id.pgp};
-        for (int each : scriptureIDs)
+        int[] scripture_ids = {R.id.bofm, R.id.ot, R.id.nt, R.id.dc_testament, R.id.pgp};
+        for (int each : scripture_ids)
             findViewById(each).setOnClickListener(v -> returnIntent(v,2));
 
         // setup buttons actions for Come, Follow Me
-        int[] studyIDs = {R.id.new_testament_2019, R.id.book_of_mormon_2020, R.id.doctrine_and_covenants_2021};
-        for (int each : studyIDs)
+        int[] study_ids = {R.id.new_testament_2019, R.id.book_of_mormon_2020, R.id.doctrine_and_covenants_2021};
+        for (int each : study_ids)
             findViewById(each).setOnClickListener(v -> returnIntent(v,3));
     }
 
