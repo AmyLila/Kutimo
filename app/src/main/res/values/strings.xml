@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Kutimo</string>
+    <string name="title_activity_scripture_picker">Choose Scripture</string>
+
+    <string name="title_activity_intent">intent</string>
+    <string name="title_activity_favorite">ScrollingActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>
