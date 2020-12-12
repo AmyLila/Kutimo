@@ -1,7 +1,8 @@
 package com.example.kutimo;
 
 /**
- *
+ * Global variables for purpose in use with Data class to retrieve/store with JSON and
+ * SharedPreferences.
  */
 public class StorageKeys {
     protected static String FAITH_POINTS = "faith point";
