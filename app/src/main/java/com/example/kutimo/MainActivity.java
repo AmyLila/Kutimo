@@ -229,11 +229,6 @@ public class MainActivity extends AppCompatActivity {
         is_chronometer_running = false;
     }
 
-    public void openScriptureDialog(View view) {
-        Intent intent = new Intent(this, ScripturePicker.class);
-        startActivityForResult(intent, 1);
-    }
-
     // Launch the current week in Come, Follow Me for year 2020 then year 2021.
     public void currentWeek() {
         int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -263,6 +258,11 @@ public class MainActivity extends AppCompatActivity {
         Intent uri_intent = new Intent(Intent.ACTION_VIEW, gospel_uri);
         if (uri_intent.resolveActivity(getPackageManager()) != null)
             startActivity(uri_intent);
+    }
+
+    public void openScriptureDialog(View view) {
+        Intent intent = new Intent(this, ScripturePicker.class);
+        startActivityForResult(intent, 1);
     }
 
     public void openFavoriteActivity(View view) {
